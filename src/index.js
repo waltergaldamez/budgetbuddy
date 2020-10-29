@@ -1,35 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 
-const Header = ({text}) => {
-  return (
-    <h1>{text}</h1>
-  )
-}
-
-const Form = () => {
-  return (
-    <div>
-      <form>
-        <input type="text" placeholder="username"></input>
-        <input type="password" placeholder="password"></input>
-        <button type="submit">Login</button>
-      </form>
-    </div>
-  )
-}
-
-const App = () => {
-  return (
-    <div>
-    <Header text="Budget Buddies" />
-    <Form />
-    </div>
-  )
-}
 
 ReactDOM.render(
   <React.StrictMode>
