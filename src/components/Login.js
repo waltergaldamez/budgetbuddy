@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 function Login()
 {
 
-    const app_name = 'budgetbuddies'
+    const app_name = 'budgetbuddiesapp'
     function buildPath(route)
     {
         if (process.env.NODE_ENV === 'production') 
