@@ -5,3 +5,5 @@ const PageHeader = () => {
     <h1>Login To Manage Your Budget</h1>
   )
 }
+
+export default PageHeader
