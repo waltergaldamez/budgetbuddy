@@ -29,7 +29,7 @@ app.post('/api/login', async (req, res, next) =>
     const { login, password } = req.body;
 
     const db = client.db();
-    const results = await db.collection('users').find({Login:login,Password:password}).toArray();
+    const results = await db.collection('users').find({email:login,password:password}).toArray();
 
     var id = -1;
     var first = '';
@@ -37,12 +37,13 @@ app.post('/api/login', async (req, res, next) =>
 
     if( results.length > 0 )
     {
-        id = results[0].UserId;
-        first = results[0].FirstName;
-        last = results[0].LastName;
+        id = results[0]._id;
+        username = results[0].username;
+        // first = results[0].FirstName;
+        // last = results[0].LastName;
     }
 
-    var ret = { id:id, firstName:first, lastName:last, error:''};
+    var ret = { _id:id, username:username, error:''};
     res.status(200).json(ret);
 });
 
