@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-// Establishing the port for heroku 
 const path = require('path');           
 const PORT = process.env.PORT || 5000;  
 
@@ -10,7 +9,6 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// Instructs the application to use the port established earlier
 app.set('port', (process.env.PORT || 5000));
 
 const MongoClient = require('mongodb').MongoClient;
@@ -205,17 +203,14 @@ app.use((req, res, next) =>
 if (process.env.NODE_ENV === 'production') 
 {
     // Set static folder
-    // app.use(express.static('frontend/build'));
-    app.use(express.static('/build'));
+    app.use(express.static('frontend/build'));
 
     app.get('*', (req, res) => 
     {
-        // res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
-        res.sendFile(path.resolve(__dirname,'build', 'index.html'));
+        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
     });
 }
 
-// Listen to the port established by heroku
 app.listen(PORT, () => 
 {
   console.log(`Server listening on port ${PORT}.`);
