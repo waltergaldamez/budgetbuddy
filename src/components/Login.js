@@ -6,22 +6,22 @@ function Login()
     const app_name = 'budgetbuddiesapp'
     function buildPath(route)
     {
-        if (process.env.NODE_ENV === 'production') 
+        if (process.env.NODE_ENV === 'production')
         {
             return 'https://' + app_name +  '.herokuapp.com/' + route;
         }
         else
-        {        
+        {
             return 'http://localhost:5000/' + route;
         }
     }
-    
+
     var loginName;
     var loginPassword;
 
     const [message,setMessage] = useState('');
 
-    const doLogin = async event => 
+    const doLogin = async event =>
     {
         event.preventDefault();
 
@@ -31,7 +31,7 @@ function Login()
         var js = JSON.stringify(obj);
 
         try
-        {    
+        {
             // API call
             const response = await fetch(buildPath('api/login'),
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
@@ -56,8 +56,10 @@ function Login()
         catch(e)
         {
             alert(e.toString());
+            //testing purposes
+            alert(response.text());
             return;
-        }    
+        }
     };
 
     return(
