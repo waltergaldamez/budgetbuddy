@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+// Establishing the port for heroku 
 const path = require('path');           
 const PORT = process.env.PORT || 5000;  
 
@@ -9,6 +10,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+// Instructs the application to use the port established earlier
 app.set('port', (process.env.PORT || 5000));
 
 const MongoClient = require('mongodb').MongoClient;
@@ -20,15 +22,145 @@ const url = process.env.MONGODB_URI;
 const client = new MongoClient(url);
 client.connect();
 
+
+
+
+/*-------------------START: Code from Leinecker-------------------------------*/
+// app.post('/api/addcard', async (req, res, next) =>
+// {
+//   // incoming: userId, color
+//   // outgoing: error
+
+//   var error = '';
+
+//   const { userId, card } = req.body;
+
+//   // TEMP FOR LOCAL TESTING.
+//   cardList.push( card );
+
+//   var ret = { error: error };
+//   res.status(200).json(ret);
+// });
+
+app.post('/api/searchcards', async (req, res, next) => 
+{
+  // incoming: userId, search
+  // outgoing: results[], error
+
+  var error = '';
+
+  const { userId, search } = req.body;
+
+  var _search = search.trim();
+  
+  const db = client.db();
+  const results = await db.collection('Cards').find({"Card":{$regex:_search+'.*', $options:'r'}}).toArray();
+  
+  var _ret = [];
+  for( var i=0; i<results.length; i++ )
+  {
+    _ret.push( results[i].Card );
+  }
+  
+  var ret = {results:_ret, error:error};
+  res.status(200).json(ret);
+});
+
+app.post('/api/addbudget', async (req, res, next) =>
+{
+  // incoming: userId, color
+  // outgoing: error
+	
+  const { userId, card } = req.body;
+
+  const newCard = {Card:card,UserId:userId};
+  var error = '';
+
+  try
+  {
+    const db = client.db();
+    const result = db.collection('Budget').insertOne(newCard);
+  }
+  catch(e)
+  {
+    error = e.toString();
+  }
+
+  cardList.push( card );
+
+  var ret = { error: error };
+  res.status(200).json(ret);
+});
+
+// app.post('/api/login', async (req, res, next) => 
+// {
+//   // incoming: login, password
+//   // outgoing: id, firstName, lastName, error
+
+//   var error = '';
+
+//   const { login, password } = req.body;
+
+//   var id = -1;
+//   var fn = '';
+//   var ln = '';
+
+//   if( login.toLowerCase() == 'rickl' && password == 'COP4331' )
+//   {
+//     id = 1;
+//     fn = 'Rick';
+//     ln = 'Leinecker';
+//   }
+//   else
+//   {
+//     error = 'Invalid user name/password';
+//   }
+
+//   var ret = { id:id, firstName:fn, lastName:ln, error:error};
+//   res.status(200).json(ret);
+// });
+
+// app.post('/api/searchcards', async (req, res, next) => 
+// {
+//   // incoming: userId, search
+//   // outgoing: results[], error
+
+//   var error = '';
+
+//   const { userId, search } = req.body;
+//   var _search = search.toLowerCase().trim();
+//   var _ret = [];
+
+//   for( var i=0; i<cardList.length; i++ )
+//   {
+//     var lowerFromList = cardList[i].toLocaleLowerCase();
+//     if( lowerFromList.indexOf( _search ) >= 0 )
+//     {
+//       _ret.push( cardList[i] );
+//     }
+//   }
+
+//   var ret = {results:_ret, error:''};
+//   res.status(200).json(ret);
+// });
+/*----------------------------------END: Code from Leinecker---------------------------------*/
+
+
+
 app.post('/api/login', async (req, res, next) => 
 {
     // incoming: login, password
     // outgoing: id, firstName, lastName, error
 
     var error = '';
+
+    // Deserializing
     const { login, password } = req.body;
 
+    // Acquire a database object
     const db = client.db();
+
+    // Query database for login information
     const results = await db.collection('users').find({email:login,password:password}).toArray();
 
     var id = -1;
@@ -43,6 +175,7 @@ app.post('/api/login', async (req, res, next) =>
         // last = results[0].LastName;
     }
 
+    // Return the results of the database query
     var ret = { _id:id, username:username, error:''};
     res.status(200).json(ret);
 });
@@ -61,20 +194,28 @@ app.use((req, res, next) =>
     next();
 });
 
+
+
+
+
+
 // Deploying Heroku 
 
 // Server static assets if in production
 if (process.env.NODE_ENV === 'production') 
 {
     // Set static folder
-    app.use(express.static('frontend/build'));
+    // app.use(express.static('frontend/build'));
+    app.use(express.static('/build'));
 
     app.get('*', (req, res) => 
     {
-        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+        // res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+        res.sendFile(path.resolve(__dirname,'build', 'index.html'));
     });
 }
 
+// Listen to the port established by heroku
 app.listen(PORT, () => 
 {
   console.log(`Server listening on port ${PORT}.`);
