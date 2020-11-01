@@ -1,13 +1,13 @@
 import React from 'react';
 
 import PageHeader from '../components/PageHeader'
-import Form from '../components/Form';
+import Login from '../components/Login';
 
 const LoginPage = () => {
   return (
     <div>
       <PageHeader />
-      <Form />
+      <Login />
     </div>
   )
 }
