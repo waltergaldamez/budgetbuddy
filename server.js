@@ -2,8 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const path = require('path');           
-const PORT = process.env.PORT || 5000;  
+const path = require('path');
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 app.use(cors());
@@ -68,7 +68,7 @@ app.post('/api/addbudget', async (req, res, next) =>
 {
   // incoming: userId, color
   // outgoing: error
-	
+
   const { userId, card } = req.body;
 
   const newCard = {Card:card,UserId:userId};
@@ -145,7 +145,7 @@ app.post('/api/addbudget', async (req, res, next) =>
 
 
 
-app.post('/api/login', async (req, res, next) => 
+app.post('/api/login', async (req, res, next) =>
 {
     // incoming: login, password
     // outgoing: id, firstName, lastName, error
@@ -178,7 +178,7 @@ app.post('/api/login', async (req, res, next) =>
     res.status(200).json(ret);
 });
 
-app.use((req, res, next) => 
+app.use((req, res, next) =>
 {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader(
@@ -197,21 +197,21 @@ app.use((req, res, next) =>
 
 
 
-// Deploying Heroku 
+// Deploying Heroku
 
 // Server static assets if in production
-if (process.env.NODE_ENV === 'production') 
+if (process.env.NODE_ENV === 'production')
 {
     // Set static folder
-    app.use(express.static('frontend/build'));
+    app.use(express.static('build'));
 
-    app.get('*', (req, res) => 
+    app.get('*', (req, res) =>
     {
-        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+        res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
     });
 }
 
-app.listen(PORT, () => 
+app.listen(PORT, () =>
 {
   console.log(`Server listening on port ${PORT}.`);
 });
