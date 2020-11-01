@@ -36,6 +36,8 @@ function Login()
             const response = await fetch(buildPath('api/login'),
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
+            //testing purposes
+            alert(await response.text());
             // Parse JSON response
             var res = JSON.parse(await response.text());
 
@@ -56,8 +58,6 @@ function Login()
         catch(e)
         {
             alert(e.toString());
-            //testing purposes
-            alert(response.text());
             return;
         }
     };
