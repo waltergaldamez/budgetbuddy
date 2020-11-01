@@ -164,6 +164,7 @@ app.post('/api/login', async (req, res, next) =>
     var id = -1;
     var first = '';
     var last = '';
+		var ret = {};
 
     if( results.length > 0 )
     {
@@ -171,10 +172,12 @@ app.post('/api/login', async (req, res, next) =>
         username = results[0].username;
         // first = results[0].FirstName;
         // last = results[0].LastName;
+				ret = { _id:id, username:username, error:''};
     }
-
-    // Return the results of the database query
-    var ret = { _id:id, username:username, error:''};
+		else
+		{
+			ret = {error:'no user found'};
+		}
     res.status(200).json(ret);
 });
 
