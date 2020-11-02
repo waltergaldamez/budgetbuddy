@@ -4,7 +4,7 @@ function Register() {
   const app_name = "budgetbuddiesapp";
   function buildPath(route) {
     if (process.env.NODE_ENV === 'production') {
-      return 'https://' + app_name + 'herokuapp.com/' + route;
+      return 'https://' + app_name + '.herokuapp.com/' + route;
     } else {
       return 'https://localhost:5000/' + route;
     }
@@ -22,10 +22,14 @@ function Register() {
   const doRegistration = async event => {
     event.preventDefault();
     if (registerEmail.value.length === 0 || registerUserName.value.length === 0
-        || password.value.length === 0 || passwordConfirm.value.length === 0)
-        setMessage("Please fill in all fields");
-    if (password.value != passwordConfirm.value)
+        || password.value.length === 0 || passwordConfirm.value.length === 0) {
+          setMessage("Please fill in all fields");
+          return;
+        }
+    if (password.value != passwordConfirm.value) {
       setMessage("Passwords do not match");
+      return;
+    }
 
     var obj = {email: registerEmail.value, username: registerUserName.value, verification: false,
                 budget: budgetAndFriends, friends: budgetAndFriends, password: password.value,
