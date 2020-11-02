@@ -95,6 +95,23 @@ app.post('/api/addbudget', async (req, res, next) =>
   res.status(200).json(ret);
 });
 
+app.post('/api/register', async (req, res, next) => {
+	var error = '';
+	const db = client.db();
+	const js = {"email":req.param('email'), "password":req.param('password'),
+																			"username":req.param('username'), "verification":req.param('verification'),
+																			"budget":req.param('budget'), "friends":req.param('friends'), "rankMetric": req.param("rankMetric")};
+	var ret={};
+	try{
+		const result = db.collection('users').insertOne(js);
+		ret={success:"true", error:""};
+	} catch(e) {
+		error = e.toString();
+		ret={error:error};
+	}
+	res.status(200).json(ret);
+});
+
 // app.post('/api/login', async (req, res, next) => 
 // {
 //   // incoming: login, password
