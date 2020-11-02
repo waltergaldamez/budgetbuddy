@@ -157,7 +157,7 @@ app.post('/api/login', async (req, res, next) =>
 		const query = {email:req.body.email, password:req.body.password};
 
     // Query database for login information
-    const results = await db.collection('users').find(JSON.stringify(query)).toArray();
+    const results = await db.collection('users').find({"email":req.param('email'), "password":req.param('password')}).toArray();
 
 
     var id = -1;
