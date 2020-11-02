@@ -13,9 +13,9 @@ app.set('port', (process.env.PORT || 3000));
 
 const MongoClient = require('mongodb').MongoClient;
 
-require('dotenv').config();
-//const url = process.env.MONGODB_URI;
-const url = 'mongodb+srv://brendenm:xdxAoJ6GBmGQk4I0@budgetbuddies.rc2gm.mongodb.net/budgetbuddiesapp?retryWrites=true&w=majority'
+// require('dotenv').config();
+// const url = process.env.MONGODB_URI;
+const url = 'mongodb+srv://brendenm:xdxAoJ6GBmGQk4I0@budgetbuddies.rc2gm.mongodb.net/budgetbuddies?retryWrites=true&w=majority'
 
 const client = new MongoClient(url, { useUnifiedTopology: true });
 client.connect();
