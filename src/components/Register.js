@@ -37,7 +37,7 @@ function Register() {
     var js = JSON.stringify(obj);
 
     try {
-      const response = await fetch(buildPath('/api/registration'),
+      const response = await fetch(buildPath('/api/register'),
             {method:'POST', body:js, headers:{'Content-Type': 'application/json'}});
 
       var res = JSON.parse(await response.text());
