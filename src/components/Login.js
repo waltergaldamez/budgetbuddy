@@ -16,7 +16,7 @@ function Login()
         }
     }
 
-    var loginName;
+    var email;
     var loginPassword;
 
     const [message,setMessage] = useState('');
@@ -38,11 +38,11 @@ function Login()
 
             if( res.error != '')
             {
-                setMessage('User/Password combination incorrect');
+                setMessage('Email/Password combination incorrect');
             }
             else
             {
-                localStorage.setItem('username', res.username);
+                localStorage.setItem('email', res.email);
                 localStorage.setItem('userID', res.id);
 
                 // re-route
@@ -59,7 +59,9 @@ function Login()
     return(
       <div id="loginDiv">
         <form>
-        <input type="text" id="loginName" placeholder="Username"  ref={(c) => loginName = c} /><br />
+        <label>Email</label>
+         <input type="text" id="email" placeholder="Email" ref={(c) => loginName = c} /><br />
+        <label>Password</label>
         <input type="password" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c}  /><br />
         <button type="submit" onClick={doLogin}>Log in</button>
         </form>
