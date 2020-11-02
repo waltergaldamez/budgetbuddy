@@ -29,7 +29,6 @@ function Login()
         alert('doLogin() ' + loginName.value + ' ' + loginPassword.value);
         var obj = {login:loginName.value,password:loginPassword.value};
         var js = JSON.stringify(obj);
-        alert(js);
         try
         {
             // API call
@@ -37,6 +36,7 @@ function Login()
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
             // Parse JSON response
+            alert(await response.text());
             var res = JSON.parse(await response.text());
 
             if( res.error != '')
