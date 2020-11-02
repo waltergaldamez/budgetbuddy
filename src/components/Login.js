@@ -29,7 +29,7 @@ function Login()
         alert('doLogin() ' + loginName.value + ' ' + loginPassword.value);
         var obj = {login:loginName.value,password:loginPassword.value};
         var js = JSON.stringify(obj);
-
+        alert(js);
         try
         {
             // API call
@@ -48,7 +48,6 @@ function Login()
                 var user = {firstName:res.firstName,lastName:res.lastName,id:res.id}
                 localStorage.setItem('user_data', JSON.stringify(user));
 
-                setMessage('');
                 // re-route
                 window.location.href = '/budget';
             }
