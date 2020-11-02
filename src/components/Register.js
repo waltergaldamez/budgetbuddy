@@ -4,7 +4,7 @@ function Registration() {
   const app_name = "budgetbuddiesapp";
   function buildPath(route) {
     if (process.env.NODE_ENV === 'production') {
-      return 'https://' = app_name + 'herokuapp.com/' + route;
+      return 'https://' + app_name + 'herokuapp.com/' + route;
     } else {
       return 'https://localhost:5000/' + route;
     }
