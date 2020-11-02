@@ -16,7 +16,7 @@ function Login()
         }
     }
 
-    var email;
+    var loginEmail;
     var loginPassword;
 
     const [message,setMessage] = useState('');
@@ -25,7 +25,7 @@ function Login()
     {
         event.preventDefault();
 
-        var obj = {email:loginName.value,password:loginPassword.value};
+        var obj = {email:loginEmail.value,password:loginPassword.value};
         var js = JSON.stringify(obj);
         try
         {
@@ -59,8 +59,8 @@ function Login()
     return(
       <div id="loginDiv">
         <form>
-        <label>Email</label>
-         <input type="text" id="email" placeholder="Email" ref={(c) => loginName = c} /><br />
+                <label>Email</label>
+                <input type="text" id="loginEmail" placeholder="Email" ref={(c) => loginEmail = c} /><br />
         <label>Password</label>
         <input type="password" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c}  /><br />
         <button type="submit" onClick={doLogin}>Log in</button>
