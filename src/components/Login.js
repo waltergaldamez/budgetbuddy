@@ -27,7 +27,7 @@ function Login()
 
         // Added this alert just to test
         alert('doLogin() ' + loginName.value + ' ' + loginPassword.value);
-        var obj = {login:loginName.value,password:loginPassword.value};
+        var obj = {email:loginName.value,password:loginPassword.value};
         var js = JSON.stringify(obj);
         try
         {

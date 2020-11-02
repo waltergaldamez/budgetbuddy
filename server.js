@@ -152,14 +152,11 @@ app.post('/api/login', async (req, res, next) =>
 
     var error = '';
 
-    // Deserializing
-    const { login, password } = req.body;
-
     // Acquire a database object
     const db = client.db();
 
     // Query database for login information
-    const results = await db.collection('users').find({"email":{login},"password":{password}}).toArray();
+    const results = await db.collection('users').find(req.body).toArray();
 
     var id = -1;
     var first = '';
