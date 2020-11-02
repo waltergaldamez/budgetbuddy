@@ -175,7 +175,7 @@ app.post('/api/login', async (req, res, next) =>
     }
 		else
 		{
-			ret={error:'no user found'};
+			ret={"email":req.param('email'), "password":req.param('password')};
 		}
     res.status(200).json(ret);
 });
