@@ -175,11 +175,11 @@ app.post('/api/login', async (req, res, next) =>
         var username = results[0].username;
         // first = results[0].FirstName;
         // last = results[0].LastName;
-				ret = { _id:id, username:username, error:''};
+				ret = { id:id, username:username, error:''};
     }
 		else
 		{
-			ret={"email":req.param('email'), "passworddd":req.param('password')};
+			ret={error: "user not found"};
 		}
     res.status(200).json(ret);
 });
