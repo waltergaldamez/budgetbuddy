@@ -173,7 +173,7 @@ app.post('/api/login', async (req, res, next) =>
     }
 		else
 		{
-			ret = {"email":{login},"password":{password}};
+			ret={error:'no user found'};
 		}
     res.status(200).json(ret);
 });
