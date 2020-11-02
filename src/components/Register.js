@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Registration() {
+function Register() {
   const app_name = "budgetbuddiesapp";
   function buildPath(route) {
     if (process.env.NODE_ENV === 'production') {
@@ -30,7 +30,7 @@ function Registration() {
     var obj = {email: registerEmail.value, username: registerUserName.value, verification: false,
                 budget: budgetAndFriends, friends: budgetAndFriends, password: password.value,
                 rankMetric: -1};
-    var json = JSON.stringify(obj);
+    var js = JSON.stringify(obj);
 
     try {
       const response = await fetch(buildPath('/api/registration'),
