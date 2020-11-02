@@ -26,9 +26,10 @@ function Budgets()
 
   
     /*-----------------START-----------*/
-    // Get stuff out of persistant memory such as username 
-    var _ud = localStorage.getItem('user_data');
-    var ud = JSON.parse(_ud);
+
+    // Get userID of logged in user
+    var uID = localStorage.getItem('userID');
+    
 	
     const addBudget = async event => 
     {
@@ -37,7 +38,7 @@ function Budgets()
         // Getting stuff out of UI
         // Need to change card: card.value 
 
-        var obj = {BudgetName:budgetName.value, BudgetGoal:budgetGoal.value, BudgetProgress:budgetProgress.value};
+        var obj = {_id:uID, BudgetName:budgetName.value, BudgetGoal:budgetGoal.value, BudgetProgress:budgetProgress.value};
         var js = JSON.stringify(obj);
 
         try
