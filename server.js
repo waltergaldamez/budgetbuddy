@@ -14,8 +14,8 @@ app.set('port', (process.env.PORT || 5000));
 const MongoClient = require('mongodb').MongoClient;
 
 require('dotenv').config();
-const url = process.env.MONGODB_URI;
-// const url = 'mongodb+srv://brendenm:xdxAoJ6GBmGQk4I0@budgetbuddies.rc2gm.mongodb.net/budgetbuddiesapp?retryWrites=true&w=majority'
+//const url = process.env.MONGODB_URI;
+const url = 'mongodb+srv://brendenm:xdxAoJ6GBmGQk4I0@budgetbuddies.rc2gm.mongodb.net/budgetbuddiesapp?retryWrites=true&w=majority'
 
 const client = new MongoClient(url);
 client.connect();
@@ -159,7 +159,7 @@ app.post('/api/login', async (req, res, next) =>
     const db = client.db();
 
     // Query database for login information
-    const results = await db.collection('users').find({email:login,password:password}).toArray();
+    const results = await db.collection('users').find({"email":{login},"password":{password}}).toArray();
 
     var id = -1;
     var first = '';
