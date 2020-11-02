@@ -42,8 +42,8 @@ function Login()
             }
             else
             {
-                var user = {firstName:res.firstName,lastName:res.lastName,id:res.id}
-                localStorage.setItem('user_data', JSON.stringify(user));
+                localStorage.setItem('username', res.username);
+                localStorage.setItem('userID', res.id);
 
                 // re-route
                 window.location.href = '/budget';
@@ -58,15 +58,13 @@ function Login()
 
     return(
       <div id="loginDiv">
-        <form onSubmit={doLogin}>
-        <span id="inner-title">LOG IN</span><br />
+        <form>
         <input type="text" id="loginName" placeholder="Username"  ref={(c) => loginName = c} /><br />
         <input type="password" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c}  /><br />
-        <input type="submit" id="loginButton" class="buttons" value = "Do It"
-          onClick={doLogin} />
+        <button type="submit" onClick={doLogin}>Log in</button>
         </form>
-    <span id="loginResult">{message}</span>
-     </div>
+        <span id="loginResult">{message}</span>
+      </div>
     );
 };
 
