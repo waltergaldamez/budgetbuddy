@@ -21,6 +21,12 @@ function Registration() {
 
   const doRegistration = async event => {
     event.preventDefault();
+    if (registerEmail.value.length === 0 || registerUserName.value.length === 0
+        || password.value.length === 0 || passwordConfirm.value.length === 0)
+        setMessage("Please fill in all fields");
+    if (password.value != passwordConfirm.value)
+      setMessage("Passwords do not match");
+
     var obj = {email: registerEmail.value, username: registerUserName.value, verification: false,
                 budget: budgetAndFriends, friends: budgetAndFriends, password: password.value,
                 rankMetric: -1};
@@ -45,9 +51,13 @@ function Registration() {
   return (
     <div id="registerDiv">
       <form>
+      <label>Email</label>
       <input type="text" id="registerEmail" placeholder="john@email.com"  ref={(c) => registerEmail = c} /><br />
+      <label>Username</label>
       <input type="text" id="registerUserName" placeholder="username"  ref={(c) => registerUserName = c} /><br />
+      <label>Password</label>
       <input type="password" id="password" placeholder="Password" ref={(c) => password = c}  /><br />
+      <label>Confirm Password</label>
       <input type="password" id="passwordConfirm" placeholder="Password" ref={(c) => passwordConfirm = c}  /><br />
       <button type="submit" onClick={doRegistration}>Register</button>
       </form>

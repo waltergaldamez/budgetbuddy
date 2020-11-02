@@ -3,13 +3,13 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const path = require('path');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.set('port', (process.env.PORT || 3000));
+app.set('port', (process.env.PORT || 5000));
 
 const MongoClient = require('mongodb').MongoClient;
 
@@ -96,18 +96,17 @@ app.post('/api/addbudget', async (req, res, next) =>
 });
 
 app.post('/api/register', async (req, res, next) => {
-	var error = '';
 	const db = client.db();
 	const js = {"email":req.param('email'), "password":req.param('password'),
-																			"username":req.param('username'), "verification":req.param('verification'),
-																			"budget":req.param('budget'), "friends":req.param('friends'), "rankMetric": req.param("rankMetric")};
+							"username":req.param('username'), "verification":req.param('verification'),
+							"budget":req.param('budget'), "friends":req.param('friends'), "rankMetric": req.param("rankMetric")};
 	var ret={};
-	try{
+
+	try {
 		const result = db.collection('users').insertOne(js);
 		ret={success:"true", error:""};
 	} catch(e) {
-		error = e.toString();
-		ret={error:error};
+		ret={error:e.toString()};
 	}
 	res.status(200).json(ret);
 });
@@ -182,8 +181,6 @@ app.post('/api/login', async (req, res, next) =>
 
 
     var id = -1;
-    var first = '';
-    var last = '';
 		var ret = {};
 
     if( results.length > 0 )

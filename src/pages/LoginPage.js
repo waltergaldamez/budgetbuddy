@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 import PageHeader from '../components/PageHeader'
 import Login from '../components/Login';
@@ -8,6 +9,7 @@ const LoginPage = () => {
     <div>
       <PageHeader />
       <Login />
+      <div>Don't have an account? Click <Link to='/register'>here</Link> to create an account</div>
     </div>
   )
 }
