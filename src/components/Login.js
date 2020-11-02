@@ -25,8 +25,6 @@ function Login()
     {
         event.preventDefault();
 
-        // Added this alert just to test
-        alert('doLogin() ' + loginName.value + ' ' + loginPassword.value);
         var obj = {email:loginName.value,password:loginPassword.value};
         var js = JSON.stringify(obj);
         try
@@ -36,7 +34,6 @@ function Login()
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
             // Parse JSON response
-            alert(await response.text());
             var res = JSON.parse(await response.text());
 
             if( res.error != '')

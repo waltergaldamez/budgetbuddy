@@ -13,8 +13,13 @@ app.set('port', (process.env.PORT || 3000));
 
 const MongoClient = require('mongodb').MongoClient;
 
+<<<<<<< HEAD
 // require('dotenv').config();
 // const url = process.env.MONGODB_URI;
+=======
+require('dotenv').config();
+//const url = process.env.MONGODB_URI;
+>>>>>>> 15e54d009d810fd66d60c5284b0eb372ec4515ca
 const url = 'mongodb+srv://brendenm:xdxAoJ6GBmGQk4I0@budgetbuddies.rc2gm.mongodb.net/budgetbuddies?retryWrites=true&w=majority'
 
 const client = new MongoClient(url, { useUnifiedTopology: true });
@@ -155,11 +160,8 @@ app.post('/api/login', async (req, res, next) =>
     // Acquire a database object
     const db = client.db();
 
-		alert(req.body + "---body");
-		alert(req + "just reqq");
-		alert(req.params);
     // Query database for login information
-    const results = await db.collection('users').find(req.params).toArray();
+    const results = await db.collection('users').find().toArray();
 
 
     var id = -1;
@@ -177,7 +179,7 @@ app.post('/api/login', async (req, res, next) =>
     }
 		else
 		{
-			ret={error:'no user found'};
+			ret={"email":req.param('email'), "passworddd":req.param('password')};
 		}
     res.status(200).json(ret);
 });
