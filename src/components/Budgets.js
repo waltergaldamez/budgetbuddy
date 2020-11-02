@@ -4,6 +4,13 @@ function Budgets()
 {
 
 
+
+    // Work on this
+    function buildUserID(usrID){
+        return "ObjectId"
+    }
+
+
     const app_name = 'budgetbuddiesapp'
     function buildPath(route)
     {
@@ -45,7 +52,7 @@ function Budgets()
         {
             // Call to API
 
-            const response = await fetch(buildPath('api/budgetadd'),
+            const response = await fetch(buildPath('api/addbudget'),
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
             // Parsing response
