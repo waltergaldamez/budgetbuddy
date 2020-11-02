@@ -76,13 +76,13 @@ app.post('/api/addbudget', async (req, res, next) =>
 
   const { _id, budgetName, budgetGoal, budgetProgress } = req.body;
 
-  const newBudget = {_id:_id, BudgetName:budgetName, BudgetGoal:budgetGoal, BudgetProgress:budgetProgress};
+  const newBudget = {_id:_id, BudgetName:budgetName.value, BudgetGoal:budgetGoal.value, BudgetProgress:budgetProgress.value};
   var error = '';
 
   try
   {
     const db = client.db();
-    const result = db.collection('budget').insertOne(newBudget);
+    const result = db.collection('budgets').insertOne(newBudget);
   }
   catch(e)
   {
