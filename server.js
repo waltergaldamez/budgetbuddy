@@ -155,8 +155,12 @@ app.post('/api/login', async (req, res, next) =>
     // Acquire a database object
     const db = client.db();
 
+		alert(req.body + "---body");
+		alert(req + "just reqq");
+		alert(req.params);
     // Query database for login information
     const results = await db.collection('users').find(req.params).toArray();
+
 
     var id = -1;
     var first = '';
@@ -166,7 +170,7 @@ app.post('/api/login', async (req, res, next) =>
     if( results.length > 0 )
     {
         id = results[0]._id;
-        username = results[0].username;
+        var username = results[0].username;
         // first = results[0].FirstName;
         // last = results[0].LastName;
 				ret = { _id:id, username:username, error:''};
