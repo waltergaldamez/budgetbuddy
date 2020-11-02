@@ -71,25 +71,25 @@ app.post('/api/searchcards', async (req, res, next) => 
 
 app.post('/api/addbudget', async (req, res, next) =>
 {
-  // incoming: userId, color
+  // incoming: userId, budgetGoal, budgetProgress
   // outgoing: error
 
-  const { userId, card } = req.body;
+  const { userId, budgetGoal, budgetProgress } = req.body;
 
-  const newCard = {Card:card,UserId:userId};
+  const newBudget = {UserId:userId, budget_goal:budgetGoal,budget_progress:budgetProgress};
   var error = '';
 
   try
   {
     const db = client.db();
-    const result = db.collection('Budget').insertOne(newCard);
+    const result = db.collection('budget').insertOne(newBudget);
   }
   catch(e)
   {
     error = e.toString();
   }
 
-  cardList.push( card );
+//   cardList.push( card );
 
   var ret = { error: error };
   res.status(200).json(ret);

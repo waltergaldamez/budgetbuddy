@@ -20,73 +20,52 @@ function Budgets()
 
     var budgetName;
     var budgetGoal;
-    // var budgetProgress;
+    var budgetProgress;
 
     const [message,setMessage] = useState('');
-    const [searchResults,setResults] = useState('');
 
+  
+    /*-----------------START-----------*/
+    // Get stuff out of persistant memory such as username 
+    var _ud = localStorage.getItem('user_data');
+    var ud = JSON.parse(_ud);
+	
     const addBudget = async event => 
     {
 	    event.preventDefault();
 
-	    alert('addBudget() ' + budgetName.value + ' ' + budgetGoal.value);
+        // Getting stuff out of UI
+        // Need to change card: card.value 
 
-    };
+        // var obj = {userId:userId,card:card.value};
+        // var js = JSON.stringify(obj);
 
-    const searchBudget = async event => 
-    {
-        event.preventDefault();
-        
-	    alert('searchBudget()' + budgetName.value + ' ' + budgetGoal.value);
-    };
+        try
+        {
+            // Call to API
 
-    /*-----------------START-----------*/
-    // Get stuff out of persistant memory such as username 
-//     var _ud = localStorage.getItem('user_data');
-//     var ud = JSON.parse(_ud);
-//     var userId = ud.id;
-//     var firstName = ud.firstName;
-//     var lastName = ud.lastName;
-	
-//     const addBudget = async event => 
-//     {
-// 	    event.preventDefault();
+            const response = await fetch(buildPath('api/login'),
+                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
-//         // Getting stuff out of UI
-//         // Need to change card: card.value 
+            // Parsing response
+            var txt = await response.text();
+            var res = JSON.parse(txt);
 
-//         // var obj = {userId:userId,card:card.value};
-//         // var js = JSON.stringify(obj);
+            if( res.error.length > 0 )
+            {
+                setMessage( "API Error:" + res.error );
+            }
+            else
+            {
+                setMessage('Budget has been added');
+            }
+        }
+        catch(e)
+        {
+            setMessage(e.toString());
+        }
 
-//         try
-//         {
-//             // Call to API
-
-            // const response = await fetch(buildPath('api/login'),
-            //     {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-
-//             const response = await fetch('http://localhost:5000/api/addbudget',
-//             {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-
-//             // Parsing response
-//             var txt = await response.text();
-//             var res = JSON.parse(txt);
-
-//             if( res.error.length > 0 )
-//             {
-//                 setMessage( "API Error:" + res.error );
-//             }
-//             else
-//             {
-//                 setMessage('Budget has been added');
-//             }
-//         }
-//         catch(e)
-//         {
-//             setMessage(e.toString());
-//         }
-
-// 	};
+	};
 
 //     const searchBudget = async event => 
 //     {
