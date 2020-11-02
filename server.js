@@ -74,9 +74,9 @@ app.post('/api/addbudget', async (req, res, next) =>
   // incoming: userId, budgetGoal, budgetProgress
   // outgoing: error
 
-  const { userId, budgetGoal, budgetProgress } = req.body;
+  const { userId, budgetName, budgetGoal, budgetProgress } = req.body;
 
-  const newBudget = {UserId:userId, budget_goal:budgetGoal,budget_progress:budgetProgress};
+  const newBudget = {UserId:userId, budgetName:budget_name, budget_goal:budgetGoal,budget_progress:budgetProgress};
   var error = '';
 
   try

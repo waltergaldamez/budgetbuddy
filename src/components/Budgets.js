@@ -110,12 +110,14 @@ function Budgets()
     return(
       <div id="accessUIDiv">
        <br />
-       <input type="text" id="searchText" placeholder="Budget To Search For" ref={(c) => budgetName = c} />
+{/*        <input type="text" id="searchText" placeholder="Budget To Search For" ref={(c) => budgetName = c} />
        <button type="button" id="searchBudgetButton" class="buttons" 
            onClick={searchBudget}> Search Budget </button><br />
-       <span id="budgetSearchResult"></span>
+       <span id="budgetSearchResult"></span> */}
         {/* <p id="budgetList">{budgetList}</p><br /><br /> */}
-       <input type="text" id="budgetText" placeholder="Budget To Add" ref={(c) => budgetGoal = c} />
+        <input type="text" id="budgetName" placeholder="Budget Name" ref={(c) => budgetName = c} />
+       <input type="text" id="budgetGoal" placeholder="Budget Goal (e.g. 500)" ref={(c) => budgetGoal = c} />
+       <input type="text" id="budgetProgress" placeholder="Add amount to budget (e.g. 100)" ref={(c) => budgetProgress = c} />
        <button type="button" id="addBudgetButton" class="buttons" 
           onClick={addBudget}> Add Budget </button><br />
        <span id="BudgetAddResult">{message}</span>
