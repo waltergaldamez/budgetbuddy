@@ -3,13 +3,13 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const path = require('path');
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || 3000));
 
 const MongoClient = require('mongodb').MongoClient;
 
@@ -17,7 +17,7 @@ require('dotenv').config();
 //const url = process.env.MONGODB_URI;
 const url = 'mongodb+srv://brendenm:xdxAoJ6GBmGQk4I0@budgetbuddies.rc2gm.mongodb.net/budgetbuddiesapp?retryWrites=true&w=majority'
 
-const client = new MongoClient(url);
+const client = new MongoClient(url, { useUnifiedTopology: true });
 client.connect();
 
 
@@ -156,7 +156,7 @@ app.post('/api/login', async (req, res, next) =>
     const db = client.db();
 
     // Query database for login information
-    const results = await db.collection('users').find(json.stringify(req.body)).toArray();
+    const results = await db.collection('users').find(req.params).toArray();
 
     var id = -1;
     var first = '';
