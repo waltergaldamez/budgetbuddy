@@ -154,10 +154,9 @@ app.post('/api/login', async (req, res, next) =>
 
     // Acquire a database object
     const db = client.db();
-		const query = {email:req.body.email, password:req.body.password};
 
     // Query database for login information
-    const results = await db.collection('users').find({"email":req.param('email'), "password":req.param('password')}).toArray();
+    const results = await db.collection('users').find().toArray();
 
 
     var id = -1;
