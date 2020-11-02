@@ -45,7 +45,7 @@ function Budgets()
         {
             // Call to API
 
-            const response = await fetch(buildPath('api/login'),
+            const response = await fetch(buildPath('api/budgetadd'),
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
             // Parsing response
