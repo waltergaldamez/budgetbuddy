@@ -236,7 +236,7 @@ app.post('/api/findUser', async (req, res, next) =>
     }
     else
     {
-      ret = { error:error };
+      ret = {error:error};
     }
   res.status(200).json(ret);
 });
@@ -250,41 +250,29 @@ app.post('/api/addFriend', async (req, res, next) =>
     const userID = req.param('userID');
     const friendID = req.param('friendID');
 
-    var friends = [];
-
     // Acquire a database object
     const db = client.db();
 
-    // Query database to retrieve friend list 
-    const friend_results = await db.collection('users').find({"_id":new ObjectId(req.param("userID"))}).friends;
-
-    // New friend to add
-    const newFriend = new ObjectId(friendID);
-
-    // Add to current friends
-    updatedFriends = friend_results.push(newFriend);
-    
+    // Structure friend list update for user
     const query = {_id:new ObjectId(userID)};
     const update = {
       "$push": {
-        "friends":updatedFriends
+        "friends":new ObjectId(friendID)
       }
     };
     const options = { "upsert": false };
 
     // Update the database
-    db.collection('users').updateOne(query, update, options);
-
-    // Display the new list of friends
-    if (updatedFriends.length > 0)
+    try
     {
-      ret = { userid:userID, friends:updatedFriends, error:''};
+      db.collection('users').updateOne(query, update, options);
+      ret = { userID:userID, friendID:friendID, error:''};
     }
-    else
+    catch(e)
     {
-      ret = { error:error }
+      ret = {error:error};
     }
-    ret.status(200).json(ret);
+    res.status(200).json(ret);
 });
 
 
