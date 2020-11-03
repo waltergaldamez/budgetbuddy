@@ -49,8 +49,9 @@ function Budgets()
         // Getting stuff out of UI
         // Need to change card: card.value 
 
-        var obj = {_id:uID, BudgetName:budgetName.value, BudgetGoal:budgetGoal.value, BudgetProgress:budgetProgress.value};
+        var obj = {BudgetName:budgetName.value, BudgetGoal:budgetGoal.value, BudgetProgress:budgetProgress.value};
         var js = JSON.stringify(obj);
+        alert(js);
 
         try
         {

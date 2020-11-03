@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const path = require('path');
+const { ObjectId } = require('mongodb');
 const PORT = process.env.PORT || 5000;
 
 const app = express();
@@ -71,12 +72,13 @@ app.post('/api/searchcards', async (req, res, next) => 
 
 app.post('/api/addbudget', async (req, res, next) =>
 {
-  // incoming: userId, budgetGoal, budgetProgress
+  // incoming: userId, budgetGoal, budgetProgress, budgetName
   // outgoing: error
 
-  const { _id, budgetName, budgetGoal, budgetProgress } = req.body;
+//   const { _id, budgetName, budgetGoal, budgetProgress } = req.body;
 
-  const newBudget = {_id:_id, BudgetName:budgetName, BudgetGoal:budgetGoal, BudgetProgress:budgetProgress};
+  const newBudget = {"BudgetName":req.param("BudgetName"), "BudgetGoal":req.param("BudgetName"),
+                    "BudgetProgress":req.param("BudgetProgress")};
   var error = '';
 
   try
