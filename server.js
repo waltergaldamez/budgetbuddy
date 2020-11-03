@@ -212,7 +212,78 @@ app.use((req, res, next) =>
     next();
 });
 
+app.post('/api/findUser', async (req, res, next) =>
+{
+    // incoming: searchUsername
+    // outgoing: friendID, error
 
+    var error = 'no users found';
+    const friendUsername = req.param('searchUsername');
+
+    // Acquire a database object
+    const db = client.db();
+
+    // Query database to find user with this info
+    const results = await db.collection('users').find({"username":friendUsername}).toArray();
+    
+    // User with this info found
+    if ( results.length > 0 )
+    {
+      const friendID = results[0]._id;
+      ret = { friendID:friendID, error:''};
+    }
+    else
+    {
+      ret = { error:error };
+    }
+  res.status(200).json(ret);
+});
+
+app.post('/api/addFriend', async (req, res, next) =>
+{
+    // incoming: userID, friendID
+    // outgoing: friends object array
+
+    var error = 'adding friend failed';
+    const userID = req.param('userID');
+    const friendID = req.param('friendID');
+
+    var friends = [];
+
+    // Acquire a database object
+    const db = client.db();
+
+    // Query database to retrieve friend list 
+    const friend_results = await db.collection('users').find({"_id":new ObjectId(req.param("userID"))}).friends;
+
+    // New friend to add
+    const newFriend = new ObjectId(friendID);
+
+    // Add to current friends
+    updatedFriends = friend_results.push(newFriend);
+    
+    const query = {_id:new ObjectId(userID)};
+    const update = {
+      "$push": {
+        "friends":updatedFriends
+      }
+    };
+    const options = { "upsert": false };
+
+    // Update the database
+    db.collection('users').updateOne(query, update, options);
+
+    // Display the new list of friends
+    if (updatedFriends.length > 0)
+    {
+      ret = { userid:userID, friends:updatedFriends, error:''};
+    }
+    else
+    {
+      ret = { error:error }
+    }
+    ret.status(200).json(ret);
+});
 
 
 
