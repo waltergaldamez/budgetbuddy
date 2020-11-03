@@ -251,9 +251,6 @@ app.post('/api/addFriend', async (req, res, next) =>
     // Acquire a database object
     const db = client.db();
 
-    // Query database to retrieve friend list 
-    const friend_results = await db.collection('users').find({"_id":new ObjectId(req.param("userID"))}).friends;
-
     // Structure friend list update for user
     const query = {_id:new ObjectId(userID)};
     const update = {
