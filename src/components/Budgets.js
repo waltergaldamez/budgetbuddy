@@ -40,6 +40,10 @@ function Budgets()
 	
     const addBudget = async event => 
     {
+
+        alert('budget name: ' + budgetName.value);
+        alert('budget Goal: ' + budgetGoal.value);
+        alert('budget Progress: ' + budgetProgress.value);
 	    event.preventDefault();
 
         // Getting stuff out of UI
