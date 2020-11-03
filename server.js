@@ -200,20 +200,6 @@ app.post('/api/login', async (req, res, next) =>
     res.status(200).json(ret);
 });
 
-app.use((req, res, next) =>
-{
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader(
-        'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-    );
-    res.setHeader(
-        'Access-Control-Allow-Methods',
-        'GET, POST, PATCH, DELETE, OPTIONS'
-    );
-    next();
-});
-
 app.post('/api/findUser', async (req, res, next) =>
 {
     // incoming: searchUsername
@@ -275,8 +261,19 @@ app.post('/api/addFriend', async (req, res, next) =>
     res.status(200).json(ret);
 });
 
-
-
+app.use((req, res, next) =>
+{
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+    );
+    res.setHeader(
+        'Access-Control-Allow-Methods',
+        'GET, POST, PATCH, DELETE, OPTIONS'
+    );
+    next();
+});
 
 // Deploying Heroku
 
