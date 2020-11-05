@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Card } from 'react-bootstrap';
-import AlertMessage from '../AlertMessage';
+import AlertMessage from './AlertMessage';
 
 function Login()
 {
@@ -79,7 +79,7 @@ function Login()
           <p className="forgot-password text-left">
               Register for an account <a href="/register">here</a>
           </p>
-          <Alert alertType={alertType} message={message} />
+          <AlertMessage alertType={alertType} message={message} />
         </Form>
       </Card.Body>
     </Card>
