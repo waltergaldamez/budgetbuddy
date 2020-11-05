@@ -73,7 +73,7 @@ function Login()
             Submit
           </Button>
         </Form>
-        <span>{message}<span>
+        <span>{message}</span>
       </div>
     );
 };
