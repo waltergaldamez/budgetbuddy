@@ -12,7 +12,7 @@ const LoginPage = () => {
       <Row>
         <Col>
           <PageHeader />
-        <Col>
+        </Col>
       </Row>
       <Row>
         <Col></Col>
