@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Alert } from 'react-bootstrap';
 
-const Alert = ({alertType, message}) => {
+const AlertMessage = ({alertType, message}) => {
   if (alertType === "error") {
     return (
       <Alert variant="danger" onClose={() => setShow(false)} dismissible>
@@ -16,4 +16,4 @@ const Alert = ({alertType, message}) => {
   }
 }
 
-export default Alert;
+export default AlertMessage;
