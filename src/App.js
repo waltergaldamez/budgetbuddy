@@ -5,6 +5,7 @@ import BudgetsPage from './pages/BudgetsPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import FriendsPage from './pages/FriendsPage';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
