@@ -11,7 +11,7 @@ const BudgetsPage = () =>
       <Container fluid>
         <Row>
           <Col>
-            <BudgetPageHeader
+            <BudgetPageHeader />
           </Col>
         </Row>
         <Row>
