@@ -3,14 +3,6 @@ import React, { useState } from 'react';
 function Budgets()
 {
 
-
-
-    // Work on this
-    function buildUserID(usrID){
-        return "ObjectId"
-    }
-
-
     const app_name = 'budgetbuddiesapp'
     function buildPath(route)
     {
@@ -24,23 +16,20 @@ function Budgets()
         }
     }
 
-
     var budgetName;
     var budgetGoal;
     var budgetProgress;
 
     const [message,setMessage] = useState('');
 
-  
-    /*-----------------START-----------*/
-
     // Get userID of logged in user
-    var uID = localStorage.getItem('userID');
+    var userEmail = localStorage.getItem('email');
     
 	
     const addBudget = async event => 
     {
 
+        alert('email: ' + userEmail);
         alert('budget name: ' + budgetName.value);
         alert('budget Goal: ' + budgetGoal.value);
         alert('budget Progress: ' + budgetProgress.value);
@@ -49,7 +38,7 @@ function Budgets()
         // Getting stuff out of UI
         // Need to change card: card.value 
 
-        var obj = {BudgetName:budgetName.value, BudgetGoal:budgetGoal.value, BudgetProgress:budgetProgress.value};
+        var obj = {email:userEmail,BudgetName:budgetName.value, BudgetGoal:budgetGoal.value, BudgetProgress:budgetProgress.value};
         var js = JSON.stringify(obj);
         alert(js);
 
@@ -79,46 +68,6 @@ function Budgets()
         }
 
 	};
-
-//     const searchBudget = async event => 
-//     {
-//         event.preventDefault();
-    
-//         // Get data from UI
-//         var obj = {userId:userId,search:search.value};
-//         var js = JSON.stringify(obj);
-
-//         try
-//         {
-//             // API call
-//             const response = await fetch('http://localhost:5000/api/searchbudget',
-//             {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-
-//             // Parsing the data
-//             var txt = await response.text();
-//             var res = JSON.parse(txt);
-
-//             var _results = res.results;
-//             var resultText = '';
-
-//             for( var i=0; i<_results.length; i++ )
-//             {
-//                 resultText += _results[i];
-//                 if( i < _results.length - 1 )
-//                 {
-//                     resultText += ', ';
-//                 }
-//             }
-//             setResults('Budget(s) have been retrieved');
-//             setCardList(resultText);
-//         }
-//         catch(e)
-//         {
-//             alert(e.toString());
-//             setResults(e.toString());
-//         }
-//     };
-    /*-------------END-----------------*/
 
     return(
       <div id="accessUIDiv">

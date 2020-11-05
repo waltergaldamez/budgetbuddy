@@ -72,26 +72,24 @@ app.post('/api/searchcards', async (req, res, next) => 
 
 app.post('/api/addbudget', async (req, res, next) =>
 {
-  // incoming: userId, budgetGoal, budgetProgress, budgetName
+  // incoming: userEmail, budgetGoal, budgetProgress, budgetName
   // outgoing: error
 
-//   const { _id, budgetName, budgetGoal, budgetProgress } = req.body;
-
-  const newBudget = {"BudgetName":req.param("BudgetName"), "BudgetGoal":parseFloat(req.param("BudgetGoal")),
-                    "BudgetProgress":parseFloat(req.param("BudgetProgress"))};
+  const newBudget = {"email": req.params("email"), "BudgetName":req.params("BudgetName"), "BudgetGoal":parseFloat(req.params("BudgetGoal")),
+                    "BudgetProgress":parseFloat(req.params("BudgetProgress"))};
   var error = '';
+
 
   try
   {
     const db = client.db();
-    const result = db.collection('budgets').insertOne(newBudget);
+    db.collection('budgets').insertOne(newBudget);
+
   }
   catch(e)
   {
     error = e.toString();
   }
-
-//   cardList.push( card );
 
   var ret = { error: error };
   res.status(200).json(ret);
