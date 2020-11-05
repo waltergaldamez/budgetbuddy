@@ -43,7 +43,7 @@ function Login()
             }
             else
             {
-                localStorage.setItem('email', res.email);
+                localStorage.setItem('username', res.username);
                 localStorage.setItem('userID', res.id);
 
                 // re-route

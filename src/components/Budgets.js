@@ -89,7 +89,7 @@ function Budgets()
           </Form.Group>
 
           <Button variant="primary" type="submit" onClick={addBudget}>
-            Login
+            Add Budget
           </Button>
           <span id="BudgetAddResult">{message}</span>
         </Form>
