@@ -10,7 +10,9 @@ const LoginPage = () => {
   return (
     <Container>
       <Row>
-        <PageHeader />
+        <Col>
+          <PageHeader />
+        <Col>
       </Row>
       <Row>
         <Col></Col>
