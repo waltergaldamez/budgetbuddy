@@ -58,23 +58,28 @@ function Login()
     };
 
     return(
-      <div id="loginDiv">
-        <Form>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Email" ref={(c) => loginEmail = c}/>
-          </Form.Group>
+      <form>
+        <h3>Sign In</h3>
 
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" ref={(c) => loginPassword = c} />
-          </Form.Group>
-          <Button variant="primary" type="submit" onClick={doLogin}>
-            Login
-          </Button>
-        </Form>
-        <span>{message}</span>
-      </div>
+        <div className="form-group">
+            <label>Email address</label>
+            <input type="email" className="form-control" ref={(c) => loginEmail = c} placeholder="Enter email" />
+        </div>
+
+        <div className="form-group">
+            <label>Password</label>
+            <input type="password" className="form-control" placeholder="Enter password" ref={(c) => loginPassword = c} />
+        </div>
+
+        <div className="form-group">
+            <span>{message}</span>
+        </div>
+
+        <button type="submit" className="btn btn-primary btn-block" onClick={doLogin}>Submit</button>
+        <p className="forgot-password text-right">
+            Register for an account <a href="/registration">here</a>
+        </p>
+      </form>
     );
 };
 
