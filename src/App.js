@@ -4,7 +4,7 @@ import './App.css';
 import BudgetsPage from './pages/BudgetsPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
-
+import FriendsPage from './pages/FriendsPage';
 
 function App() {
   return (
@@ -18,6 +18,9 @@ function App() {
         </Route>
         <Route path="/budget" exact>
           <BudgetsPage />
+        </Route>
+        <Route path="/friends" exact>
+          <FriendsPage />
         </Route>
         <Redirect to="/" />
       </Switch>
