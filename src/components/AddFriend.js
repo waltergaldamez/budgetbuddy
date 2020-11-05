@@ -45,8 +45,8 @@ function AddFriend()
             }
             else 
             {
-                localStorage.setItem('userID', res.userID);
-                localStorage.setItem('friendID', res.friendID);
+                localStorage.setItem('uID', res.userID);
+                localStorage.setItem('fID', res.friendID);
 
                 // re-route
                 // window.location.href = '/FriendsPage';
@@ -62,8 +62,6 @@ function AddFriend()
     return(
         <div id="addFriendDiv">
             <form>
-                <input type="text" id="userID" placeholder="userID" ref={(c) => userID = c} /><br />
-                <input type="text" id="friendID" placeholder="friendID" ref={(c) => friendID = c} /><br />
                 <button type="submit" onClick={addFriend}>Add Friend</button>
             </form>
             <span id="addFriendResult">{message}</span>
