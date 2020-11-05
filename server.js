@@ -26,8 +26,8 @@ app.post('/api/addbudget', async (req, res, next) =>
   // incoming: userEmail, budgetGoal, budgetProgress, budgetName
   // outgoing: error
 
-  const newBudget = {"email": req.params("email"), "BudgetName":req.params("BudgetName"), "BudgetGoal":parseFloat(req.params("BudgetGoal")),
-                    "BudgetProgress":parseFloat(req.params("BudgetProgress"))};
+  const newBudget = {"email": req.param("email"), "BudgetName":req.param("BudgetName"), "BudgetGoal":parseFloat(req.param("BudgetGoal")),
+                    "BudgetProgress":parseFloat(req.param("BudgetProgress"))};
   var error = '';
 
 
