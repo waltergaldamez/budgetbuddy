@@ -6,10 +6,11 @@ import Login from '../components/Login';
 
 const LoginPage = () => {
   return (
-    <div>
-      <PageHeader />
-      <Login />
-      <div>Don't have an account? Click <Link to='/register'>here</Link> to create an account</div>
+    <div className="auth-wrapper">
+      <div className="auth-inner">
+        <PageHeader />
+        <Login />
+      </div>
     </div>
   )
 }
