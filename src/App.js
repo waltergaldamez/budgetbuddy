@@ -4,7 +4,7 @@ import './App.css';
 import BudgetsPage from './pages/BudgetsPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
-
+import FriendsPage from './pages/FriendsPage';
 
 function App() {
   return (
