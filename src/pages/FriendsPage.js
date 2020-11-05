@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BudgetPageHeader from '../components/FriendsPageHeader';
+import FriendsPageHeader from '../components/FriendsPageHeader';
 import LoggedInName from '../components/LoggedInName';
 import FindUser from '../components/FindUser';
 import AddFriend from '../components/AddFriend';

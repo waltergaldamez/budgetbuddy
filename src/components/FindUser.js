@@ -68,4 +68,4 @@ function FindUser()
     );
 };
 
-export default findUser;
+export default FindUser;
