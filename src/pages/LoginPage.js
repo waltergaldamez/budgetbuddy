@@ -1,17 +1,23 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { Container, Row, Col } from 'react-bootstrap';
+
 
 import PageHeader from '../components/PageHeader'
 import Login from '../components/Login';
 
 const LoginPage = () => {
   return (
-    <div className="auth-wrapper">
-      <div className="auth-inner">
-        <PageHeader />
-        <Login />
-      </div>
-    </div>
+    <Container>
+      <Row>
+        <Col></Col>
+        <Col>
+          <PageHeader />
+          <Login />
+        </Col>
+        <Col></Col>
+      </Row>
+    </Container>
   )
 }
 
