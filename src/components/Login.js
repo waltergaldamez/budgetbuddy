@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Form, Button } from 'react-bootstrap';
 
 function Login()
 {
@@ -58,14 +59,21 @@ function Login()
 
     return(
       <div id="loginDiv">
-        <form>
-                <label>Email</label>
-                <input type="text" id="loginEmail" placeholder="Email" ref={(c) => loginEmail = c} /><br />
-        <label>Password</label>
-        <input type="password" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c}  /><br />
-        <button type="submit" onClick={doLogin}>Log in</button>
-        </form>
-        <span id="loginResult">{message}</span>
+        <Form>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control type="email" placeholder="Email" ref={(c) => loginEmail = c}/>
+          </Form.Group>
+
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" placeholder="Password" ref={(c) => loginPassword = c} />
+          </Form.Group>
+          <Button variant="primary" type="submit" onClick={doLogin}>
+            Submit
+          </Button>
+        </Form>
+        <span>{message}<span>
       </div>
     );
 };
