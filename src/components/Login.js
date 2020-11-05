@@ -70,7 +70,7 @@ function Login()
             <Form.Control type="password" placeholder="Password" ref={(c) => loginPassword = c} />
           </Form.Group>
           <Button variant="primary" type="submit" onClick={doLogin}>
-            Submit
+            Login
           </Button>
         </Form>
         <span>{message}</span>
