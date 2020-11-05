@@ -3,7 +3,7 @@ import React from 'react';
 import BudgetPageHeader from '../components/FriendsPageHeader';
 import LoggedInName from '../components/LoggedInName';
 import FindUser from '../components/FindUser';
-import AddUser from '../components/AddUser';
+import AddUser from '../components/AddFriend';
 
 /* Add search bar functionality (mongoose api call?)
 const FriendsList = () =>
@@ -26,8 +26,8 @@ const FriendsPage = () =>
             <LoggedInName />
             
             <FindUser />
-            
-            <AddUser />
+
+            <AddFriend />
         </div>
     );
 }
