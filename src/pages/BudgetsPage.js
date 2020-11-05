@@ -22,6 +22,7 @@ const BudgetsPage = () =>
           <Col>
             <LoggedInName />
           </Col>
+        </Row>
       </Container>
     );
 }
