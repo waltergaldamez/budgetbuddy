@@ -1,10 +1,5 @@
 import React from 'react';
-import Nav from '@bit/react-bootstrap.react-bootstrap.nav'
-import Button from '@bit/react-bootstrap.react-bootstrap.button'
-import Form from '@bit/react-bootstrap.react-bootstrap.form'
-import FormControl from '@bit/react-bootstrap.react-bootstrap.form-control'
-import Navbar from '@bit/react-bootstrap.react-bootstrap.navbar'
-import ReactBootstrapStyle from '@bit/react-bootstrap.react-bootstrap.internal.style-links';
+ import { Navbar,Nav,NavDropdown,Form,FormControl,Button } from 'react-bootstrap'
 
 const BudgetPageHeader = () => {
   return (
