@@ -11,7 +11,7 @@ const AlertMessage = ({alertType, message}) => {
     )
   } else {
     return (
-      <span><span>
+      <span></span>
     )
   }
 }
