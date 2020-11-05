@@ -19,6 +19,9 @@ function App() {
         <Route path="/budget" exact>
           <BudgetsPage />
         </Route>
+        <Route path="/friends" exact>
+          <FriendsPage />
+        <Route>
         <Redirect to="/" />
       </Switch>
     </Router>
