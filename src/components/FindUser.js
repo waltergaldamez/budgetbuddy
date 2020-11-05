@@ -60,7 +60,7 @@ function FindUser()
     return(
         <div id="findUserDiv">
             <form>
-                <input type="text" id="friendID" placeholder="friendID" ref={(c) => friendID = c} /><br />
+                <input type="text" id="searchUsername" placeholder="searchUsername" ref={(c) => searchUsername = c} /><br />
                 <button type="submit" onClick={findUser}>Find a User</button>
             </form>
             <span id="findUserResult">{message}</span>

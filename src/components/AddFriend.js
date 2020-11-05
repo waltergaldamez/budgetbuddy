@@ -27,7 +27,7 @@ function AddFriend()
     const addFriend = async event =>
     {
         event.preventDefault();
-        var obj = {userID: userID.value, friendID: friendID.value, verification: false}
+        var obj = {userID: uID, friendID: fID, verification: false}
         var js = JSON.stringify(obj);
 
         try
