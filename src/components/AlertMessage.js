@@ -5,7 +5,7 @@ import { Alert } from 'react-bootstrap';
 const AlertMessage = ({alertType, message}) => {
   if (alertType === "error") {
     return (
-      <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+      <Alert variant="danger" dismissible>
         <Alert.Heading>{message}</Alert.Heading>
       </Alert>
     )
