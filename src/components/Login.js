@@ -72,7 +72,7 @@ function Login()
           Login
         </Button>
         <p className="forgot-password text-right">
-            Register for an account <a href="/registration">here</a>
+            Register for an account <a href="/register">here</a>
         </p>
         <span>{message}</span>
       </Form>
