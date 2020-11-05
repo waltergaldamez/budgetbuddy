@@ -1,9 +1,10 @@
 import React from 'react';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import Form from 'react-bootstrap/Form'
-import FormControl from 'react-bootstrap/FormControl';
-import Button from 'react-bootstrap/Button';
+import Nav from '@bit/react-bootstrap.react-bootstrap.nav'
+import Button from '@bit/react-bootstrap.react-bootstrap.button'
+import Form from '@bit/react-bootstrap.react-bootstrap.form'
+import FormControl from '@bit/react-bootstrap.react-bootstrap.form-control'
+import Navbar from '@bit/react-bootstrap.react-bootstrap.navbar'
+import ReactBootstrapStyle from '@bit/react-bootstrap.react-bootstrap.internal.style-links';
 
 const BudgetPageHeader = () => {
   return (
