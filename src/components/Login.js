@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import {Form, Button, Card } from 'react-bootstrap';
+import { Form, Button, Card } from 'react-bootstrap';
+import { Alert } from 'Alert';
 
 function Login()
 {
@@ -20,7 +21,8 @@ function Login()
     var loginEmail;
     var loginPassword;
 
-    const [message,setMessage] = useState('');
+    let message = '';
+    const [ alertType, setAlertType ] = useState('');
 
     const doLogin = async event =>
     {
@@ -39,7 +41,8 @@ function Login()
 
             if( res.error != '')
             {
-                setMessage('Email/Password combination incorrect');
+                message = 'Email/Password combination incorrect';
+                setAlertType('error');
             }
             else
             {
@@ -73,10 +76,10 @@ function Login()
           <Button variant="primary" type="submit" onClick={doLogin}>
             Login
           </Button>
-          <p className="forgot-password text-right">
+          <p className="forgot-password text-left">
               Register for an account <a href="/register">here</a>
           </p>
-          <span>{message}</span>
+          <Alert alertType={alertType} message={message} />
         </Form>
       </Card.Body>
     </Card>

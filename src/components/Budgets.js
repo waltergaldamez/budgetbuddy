@@ -88,7 +88,7 @@ function Budgets()
             <Form.Control type="text" placeholder="$$"ref={(c) => budgetProgress = c}/>
           </Form.Group>
 
-          <Button variant="primary" type="submit" onClick={addBudget}>
+          <Button variant="success" type="submit" onClick={addBudget}>
             Add Budget
           </Button>
           <span id="BudgetAddResult">{message}</span>

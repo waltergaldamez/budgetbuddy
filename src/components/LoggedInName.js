@@ -21,7 +21,7 @@ function LoggedInName()
   return(
    <div id="loggedInDiv">
    <span id="userName">Logged In As {username}</span><br />
-	 <Button variant="primary" type="submit" onClick={doLogout}>
+	 <Button variant="danger" type="submit" onClick={doLogout}>
 		 Logout
 	 </Button>
    </div>
