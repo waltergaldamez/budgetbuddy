@@ -28,11 +28,7 @@ function Budgets()
 	
     const addBudget = async event => 
     {
-        const bP;
 
-        // if(budgetProgress.value === ""){
-        //     budgetProgress.value = 0;
-        // }
         alert('budget name: ' + budgetName.value);
         alert('budget Goal: ' + budgetGoal.value);
         alert('budget Progress: ' + budgetProgress.value);
