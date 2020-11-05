@@ -20,7 +20,7 @@ const BudgetPageHeader = () => {
       <Button variant="outline-info">Search</Button>
     </Form>
   </Navbar>
-  <div>
+  </div>
   );
 };
 
