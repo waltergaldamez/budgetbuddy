@@ -46,6 +46,74 @@ app.post('/api/addbudget', async (req, res, next) =>
   res.status(200).json(ret);
 });
 
+app.post('/api/addprogress', async (req, res, next) =>
+{
+  // in: _id of budget and progress to add
+  // Need to find the budget to update the progress in
+            // _id = budgetID
+        // Get the previous value of the progress
+        // Add to it
+        // Update value
+  
+  const budgetID = req.param('_id');
+  console.log(ObjectId(budgetID));
+  const progToAdd = req.param('progToAdd');
+  console.log(" " + progToAdd);
+  var error = '';
+  var response = '';
+  try
+  {
+    const db = client.db();
+    const result = await db.collection('budgets').find({'_id': ObjectId(budgetID)}).toArray();
+    console.log(result[0]);
+    
+    if(result.length > 0){
+      // found a budget with the correct ID
+      const currentAmount = result[0].BudgetProgress;
+      const newAmount = currentAmount + progToAdd;
+      console.log("current amount: " + currentAmount);
+      console.log("new AMount: "+newAmount);
+      response = db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetProgress: newAmount}});
+
+    }else{
+      // didnt find the budget
+      error = "brenden not found";
+      
+    }
+  }
+  catch(e)
+  {
+    error = e.toString();
+  }
+  var ret = { error: error, response : response };
+  res.status(200).json(ret);
+});
+
+app.post('/api/showAllBudgets', async (req, res, next) => {
+  const db = client.db();
+  const userEmail = req.param('email');
+  var error = '';
+  try{
+
+    const results = await db.collection('budgets').find({'email' : req.param('email')}).toArray();
+    console.log(results);
+    console.log("results length: "+results.length);
+    var _ret = [];
+    for(var i = 0; i < results.length; i++){
+      _ret.push(results[i]);
+    }
+
+  }catch(e){
+        error = e.toString();
+  }
+
+  console.log("_ret: "+_ret);
+    var ret = {results:_ret, error:error};
+    console.log("ret : " + ret);
+    res.status(200).json(ret);
+  
+});
+
 app.post('/api/register', async (req, res, next) => {
 	const db = client.db();
 	const js = {"email":req.param('email'), "password":req.param('password'),

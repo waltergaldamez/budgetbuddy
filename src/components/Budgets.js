@@ -68,7 +68,43 @@ function Budgets()
             setMessage(e.toString());
         }
 
-	};
+    };
+
+    const addProgress = async event => 
+    {
+	    event.preventDefault();
+
+        var obj = {progToAdd: addToProgress.value};
+        var js = JSON.stringify(obj);
+        alert(js);
+
+        try
+        {
+            // Call to API
+            const response = await fetch(buildPath('api/addprogress'),
+                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+            // Parsing response
+            var txt = await response.text();
+            var res = JSON.parse(txt);
+
+            if( res.error.length > 0 )
+            {
+                setMessage( "API Error:" + res.error );
+            }
+            else
+            {
+                setMessage('Budget progress has been added to current progress');
+            }
+        }
+        catch(e)
+        {
+            setMessage(e.toString());
+        }
+
+    };
+    
+
 
     return(
       <div id="accessUIDiv">
@@ -81,8 +117,12 @@ function Budgets()
         <input type="text" id="budgetName" placeholder="Budget Name" ref={(c) => budgetName = c} />
        <input type="text" id="budgetGoal" placeholder="Budget Goal (e.g. 500)" ref={(c) => budgetGoal = c} />
        <input type="text" id="budgetProgress" placeholder="Add amount to budget (e.g. 100)" ref={(c) => budgetProgress = c} />
+       <br />
+       <input type="text" id="addToProgress" placeholder="Add amount to progress" ref={(c) => addToProgress = c} />
        <button type="button" id="addBudgetButton" class="buttons" 
           onClick={addBudget}> Add Budget </button><br />
+        <button type="button" id="addProgressButton" class="buttons" 
+          onClick={addProgress}> Add Progress </button><br />
        <span id="BudgetAddResult">{message}</span>
      </div>
     );
