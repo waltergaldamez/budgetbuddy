@@ -46,6 +46,27 @@ app.post('/api/addbudget', async (req, res, next) =>
   res.status(200).json(ret);
 });
 
+app.delete('/api/removebudget', async (req, res, next) =>
+{
+  const budgetID = req.param('_id');
+  var error = '';
+
+
+  try
+  {
+    const db = client.db();
+    db.collection('budgets').deleteOne({"_id": ObjectId(budgetID)});
+
+  }
+  catch(e)
+  {
+    error = e.toString();
+  }
+
+  var ret = { error: error };
+  res.status(200).json(ret);
+});
+
 app.post('/api/register', async (req, res, next) => {
 	const db = client.db();
 	const js = {"email":req.param('email'), "password":req.param('password'),
