@@ -1,19 +1,15 @@
 import React from 'react';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import Form from 'react-bootstrap/Form'
-import FormControl from 'react-bootstrap/FormControl';
-import Button from 'react-bootstrap/Button';
+import { Navbar,Nav,NavDropdown,Form,FormControl,Button } from 'react-bootstrap';
 
 const BudgetPageHeader = () => {
   return (
     <div>
     <Navbar bg="dark" variant="dark">
-    <Navbar.Brand href="#home">BudgetBuddies</Navbar.Brand>
+    <Navbar.Brand href="/budget">BudgetBuddies</Navbar.Brand>
     <Nav className="mr-auto">
-      <Nav.Link href="#home">Home</Nav.Link>
-      <Nav.Link href="#features">Features</Nav.Link>
-      <Nav.Link href="#pricing">Pricing</Nav.Link>
+      <Nav.Link href="/budget">Home</Nav.Link>
+      <Nav.Link href="/budget">Budgets</Nav.Link>
+      <Nav.Link href="/friends">Friends</Nav.Link>
     </Nav>
     <Form inline>
       <FormControl type="text" placeholder="Search" className="mr-sm-2" />

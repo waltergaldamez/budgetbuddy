@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Form, Button, Card } from 'react-bootstrap';
+import AlertMessage from './AlertMessage';
 
 function Login()
 {
@@ -19,7 +21,8 @@ function Login()
     var loginEmail;
     var loginPassword;
 
-    const [message,setMessage] = useState('');
+    let message = '';
+    const [ alertType, setAlertType ] = useState('');
 
     const doLogin = async event =>
     {
@@ -38,11 +41,12 @@ function Login()
 
             if( res.error != '')
             {
-                setMessage('Email/Password combination incorrect');
+                message = 'Email/Password combination incorrect';
+                setAlertType('error');
             }
             else
             {
-                localStorage.setItem('email', res.email);
+                localStorage.setItem('username', res.username);
                 localStorage.setItem('userID', res.id);
 
                 // re-route
@@ -57,16 +61,28 @@ function Login()
     };
 
     return(
-      <div id="loginDiv">
-        <form>
-                <label>Email</label>
-                <input type="text" id="loginEmail" placeholder="Email" ref={(c) => loginEmail = c} /><br />
-        <label>Password</label>
-        <input type="password" id="loginPassword" placeholder="Password" ref={(c) => loginPassword = c}  /><br />
-        <button type="submit" onClick={doLogin}>Log in</button>
-        </form>
-        <span id="loginResult">{message}</span>
-      </div>
+    <Card >
+      <Card.Body>
+        <Form>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control type="email" placeholder="Enter email" ref={(c) => loginEmail = c} />
+          </Form.Group>
+
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" placeholder="Password" ref={(c) => loginPassword = c}/>
+          </Form.Group>
+          <Button variant="primary" type="submit" onClick={doLogin}>
+            Login
+          </Button>
+          <p className="forgot-password text-left">
+              Register for an account <a href="/register">here</a>
+          </p>
+          <AlertMessage alertType={alertType} message={message} />
+        </Form>
+      </Card.Body>
+    </Card>
     );
 };
 
