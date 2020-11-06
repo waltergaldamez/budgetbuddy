@@ -134,6 +134,34 @@ app.post('/api/showAllBudgets', async (req, res, next) => {
   
 });
 
+app.post('/api/showBudget', async (req, res, next) => {
+  const db = client.db();
+  // const userEmail = req.param('email');
+  const budgetID = req.param('_id');
+  console.log(budgetID);
+  var error = '';
+  try{
+
+    const results = await db.collection('budgets').find({'_id' : ObjectId(budgetID)}).toArray();
+    console.log("length: "+results.length);
+    // console.log("results length: " + results.length);
+
+    var _ret = [];
+  
+    _ret.push(results[0]);
+    
+
+  }catch(e){
+        error = e.toString();
+  }
+
+  console.log("_ret: " +_ret);
+    var ret = {results:_ret, error:error};
+    console.log("ret : " + ret);
+    res.status(200).json(ret);
+  
+});
+
 app.post('/api/register', async (req, res, next) => {
 	const db = client.db();
 	const js = {"email":req.param('email'), "password":req.param('password'),
