@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Form, Button, Card } from 'react-bootstrap';
 
 function Register() {
   const app_name = "budgetbuddiesapp";
@@ -53,20 +54,38 @@ function Register() {
     }
   }
   return (
-    <div id="registerDiv">
-      <form>
-      <label>Email</label>
-      <input type="text" id="registerEmail" placeholder="john@email.com"  ref={(c) => registerEmail = c} /><br />
-      <label>Username</label>
-      <input type="text" id="registerUserName" placeholder="username"  ref={(c) => registerUserName = c} /><br />
-      <label>Password</label>
-      <input type="password" id="password" placeholder="Password" ref={(c) => password = c}  /><br />
-      <label>Confirm Password</label>
-      <input type="password" id="passwordConfirm" placeholder="Password" ref={(c) => passwordConfirm = c}  /><br />
-      <button type="submit" onClick={doRegistration}>Register</button>
-      </form>
-      <span id="registerResult">{message}</span>
-    </div>
+    <Card >
+      <Card.Body>
+        <Form>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control type="email" placeholder="Enter email" ref={(c) => registerEmail = c} />
+          </Form.Group>
+
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Username</Form.Label>
+            <Form.Control type="text" placeholder="username" ref={(c) => registerUserName = c} />
+          </Form.Group>
+
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" placeholder="Password" ref={(c) => password = c}/>
+          </Form.Group>
+
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control type="password" placeholder="Password" ref={(c) => passwordConfirm = c}/>
+          </Form.Group>
+
+          <Button variant="primary" type="submit" onClick={doRegistration}>
+            Sign Up
+          </Button>
+          <p className="forgot-password text-left">
+              Have an account? Log in <a href="/">here</a>
+          </p>
+        </Form>
+      </Card.Body>
+    </Card>
   );
 };
 

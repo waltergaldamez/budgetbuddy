@@ -1,14 +1,20 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import Register from '../components/Register';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const RegisterPage = () => {
   return (
-    <div>
-      <h1>Register an account to begin your budget adventure!</h1>
-      <Register />
-      <div>Already have an account? Click <Link to='/'>here</Link> to log in</div>
-    </div>
+    <Container>
+      <Row>
+        <Col></Col>
+        <Col>
+          <h1 style={{textAlign: "center"}}> Sign Up!</h1>
+          <Register />
+        </Col>
+        <Col> </Col>
+      </Row>
+    </Container>
   )
 }
 

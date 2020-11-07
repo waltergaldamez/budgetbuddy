@@ -45,6 +45,27 @@ app.post('/api/addbudget', async (req, res, next) =>
   res.status(200).json(ret);
 });
 
+app.post('/api/updatebudget', async (req, res, next) =>
+{
+  const updatedBudget =  {"BudgetName":req.param("BudgetName"), "BudgetGoal":parseFloat(req.param("BudgetGoal"))};
+  const budgetID = req.param('_id');
+  var error = '';
+  var response = '';
+
+  try
+  {
+    const db = client.db();
+    db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetName: updatedBudget.BudgetName, BudgetGoal: updatedBudget.BudgetGoal}});
+
+  }
+  catch(e)
+  {
+    error = e.toString();
+  }
+  var ret = { error: error, response : response };
+  res.status(200).json(ret);
+});
+
 app.post('/api/addprogress', async (req, res, next) =>
 {
   // in: _id of budget and progress to add
