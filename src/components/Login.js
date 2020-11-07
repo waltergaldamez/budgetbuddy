@@ -22,7 +22,7 @@ function Login()
     var loginEmail;
     var loginPassword;
 
-    let message = '';
+    var message = '';
     const [ showAlert, setAlert ] = useState(false);
 
     const doLogin = async event =>
@@ -81,7 +81,7 @@ function Login()
               Register for an account <a href="/register">here</a>
           </p>
           { showAlert ? (
-            <Alert variant="danger" dismissible>
+            <Alert variant="danger" onClose={() => setAlert(false)} dismissible>
               <Alert.Heading>{message}</Alert.Heading>
             </Alert>
             ) : <span></span>}
