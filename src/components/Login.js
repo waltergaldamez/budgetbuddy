@@ -82,7 +82,7 @@ function Login()
           </p>
           { showAlert ? (
             <Alert variant="danger" onClose={() => setAlert(false)} dismissible>
-              <Alert.Heading>Email/Password combination incorrect</Alert.Heading>
+              <p>Email/Password combination incorrect</p>
             </Alert>
             ) : <span></span>}
         </Form>
