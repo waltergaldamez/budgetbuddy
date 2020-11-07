@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Form, Button, Card } from 'react-bootstrap';
-import AlertMessage from './AlertMessage';
 import { Alert } from 'react-bootstrap';
 
 function Login()
