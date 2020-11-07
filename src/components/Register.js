@@ -17,17 +17,23 @@ function Register() {
   var passwordConfirm;
   var budgetAndFriends = [];
 
+  const [ message, setMessage ] = '';
+  var showAlert = false;
+  var variant = "";
 
-  const [message, setMessage] = useState('');
 
   const doRegistration = async event => {
     event.preventDefault();
     if (registerEmail.value.length === 0 || registerUserName.value.length === 0
         || password.value.length === 0 || passwordConfirm.value.length === 0) {
+          showAlert = true;
+          variant = "danger";
           setMessage("Please fill in all fields");
           return;
         }
     if (password.value != passwordConfirm.value) {
+      showAlert = true;
+      variant = "danger";
       setMessage("Passwords do not match");
       return;
     }
@@ -44,8 +50,12 @@ function Register() {
       var res = JSON.parse(await response.text());
 
       if (res.error != '') {
+        showAlert = true;
+        variant = "danger";
         setMessage(res.error);
       } else {
+        showAlert = true;
+        variant = "success";
         setMessage("An email has been sent to " + registerEmail.value + ". Please verify your email");
       }
     } catch (e) {
@@ -80,6 +90,13 @@ function Register() {
           <Button variant="primary" type="submit" onClick={doRegistration}>
             Sign Up
           </Button>
+
+          { showAlert ? (
+            <Alert variant="danger" onClose={() => showAlert = false} dismissible>
+              <p>Email/Password combination incorrect</p>
+            </Alert>
+            ) : <span></span>}
+
           <p className="forgot-password text-left">
               Have an account? Log in <a href="/">here</a>
           </p>
