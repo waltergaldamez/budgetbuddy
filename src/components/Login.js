@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Card } from 'react-bootstrap';
 import AlertMessage from './AlertMessage';
+import { Alert } from 'react-bootstrap';
 
 function Login()
 {
@@ -22,7 +23,7 @@ function Login()
     var loginPassword;
 
     let message = '';
-    const [ alertType, setAlertType ] = useState('');
+    const [ showAlert, setAlert ] = useState(false);
 
     const doLogin = async event =>
     {
@@ -42,7 +43,7 @@ function Login()
             if( res.error != '')
             {
                 message = 'Email/Password combination incorrect';
-                setAlertType('error');
+                setAlert(true);
             }
             else
             {
@@ -79,7 +80,11 @@ function Login()
           <p className="forgot-password text-left">
               Register for an account <a href="/register">here</a>
           </p>
-          <AlertMessage alertType={alertType} message={message} />
+          { showAlert ? (
+            <Alert variant="danger" dismissible>
+              <Alert.Heading>{message}</Alert.Heading>
+            </Alert>
+            ) : <span></span>}
         </Form>
       </Card.Body>
     </Card>
