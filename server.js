@@ -9,18 +9,17 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-
 app.set('port', (process.env.PORT || 5000));
 
 const MongoClient = require('mongodb').MongoClient;
-
-
-const url = 'mongodb+srv://brendenm:xdxAoJ6GBmGQk4I0@budgetbuddies.rc2gm.mongodb.net/budgetbuddies?retryWrites=true&w=majority'
-
+const url = 'mongodb+srv://brendenm:xdxAoJ6GBmGQk4I0@budgetbuddies.rc2gm.mongodb.net/budgetbuddies?retryWrites=true&w=majority';
 const client = new MongoClient(url, { useUnifiedTopology: true });
 client.connect();
 
+var api = require('./api.js');
+api.setApp(app, client);
 
+/*
 app.post('/api/addbudget', async (req, res, next) =>
 {
   // incoming: userEmail, budgetGoal, budgetProgress, budgetName
@@ -271,6 +270,7 @@ app.post('/api/addFriend', async (req, res, next) =>
     }
     res.status(200).json(ret);
 });
+*/
 
 app.use((req, res, next) =>
 {
