@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Card } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 
 function Register() {
   const app_name = "budgetbuddiesapp";
