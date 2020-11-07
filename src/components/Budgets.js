@@ -75,7 +75,7 @@ function Budgets()
     {
 	    event.preventDefault();
 
-        var obj = {progToAdd: addToProgress.value};
+        var obj = {progToAdd: budgetProgress.value};
         var js = JSON.stringify(obj);
         alert(js);
 
@@ -104,7 +104,7 @@ function Budgets()
         }
 
     };
-    
+
 
 
     return(
