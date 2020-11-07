@@ -83,11 +83,6 @@ function Register() {
           <p className="forgot-password text-left">
               Have an account? Log in <a href="/">here</a>
           </p>
-        /*  { showAlert ? (
-            <Alert variant="danger" onClose={() => setAlert(false)} dismissible>
-              <p>Email/Password combination incorrect</p>
-            </Alert>
-          ) : <span></span>} */
         </Form>
       </Card.Body>
     </Card>
