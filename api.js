@@ -127,7 +127,7 @@ exports.setApp = function (app, client ){
             _ret.push(results[0]);
             
         }catch(e){
-                error = e.toString();
+            error = e.toString();
         }
 
         console.log("_ret: " +_ret);
@@ -287,13 +287,20 @@ exports.setApp = function (app, client ){
         var error = '';
 
         const userID = req.param('userID');
+        console.log("API JSON: " + userID);
         
         const db = client.db();
-
+        var friendsArr = [];
+        
         try{
         
-            const user = db.collection('users').find({'_id':userID});
-            const friendsArr = user.friends;
+            // Get the user from the database
+           const user = await db.collection('users').find({'_id' : ObjectId(userID)}).toArray();
+            
+            // Converts friend array in JSON into an array of the values (friendIDs)
+            friendsArr = Object.values(user[0].friends);
+
+            // console.log('Friends: '+ friendsArr);
 
         }catch(e){
             error = e.toString();
