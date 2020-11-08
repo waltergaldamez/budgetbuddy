@@ -400,4 +400,26 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
 
     });
+
+
+
+    app.post('/api/verifyAccount', async (req, res, next) =>
+    {
+        // incoming: email
+        // Outgoing: error
+        var error = '';
+
+        const db = client.db();
+
+        try{
+
+        }catch(e){
+            error = e.toString();
+        }
+
+        var ret = {error:error};
+        res.status(200).json(ret);
+
+    });
+
 }
