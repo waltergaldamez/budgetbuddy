@@ -397,7 +397,5 @@ exports.setApp = function (app, client ){
         var ret = {updatedRank:newRank, error:error};
         res.status(200).json(ret);
 
-
-
-
+    });
 }
