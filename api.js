@@ -379,22 +379,24 @@ exports.setApp = function (app, client ){
         // incoming: userID, updated username, updated email, updated password
         // Outgoing: error
         var error = '';
-        
-        const db = client.db();
-        
-
+    
         const userID = req.param('userID');
         const newEmail = req.param('newEmail');
         const newUsername = req.param('userName');
+        const newPassword = req.param('password');
+
+        const updateAccount = {'email':newEmail, 'username':newUsername, 'password':newPassword};
+
+        const db = client.db();
 
         try{
-            user = await db.collection('users').updateOne({'_id':ObjectId(userID)}, { $set: {rankMetric:newRank}});
+            db.collection('users').updateOne({'_id':ObjectId(userID)}, { $set: {email:updateAccount.email, username:updateAccount.username, password:newPassword}});
 
         }catch(e){
             error = e.toString();
         }
 
-        var ret = {updatedRank:newRank, error:error};
+        var ret = {error:error};
         res.status(200).json(ret);
 
     });
