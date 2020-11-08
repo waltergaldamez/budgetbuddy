@@ -66,7 +66,6 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-
     app.delete('/api/removebudget', async (req, res, next) =>
     {
         const budgetID = req.param('_id');
@@ -353,4 +352,31 @@ exports.setApp = function (app, client ){
         var ret = {updatedRank:newRank, error:error};
         res.status(200).json(ret);
     });
+
+    app.post('/api/editAccount', async (req, res, next) =>
+    {
+        // incoming: userID, updated username, updated email, updated password
+        // Outgoing: error
+        var error = '';
+        
+        const db = client.db();
+        
+
+        const userID = req.param('userID');
+        const newEmail = req.param('newEmail');
+        const newUsername = req.param('userName');
+
+        try{
+            user = await db.collection('users').updateOne({'_id':ObjectId(userID)}, { $set: {rankMetric:newRank}});
+
+        }catch(e){
+            error = e.toString();
+        }
+
+        var ret = {updatedRank:newRank, error:error};
+        res.status(200).json(ret);
+
+
+
+
 }
