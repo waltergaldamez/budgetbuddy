@@ -255,13 +255,21 @@ exports.setApp = function (app, client ){
 
         const db = client.db();
 
+        const query ={_id : ObjectId(userID)};
+
+        const update = {
+            "$pull":{
+                "friends" : ObjectId(friendID)
+            }
+        };
+
         try{
 
             // If remove friends array from each user and refactor the code for
             // add friend such that each user-friend relationship is modeled by a document in a friends collection
-            
             // db.collection('friends').remove({"userEmail": userID});
 
+            db.collection('users').updateOne(query, update);
 
         }catch(e){
             error = e.toString();
