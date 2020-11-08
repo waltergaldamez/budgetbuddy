@@ -294,4 +294,37 @@ exports.setApp = function (app, client ){
         var ret = {error:error};
         res.status(200).json(ret);
     });
+
+    app.post('/api/getRank', async (req, res, next) => {
+
+        var error = '';
+        
+        const db = client.db();
+
+        try{
+
+        }catch(e){
+            error = e.toString();
+        }
+
+        var ret = {error:error};
+        res.status(200).json(ret);
+
+    });
+
+    app.post('/api/updateRank', async (req, res, next) =>
+    {
+        var error = '';
+        
+        const db = client.db();
+
+        try{
+
+        }catch(e){
+            error = e.toString();
+        }
+
+        var ret = {error:error};
+        res.status(200).json(ret);
+    });
 }
