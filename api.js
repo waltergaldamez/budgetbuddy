@@ -281,17 +281,25 @@ exports.setApp = function (app, client ){
 
     app.post('/api/showFriends', async (req, res, next) => 
     {
+        // Incoming: userID or userEmail
+        // Outgoing: friends array of user
+
         var error = '';
+
+        const userID = req.param('userID');
         
         const db = client.db();
 
         try{
+        
+            const user = db.collection('users').find({'_id':userID});
+            const friendsArr = user.friends;
 
         }catch(e){
             error = e.toString();
         }
 
-        var ret = {error:error};
+        var ret = {friendsArr:friendsArr, error:error};
         res.status(200).json(ret);
     });
 
