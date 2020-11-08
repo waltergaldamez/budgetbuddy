@@ -401,8 +401,6 @@ exports.setApp = function (app, client ){
 
     });
 
-
-
     app.post('/api/verifyAccount', async (req, res, next) =>
     {
         // incoming: email
@@ -421,5 +419,25 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
 
     });
+
+
+
+    /*
+
+        TODO:
+
+            1) editAccount has a problem
+                - if the email of the account is changed, then all of the budgets of that user are disconnected from them since a
+                user-budget relationship is bounded by the email address.
+            
+                Solution:
+                    Refactor the code such that each budget is linked to a user by the user's field (_id) since this cannot be changed by the user
+
+            
+
+                    - Brenden
+
+    */
+
 
 }
