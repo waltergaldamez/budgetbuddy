@@ -63,7 +63,7 @@ exports.setApp = function (app, client ){
         }
 
         var ret = { error: error };
-          res.status(200).json(ret);
+        res.status(200).json(ret);
     });
 
 
@@ -247,4 +247,20 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
+    app.post('/api/removeFriend', async (req, res, next) => 
+    {
+        var error = '';
+        const userID = req.param('userID');
+        const friendID = req.param('friendID');
+
+        const db = client.db();
+
+        try{
+
+        }catch(e){
+            error = e.toString();
+        }
+        var ret = { error: error };
+        res.status(200).json(ret);
+    });
 }
