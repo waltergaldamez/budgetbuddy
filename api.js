@@ -311,31 +311,46 @@ exports.setApp = function (app, client ){
         var error = '';
         
         const db = client.db();
+        var rank = -99;
+
+        const userID = req.param('userID');
 
         try{
+            // Get the user from the database
+            const user = await db.collection('users').find({'_id' : ObjectId(userID)}).toArray();
+
+            rank = user[0].rankMetric;            
 
         }catch(e){
             error = e.toString();
         }
 
-        var ret = {error:error};
+        var ret = {rank:rank, error:error};
         res.status(200).json(ret);
 
     });
 
     app.post('/api/updateRank', async (req, res, next) =>
     {
+        // incoming: new rank, userID
+        // Outgoing: updateRank
         var error = '';
         
         const db = client.db();
+        var user = {};
+
+        const userID = req.param('userID');
+        const newRank = req.param('newRank');
+
 
         try{
+            user = await db.collection('users').updateOne({'_id':ObjectId(userID)}, { $set: {rankMetric:newRank}});
 
         }catch(e){
             error = e.toString();
         }
 
-        var ret = {error:error};
+        var ret = {updatedRank:newRank, error:error};
         res.status(200).json(ret);
     });
 }
