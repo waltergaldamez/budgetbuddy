@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Form, Button, Card } from 'react-bootstrap';
+import SearchUsers from '../components/SearchUsers';
 import { Container, Row, Col } from 'react-bootstrap';
 
-const SearchBar = () => {
+const SearchBar = ({onClickFunction}) => {
     const [searchQuery, setSearchQuery] = useState('');
 
     const onChangeSearch = query => setSearchQuery(query);
@@ -13,7 +14,7 @@ const SearchBar = () => {
           <Form.Label>Search Friend</Form.Label>
           <Form.Control type="email" placeholder="username" />
         </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button variant="primary" type="submit" onClick={SearchUsers}>
         Search
       </Button>
   </Form>
