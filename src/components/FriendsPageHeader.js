@@ -4,7 +4,7 @@ import { Navbar,Nav,NavDropdown,Form,FormControl,Button } from 'react-bootstrap'
 const FriendsPageHeader = () => {
   return (
     <div>
-    <Navbar bg="dark" variant="dark">
+    <Navbar className="color-nav" variant="dark">
     <Navbar.Brand href="/budget">BudgetBuddies</Navbar.Brand>
     <Nav className="mr-auto">
       <Nav.Link href="/budget">Home</Nav.Link>
