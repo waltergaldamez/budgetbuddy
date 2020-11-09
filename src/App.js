@@ -5,6 +5,7 @@ import BudgetsPage from './pages/BudgetsPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import FriendsPage from './pages/FriendsPage';
+import FriendsPage from './pages/HomePage';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -13,6 +14,9 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <LoginPage />
+        </Route>
+        <Route path="/home" exact>
+          <HomePage />
         </Route>
         <Route path="/register" exact>
           <RegisterPage />

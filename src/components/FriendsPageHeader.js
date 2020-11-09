@@ -5,7 +5,7 @@ const FriendsPageHeader = () => {
   return (
     <div>
     <Navbar className="color-nav" variant="dark">
-    <Navbar.Brand href="/budget">
+    <Navbar.Brand href="/home">
       <i class="fa fa-home fa-2x circle-icon"></i>
       <h3>Home</h3>
     </Navbar.Brand>
