@@ -12,7 +12,7 @@ const SearchBar = ({onClickFunction}) => {
       <Form>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Search Friend</Form.Label>
-          <Form.Control type="email" placeholder="username" />
+          <Form.Control type="username" placeholder="username" />
         </Form.Group>
       <Button variant="primary" type="submit" onClick={SearchUsers}>
         Search
