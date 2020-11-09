@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FriendsPageHeader from '../components/HomePageHeader';
+import HomePageHeader from '../components/HomePageHeader';
 import LoggedInName from '../components/LoggedInName';
 
 import { Container, Row, Col } from 'react-bootstrap';
