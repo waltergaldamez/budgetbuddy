@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Searchbar } from 'react-native-paper';
+import { Form, Button, Card } from 'react-bootstrap';
 
 const SearchBar = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -7,11 +7,15 @@ const SearchBar = () => {
     const onChangeSearch = query => setSearchQuery(query);
 
     return (
-        <Searchbar
-            placeholder="Search for a user"
-            onChangeText={onChangeSearch}
-            value={searchQuery}
-            />
+      <Form>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Search Friend</Form.Label>
+          <Form.Control type="email" placeholder="username" />
+        </Form.Group>
+      <Button variant="primary" type="submit">
+        Search
+      </Button>
+  </Form>
     );
 };
 
