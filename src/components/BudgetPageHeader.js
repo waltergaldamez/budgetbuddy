@@ -9,8 +9,12 @@ const BudgetPageHeader = () => {
       <i class="fa fa-home fa-2x circle-icon"></i>
     </Navbar.Brand>
     <Nav className="mr-auto">
-      <Nav.Link href="/budget">Budgets</Nav.Link>
-      <Nav.Link href="/friends">Friends</Nav.Link>
+      <Nav.Link href="/budget">
+        <i class="fa fa-chart-line fa-2x circle icon"></i>
+      </Nav.Link>
+      <Nav.Link href="/friends">
+        <i class="fa fa-trophy fa-2x circle icon"></i>
+      </Nav.Link>
     </Nav>
     <Form inline>
       <FormControl type="text" placeholder="Search" className="mr-sm-2" />
