@@ -6,7 +6,7 @@ const BudgetPageHeader = () => {
     <div>
     <Navbar className="color-nav" variant="dark">
     <Navbar.Brand href="/budget">
-      <i class="fa fa-home fa-3x circle-icon"></i>
+      <i class="fa fa-home fa-2x circle-icon"></i>
     </Navbar.Brand>
     <Nav className="mr-auto">
       <Nav.Link href="/budget">Budgets</Nav.Link>
