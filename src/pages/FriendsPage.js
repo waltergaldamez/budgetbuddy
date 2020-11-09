@@ -20,7 +20,6 @@ const FriendsPage = () =>
         <Row>
           <Col></Col>
           <Col>
-            Find a Friend!
             <FriendSearchBar />
           </Col>
           <Col>
