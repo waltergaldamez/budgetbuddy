@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import FriendSearchBar from './FriendSearchBar';
 
-function FindUser() 
+function SeachUsers() 
 {
     const app_name = "budgetbuddiesapp";
     function buildPath(route)
@@ -16,15 +17,12 @@ function FindUser()
     }
 
     var searchUsername;
-    var friendID;
-    //var searchEmail;
 
+    const [searchResults, setSearchResults] = useState([]); 
     const [message, setMessage] = useState('');
 
-    // Get userID
-    // var uID = localStorage.getItem('userID');
-
-    const findUser = async event =>
+    // Get the user ids for the matching usernames
+    const searchUsers = async event =>
     {
         event.preventDefault();
         var obj = {searchUsername: searchUsername.value, verification: false};
@@ -33,7 +31,7 @@ function FindUser()
         try
         {
             // API call
-            const response = await fetch(buildPath('api/findUser'), 
+            const response = await fetch(buildPath('api/searchUsers'), 
             {method:'POST', body:js,headers:{'Content-Type': 'application/json'}});
 
             // Parse JSON response
@@ -41,13 +39,15 @@ function FindUser()
 
             if ( res.error != '')
             {
-                setMessage('No users found with this username.');
+                setMessage('No users found.');
             }
+            else if (res.results.length == 0)
+            {
+                setMessage('No users found.');
+            }    
             else 
             {
-                localStorage.setItem('friendID', res.friendID);
-                // re-route
-                // window.location.href = '/FriendsPage.js';
+                setSearchResults(res.results);
             }
         }
         catch(e)
@@ -58,14 +58,16 @@ function FindUser()
     }
 
     return(
-        <div id="findUserDiv">
+        <div id="searchUsersDiv">
+            <FriendSearchBar >
+            </FriendSearchBar>
             <form>
                 <input type="text" id="searchUsername" placeholder="searchUsername" ref={(c) => searchUsername = c} /><br />
-                <button type="submit" onClick={findUser}>Find a User</button>
+                <button type="submit" onClick={setSearchResults}>Find a User</button>
             </form>
             <span id="findUserResult">{message}</span>
         </div>
     );
 };
 
-export default FindUser;
+export default SearchUsers;
