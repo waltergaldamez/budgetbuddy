@@ -206,7 +206,7 @@ exports.setApp = function (app, client ){
         // Return each username in our results array
         for( var i=0; i<results.length; i++ )
         {
-            _ret.push( results[i].username );
+            _ret.push( results[i]._id);
         }
 
         var ret = {results:_ret, error:error};
