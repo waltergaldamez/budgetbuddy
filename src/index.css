@@ -27,6 +27,10 @@ code {
     font-weight: 900;
 }
 
+svg {
+  height: 30px;
+}
+
 i {
   position: static;
 }
