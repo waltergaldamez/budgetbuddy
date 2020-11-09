@@ -10,10 +10,10 @@ const BudgetPageHeader = () => {
     </Navbar.Brand>
     <Nav className="mr-auto">
       <Nav.Link href="/budget">
-        <i class="fa fa-chart-line fa-2x circle icon"></i>
+        <i class="fa fa-chart-line fa-2x circle-icon"></i>
       </Nav.Link>
       <Nav.Link href="/friends">
-        <i class="fa fa-trophy fa-2x circle icon"></i>
+        <i class="fa fa-trophy fa-2x circle-icon"></i>
       </Nav.Link>
     </Nav>
     <Form inline>
