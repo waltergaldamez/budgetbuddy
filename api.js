@@ -4,11 +4,15 @@ exports.setApp = function (app, client ){
 
     app.post('/api/addbudget', async (req, res, next) =>
     {
-      // incoming: userEmail, budgetGoal, budgetProgress, budgetName
+      // incoming: userID, budgetGoal, budgetProgress, budgetName
       // outgoing: error
 
-      const newBudget = {"email": req.param("email"), "BudgetName":req.param("BudgetName"), "BudgetGoal":parseFloat(req.param("BudgetGoal")),
-                        "BudgetProgress":parseFloat(req.param("BudgetProgress"))};
+      const newBudget = {
+        "_id": req.param("userID"),
+        "BudgetName":req.param("BudgetName"),
+        "BudgetGoal":parseFloat(req.param("BudgetGoal")),
+        "BudgetProgress":parseFloat(req.param("BudgetProgress"))
+    };
       var error = '';
       try
       {
@@ -88,11 +92,11 @@ exports.setApp = function (app, client ){
 
     app.post('/api/showAllBudgets', async (req, res, next) => {
         const db = client.db();
-        const userEmail = req.param('email');
+        const userID= req.param('userID');
         var error = '';
          try{
 
-            const results = await db.collection('budgets').find({'email' : req.param('email')}).toArray();
+            const results = await db.collection('budgets').find({'_id' : userID}).toArray();
             console.log(results);
             console.log("results length: "+results.length);
             var _ret = [];
@@ -431,7 +435,7 @@ exports.setApp = function (app, client ){
                 user-budget relationship is bounded by the email address.
             
                 Solution:
-                    Refactor the code such that each budget is linked to a user by the user's field (_id) since this cannot be changed by the user
+                    Refactor the code such that each budget is linked to a user by the user's ID field (_id) since this cannot be changed by the user
 
             
 
