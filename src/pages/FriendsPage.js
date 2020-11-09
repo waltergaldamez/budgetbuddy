@@ -29,29 +29,4 @@ const FriendsPage = () =>
     );
 };
 
-
-
-
-
-const FriendsPage = () =>
-{
-    return(
-
-
-
-
-        <div>
-            <FriendsPageHeader />
-            <LoggedInName />
-            
-            <FriendSearchBar.js>
-            Find a Budget Buddy!
-            </FriendSearchBar.js>
-
-            <AddFriend />
-            <RemoveFriend />
-        </div>
-    );
-}
-
 export default FriendsPage;
