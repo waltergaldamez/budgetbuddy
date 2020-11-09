@@ -1,33 +1,55 @@
 import React from 'react';
 
 import FriendsPageHeader from '../components/FriendsPageHeader';
+import FriendSearchBar from '../components/FriendSearchBar';
 import LoggedInName from '../components/LoggedInName';
-import FindUser from '../components/FindUser';
-import AddFriend from '../components/AddFriend';
+//import FindUser from '../components/FindUser';
+//import AddFriend from '../components/AddFriend';
 
-/* Add search bar functionality (mongoose api call?)
-const FriendsList = () =>
+const FriendsPage = () =>
 {
-
-
-    return (
-        <>
-        <label searchFor="username">Search by username</label>
-        <input type="text" value={searchUsername.value} ></input>
-    );
+    return(
+      <Container fluid>
+        <Row>
+          <Col>
+            <FriendsPageHeader />
+          </Col>
+        </Row>
+        <Row>
+          <Col></Col>
+          <Col>
+            Find a Friend!
+            <FriendSearchBar />
+          </Col>
+          <Col>
+            <LoggedInName />
+          </Col>
+        </Row>
+      </Container>
+    );
 };
-*/
+
+
+
+
 
 const FriendsPage = () =>
 {
     return(
+
+
+
+
         <div>
             <FriendsPageHeader />
             <LoggedInName />
             
-            <FindUser />
+            <FriendSearchBar.js>
+            Find a Budget Buddy!
+            </FriendSearchBar.js>
 
             <AddFriend />
+            <RemoveFriend />
         </div>
     );
 }
