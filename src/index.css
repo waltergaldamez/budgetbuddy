@@ -18,13 +18,12 @@ code {
 
 .circle-icon {
     background: #ffc0c0;
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     text-align: center;
-    line-height: 100px;
+    line-height: 60px;
     vertical-align: middle;
-    padding: 30px;
 }
 
 i {
