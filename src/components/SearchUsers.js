@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
 import FriendSearchBar from './FriendSearchBar';
 
-function SeachUsers() 
+function SearchUsers() 
 {
     const app_name = "budgetbuddiesapp";
     function buildPath(route)
     {
-        if (process.env.NODE_ENV === 'production') 
+        if (process.env.NODE_ENV === 'production')
         {
             return 'https://' + app_name +  '.herokuapp.com/' + route;
         }
         else
-        {        
+        {
             return 'http://localhost:5000/' + route;
         }
     }
 
     var searchUsername;
 
-    const [searchResults, setSearchResults] = useState([]); 
+    const [searchResults, setSearchResults] = useState([]);
     const [message, setMessage] = useState('');
 
     // Get the user ids for the matching usernames
@@ -31,7 +31,7 @@ function SeachUsers()
         try
         {
             // API call
-            const response = await fetch(buildPath('api/searchUsers'), 
+            const response = await fetch(buildPath('api/searchUsers'),
             {method:'POST', body:js,headers:{'Content-Type': 'application/json'}});
 
             // Parse JSON response
@@ -44,8 +44,8 @@ function SeachUsers()
             else if (res.results.length == 0)
             {
                 setMessage('No users found.');
-            }    
-            else 
+            }
+            else
             {
                 setSearchResults(res.results);
             }
