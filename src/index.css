@@ -16,8 +16,19 @@ code {
   background-color: #19c0ff;
 }
 
-.circle-icon {
+.circle-icon-current {
     background: #FCB401;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 60px;
+    vertical-align: middle;
+    font-weight: 900;
+}
+
+.circle-icon-selected {
+    background: #FB2B60;
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -33,6 +44,7 @@ svg {
 
 h3 {
   display: inline;
+  padding-left: 20pt;
 }
 
 i {

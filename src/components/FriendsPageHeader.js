@@ -17,7 +17,7 @@ const FriendsPageHeader = () => {
         <h3>Budgets</h3>
       </Nav.Link>
       <Nav.Link href="/friends">
-        <i class="fa fa-trophy fa-2x circle-icon"></i>
+        <i class="fa fa-trophy fa-2x circle-icon-selected"></i>
         <h3>Leaderboard</h3>
       </Nav.Link>
     </Nav>
