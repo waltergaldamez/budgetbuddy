@@ -185,30 +185,31 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/findUser', async (req, res, next) =>
+    app.post('/api/searchUsers', async (req, res, next) =>
     {
         // incoming: searchUsername
-        // outgoing: friendID, error
+        // outgoing: results[], error
 
-        var error = 'no users found';
-        const friendUsername = req.param('searchUsername');
+        var error = '';
+        const uname = req.param('searchUsername');
+
+        var _search = uname.trim();
 
         // Acquire a database object
         const db = client.db();
 
-        // Query database to find user with this info
-        const results = await db.collection('users').find({"username":friendUsername}).toArray();
+        // Query database to find users with this info
+        const results = await db.collection('users').find({"username":{$regex:_search+'.*', $options:'r'}}).toArray();
 
-        // User with this info found
-        if ( results.length > 0 )
+        var _ret = [];
+
+        // Return each username in our results array
+        for( var i=0; i<results.length; i++ )
         {
-            const friendID = results[0]._id;
-            ret = { friendID:friendID, error:''};
+            _ret.push( results[i].username );
         }
-        else
-        {
-            ret = {error:error};
-        }
+
+        var ret = {results:_ret, error:error};
         res.status(200).json(ret);
     });
 
