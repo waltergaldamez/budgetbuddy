@@ -59,13 +59,8 @@ function SearchUsers()
 
     return(
         <div id="searchUsersDiv">
-            <FriendSearchBar >
-            </FriendSearchBar>
-            <form>
-                <input type="text" id="searchUsername" placeholder="searchUsername" ref={(c) => searchUsername = c} /><br />
-                <button type="submit" onClick={setSearchResults}>Find a User</button>
-            </form>
-            <span id="findUserResult">{message}</span>
+            <FriendSearchBar onClickFunction={SearchUsers} ref={(c) => searchUsername = c} />
+            <span id="searchUsersResult">{message}</span>
         </div>
     );
 };
