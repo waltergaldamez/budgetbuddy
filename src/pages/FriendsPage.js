@@ -3,6 +3,8 @@ import React from 'react';
 import FriendsPageHeader from '../components/FriendsPageHeader';
 import FriendSearchBar from '../components/FriendSearchBar';
 import LoggedInName from '../components/LoggedInName';
+
+import { Container, Row, Col } from 'react-bootstrap';
 //import FindUser from '../components/FindUser';
 //import AddFriend from '../components/AddFriend';
 
