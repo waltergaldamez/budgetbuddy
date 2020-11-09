@@ -1,22 +1,40 @@
 const { ObjectId } = require('mongodb');
 exports.setApp = function (app, client ){
 
-
+	
+	
+	
+    // Adds a single budget with the following parameters for JSON:
+	// {
+	//	userID,
+	//	BudgetName,
+	//	BudgetGoal,
+	//	BudgetProgress
+	// }
+	//
+	
+    // Returns: error 
     app.post('/api/addbudget', async (req, res, next) =>
     {
       // incoming: userID, budgetGoal, budgetProgress, budgetName
       // outgoing: error
-
+      // Constructing the newBudget instance    
       const newBudget = {
         "_id": req.param("userID"),
         "BudgetName":req.param("BudgetName"),
         "BudgetGoal":parseFloat(req.param("BudgetGoal")),
         "BudgetProgress":parseFloat(req.param("BudgetProgress"))
-    };
+      };
+
+	    
       var error = '';
+
       try
       {
+	// Connecting to the db	    
         const db = client.db();
+
+	// Insert newBudget into db
         db.collection('budgets').insertOne(newBudget);
       }
       catch(e)
@@ -24,10 +42,13 @@ exports.setApp = function (app, client ){
         error = e.toString();
       }
 
+      // Return: error
       var ret = { error: error };
       res.status(200).json(ret);
     });
 
+
+    // Adds
     app.post('/api/addprogress', async (req, res, next) =>
     {
         // in: _id of budget and progress to add
