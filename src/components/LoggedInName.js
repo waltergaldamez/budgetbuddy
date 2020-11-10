@@ -21,11 +21,11 @@ function LoggedInName()
   return(
    <div id="loggedInDiv">
    <span id="userName">Logged In As {username}</span><br />
-	 <Button variant="danger" type="submit" onClick={doLogout}>
-		 Logout
-		 <span class="material-icons">
-		 	exit_to_app
-		 </span>
+	 <Button variant="danger" type="submit" className="pink">
+			<span class="material-icons black-text">
+			 exit_to_app
+			</span>
+			<div class="logout black-text">Logout</div>
 	 </Button>
    </div>
   );

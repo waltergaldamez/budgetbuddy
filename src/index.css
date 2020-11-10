@@ -56,3 +56,17 @@ i {
 .middle-nav {
   padding-left: 400px;
 }
+
+.logout {
+  display: inline;
+  position: relative;
+  bottom: 5px;
+}
+
+.black-text {
+  color: black;
+}
+
+.pink {
+  background-color: #FB2B60;;
+}
