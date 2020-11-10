@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #B2EAFF;
 }
 
 code {
@@ -81,6 +82,17 @@ i {
 .inner {
   width: 450px;
   height: 625px;
+  margin: auto;
+  background: #19c0ff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  padding: 40px 55px 45px 55px;
+  border-radius: 15px;
+  transition: all .3s;
+}
+
+.inner-login{
+  width: 450px;
+  height: 475px;
   margin: auto;
   background: #19c0ff;
   box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
