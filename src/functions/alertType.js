@@ -15,7 +15,7 @@ export const alertType = ({message}) => {
   else if (message === "")
     return <span></span>;
   else
-    return (<span class="alert-regisration"><Alert variant="danger" onClose={() => setMessage(false)} dismissible>
+    return (<span class="alert-regisration"><Alert variant="danger" onClose={() => setAlert(false)} dismissible>
       <p>{message}</p>
     </Alert></span>);
 }
