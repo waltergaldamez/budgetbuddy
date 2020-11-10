@@ -1,17 +1,10 @@
 import React, { useState } from 'react';
 import { Form, Button, Card } from 'react-bootstrap';
 import { Alert } from 'react-bootstrap';
+import { buildPath } from '../functions/buildPath';
+import { alertType } from '../functions/alertType';
 
 function Register() {
-  const app_name = "budgetbuddiesapp";
-  function buildPath(route) {
-    if (process.env.NODE_ENV === 'production') {
-      return 'https://' + app_name + '.herokuapp.com/' + route;
-    } else {
-      return 'https://localhost:5000/' + route;
-    }
-  }
-
   var registerUserName;
   var registerEmail;
   var password;
@@ -19,21 +12,6 @@ function Register() {
   var budgetAndFriends =[];
 
   const [ message, setMessage ] = useState('');
-
-  const alertType = ({message}) => {
-    if (message === undefined )
-      return <span></span>;
-    else if (message.includes("sent"))
-      return (<span class="alert-regisration"><Alert variant="success" onClose={() => setMessage('')} dismissible>
-        <p>{message}</p>
-      </Alert></span>);
-    else if (message === "")
-      return <span></span>;
-    else
-      return (<span class="alert-regisration"><Alert variant="danger" onClose={() => setMessage('')} dismissible>
-        <p>{message}</p>
-      </Alert></span>);
-  }
 
   const doRegistration = async event => {
     event.preventDefault();
@@ -70,35 +48,34 @@ function Register() {
   }
   return (
     <form>
+      <ul class="top-area">
+        <li class="tab inactive"><a href="/"><b>Log in</b></a></li>
+        <li class="tab active"><a href="/register"><b>Register</b></a></li>
+      </ul>
 
-              <ul class="top-area">
-                <li class="tab inactive"><a href="/"><b>Log in</b></a></li>
-                <li class="tab active"><a href="/register"><b>Register</b></a></li>
-              </ul>
+      <div className="form-group">
+        <label><b>Username</b></label>
+        <input type="text" className="form-control login" ref={(c) => registerUserName = c}/>
+      </div>
 
-                  <div className="form-group">
-                      <label><b>Username</b></label>
-                      <input type="text" className="form-control login" ref={(c) => registerUserName = c}/>
-                  </div>
+      <div className="form-group">
+        <label><b>Email</b></label>
+        <input type="email" className="form-control login" ref={(c) => registerEmail = c}/>
+      </div>
 
-                  <div className="form-group">
-                      <label><b>Email</b></label>
-                      <input type="email" className="form-control login" ref={(c) => registerEmail = c}/>
-                  </div>
+      <div className="form-group">
+        <label><b>Password</b></label>
+        <input type="password" className="form-control login" ref={(c) => password = c}/>
+      </div>
 
-                  <div className="form-group">
-                      <label><b>Password</b></label>
-                      <input type="password" className="form-control login" ref={(c) => password = c}/>
-                  </div>
+      <div className="form-group">
+        <label><b>Confirm Password</b></label>
+        <input type="password" className="form-control login" ref={(c) => passwordConfirm = c}/>
+      </div>
 
-                  <div className="form-group">
-                      <label><b>Confirm Password</b></label>
-                      <input type="password" className="form-control login" ref={(c) => passwordConfirm = c}/>
-                  </div>
-
-                  <button type="submit" className="btn btn-lg btn-block btn-yellow" onClick={doRegistration}><b>Register</b></button>
-                  {alertType({message})}
-              </form>
+      <button type="submit" className="btn btn-lg btn-block btn-yellow" onClick={doRegistration}><b>Register</b></button>
+      {alertType({message})}
+      </form>
   );
 };
 

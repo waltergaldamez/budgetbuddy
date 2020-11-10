@@ -1,23 +1,10 @@
 import React, { useState } from 'react';
 import { Form, Button, Card } from 'react-bootstrap';
 import { Alert } from 'react-bootstrap';
+import { buildPath } from '../functions/buildPath'
 
 function Login()
 {
-
-    const app_name = 'budgetbuddiesapp'
-    function buildPath(route)
-    {
-        if (process.env.NODE_ENV === 'production')
-        {
-            return 'https://' + app_name +  '.herokuapp.com/' + route;
-        }
-        else
-        {
-            return 'http://localhost:5000/' + route;
-        }
-    }
-
     var loginEmail;
     var loginPassword;
 
@@ -62,29 +49,33 @@ function Login()
 
     return(
       <form>
+        <ul class="top-area">
+          <li class="tab active"><a href="/"><b>Log in</b></a></li>
+          <li class="tab inactive"><a href="/register"><b>Register</b></a></li>
+        </ul>
 
-            <ul class="top-area">
-              <li class="tab active"><a href="/"><b>Log in</b></a></li>
-              <li class="tab inactive"><a href="/register"><b>Register</b></a></li>
-            </ul>
+        <div className="form-group">
+          <label><b>Username or Email</b></label>
+          <input type="text" className="form-control login" ref={(c) => loginEmail = c}/>
+        </div>
 
-                <div className="form-group">
-                    <label><b>Username or Email</b></label>
-                    <input type="text" className="form-control login" ref={(c) => loginEmail = c}/>
-                </div>
+        <div className="form-group">
+          <label><b>Password</b></label>
+          <input type="password" className="form-control login" ref={(c) => loginPassword = c}/>
+        </div>
 
-                <div className="form-group">
-                    <label><b>Password</b></label>
-                    <input type="password" className="form-control login" ref={(c) => loginPassword = c}/>
-                </div>
-
-                <button type="submit" className="btn btn-lg btn-block btn-yellow" onClick={doLogin}><b>Log in</b></button>
-                { showAlert ? (
-                <span class="alert"><Alert variant="danger" onClose={() => setAlert(false)} dismissible>
-                  <p>Email/Password combination incorrect</p>
-                </Alert></span>
-                ) : <span></span>}
-            </form>
+        <button type="submit" className="btn btn-lg btn-block btn-yellow" onClick={doLogin}><b>Log in</b></button>
+        {
+          showAlert ? (
+                <span class="alert">
+                  <Alert variant="danger" onClose={() => setAlert(false)} dismissible>
+                    <p>Email/Password combination incorrect</p>
+                  </Alert>
+                </span>
+                ) :
+                <span></span>
+          }
+      </form>
 )};
 
 export default Login;
