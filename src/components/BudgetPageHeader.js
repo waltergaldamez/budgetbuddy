@@ -13,7 +13,7 @@ const BudgetPageHeader = () => {
       <Nav.Link href="/budget">
         <span class="material-icons md-48 circle-icon-selected">
           trending_up
-          </span>
+        </span>
         <h3>Budgets</h3>
       </Nav.Link>
       <Nav.Link href="/friends">
