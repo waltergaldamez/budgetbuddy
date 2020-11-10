@@ -18,7 +18,7 @@ function Register() {
   var passwordConfirm;
   var budgetAndFriends =[];
 
-  const [ message, setMessage ] = '';
+  const [ message, setMessage ] = useState('');
 
   const alertType = ({message}) => {
     if (message === undefined )
