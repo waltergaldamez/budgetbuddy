@@ -65,45 +65,40 @@ function Register() {
     }
   }
   return (
-    <Card >
-      <Card.Body>
-        <Form>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" ref={(c) => registerEmail = c} />
-          </Form.Group>
+    <form>
 
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Username</Form.Label>
-            <Form.Control type="text" placeholder="username" ref={(c) => registerUserName = c} />
-          </Form.Group>
+            <ul class="top-area">
+              <li class="tab inactive"><a href="/"><b>Log in</b></a></li>
+              <li class="tab active"><a href="/register"><b>Register</b></a></li>
+            </ul>
 
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" ref={(c) => password = c}/>
-          </Form.Group>
+                <div className="form-group">
+                    <label><b>Username</b></label>
+                    <input type="text" className="form-control login" ref={(c) => registerUserName = c}/>
+                </div>
 
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Confirm Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" ref={(c) => passwordConfirm = c}/>
-          </Form.Group>
+                <div className="form-group">
+                    <label><b>Email</b></label>
+                    <input type="email" className="form-control login" ref={(c) => registerEmail = c}/>
+                </div>
 
-          <Button variant="primary" type="submit" onClick={doRegistration}>
-            Sign Up
-          </Button>
+                <div className="form-group">
+                    <label><b>Password</b></label>
+                    <input type="password" className="form-control login" ref={(c) => password = c}/>
+                </div>
 
-          { showAlert ? (
-            <Alert variant="danger" onClose={() => showAlert = false} dismissible>
-              <p>Email/Password combination incorrect</p>
-            </Alert>
-            ) : <span></span>}
+                <div className="form-group">
+                    <label><b>Confirm Password</b></label>
+                    <input type="password" className="form-control login" ref={(c) => passwordConfirm = c}/>
+                </div>
 
-          <p className="forgot-password text-left">
-              Have an account? Log in <a href="/">here</a>
-          </p>
-        </Form>
-      </Card.Body>
-    </Card>
+                <button type="submit" className="btn btn-lg btn-block btn-yellow" onClick={doRegistration}><b>Register</b></button>
+                { showAlert ? (
+                  <Alert variant="danger" onClose={() => showAlert = false} dismissible>
+                    <p>Email/Password combination incorrect</p>
+                  </Alert>
+                  ) : <span></span>}
+            </form>
   );
 };
 

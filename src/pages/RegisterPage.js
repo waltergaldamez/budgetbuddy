@@ -5,16 +5,11 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 const RegisterPage = () => {
   return (
-    <Container>
-      <Row>
-        <Col></Col>
-        <Col>
-          <h1 style={{textAlign: "center"}}> Sign Up!</h1>
+    <div className="outer">
+        <div className="inner">
           <Register />
-        </Col>
-        <Col> </Col>
-      </Row>
-    </Container>
+        </div>
+      </div>
   )
 }
 
