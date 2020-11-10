@@ -11,7 +11,7 @@ const BudgetPageHeader = () => {
     </Navbar.Brand>
     <Nav className="mr-auto">
       <Nav.Link href="/budget">
-        <span class=".material-icons.md-24 circle-icon-selected">
+        <span class=".material-icons.md-48 circle-icon-selected">
           trending_up
           </span>
         <h3>Budgets</h3>

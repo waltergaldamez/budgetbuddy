@@ -50,3 +50,5 @@ h3 {
 i {
   position: static;
 }
+
+.material-icons.md-48 { font-size: 48px; }
