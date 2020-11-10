@@ -125,10 +125,7 @@ i {
   transition: .5s ease;
   border-radius: 16px;
 }
-.top-area li a:hover {
-  background: #0080ff;
-  color: #ffffff;
-}
+
 .top-area .active a {
   background: #FB2B60;
   color: black;
@@ -152,4 +149,8 @@ i {
   border-radius: 16px;
   margin-left: 100px;
   margin-top: 40px;
+}
+
+.alert {
+  margin-top: 50px;
 }

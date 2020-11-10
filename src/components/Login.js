@@ -64,8 +64,8 @@ function Login()
       <form>
 
             <ul class="top-area">
-              <li class="tab active"><a href="/signup"><b>Log in</b></a></li>
-              <li class="tab inactive"><a href="/login"><b>Register</b></a></li>
+              <li class="tab active"><a href="/"><b>Log in</b></a></li>
+              <li class="tab inactive"><a href="/register"><b>Register</b></a></li>
             </ul>
 
                 <div className="form-group">
@@ -80,10 +80,10 @@ function Login()
 
                 <button type="submit" className="btn btn-lg btn-block btn-yellow" onClick={doLogin}><b>Log in</b></button>
                 { showAlert ? (
-                  <Alert variant="danger" onClose={() => setAlert(false)} dismissible>
-                    <p>Email/Password combination incorrect</p>
-                  </Alert>
-                  ) : <span></span>}
+                <span class="alert"><Alert variant="danger" onClose={() => setAlert(false)} dismissible>
+                  <p>Email/Password combination incorrect</p>
+                </Alert></span>
+                ) : <span></span>}
             </form>
 )};
 
