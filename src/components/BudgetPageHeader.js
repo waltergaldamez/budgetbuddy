@@ -10,16 +10,20 @@ const BudgetPageHeader = () => {
       <h3>Home</h3>
     </Navbar.Brand>
     <Nav className="mr-auto">
+    <div class="middle-nav">
       <Nav.Link href="/budget">
         <span class="material-icons md-48 circle-icon-selected">
           trending_up
         </span>
         <h3>Budgets</h3>
       </Nav.Link>
-      <Nav.Link href="/friends">
+    </div>
+    <div class="middle-nav" >
+      <Nav.Link href="/friends" class="middle-nav">
         <i class="fa fa-trophy fa-2x circle-icon"></i>
         <h3>Leaderboard</h3>
       </Nav.Link>
+    </div>
     </Nav>
   </Navbar>
   </div>
