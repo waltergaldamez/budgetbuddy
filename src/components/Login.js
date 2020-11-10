@@ -61,33 +61,30 @@ function Login()
     };
 
     return(
-    <Card >
-      <Card.Body>
-        <Form>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" ref={(c) => loginEmail = c} />
-          </Form.Group>
+      <form>
 
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" ref={(c) => loginPassword = c}/>
-          </Form.Group>
-          <Button variant="primary" type="submit" onClick={doLogin}>
-            Login
-          </Button>
-          <p className="forgot-password text-left">
-              Register for an account <a href="/register">here</a>
-          </p>
-          { showAlert ? (
-            <Alert variant="danger" onClose={() => setAlert(false)} dismissible>
-              <p>Email/Password combination incorrect</p>
-            </Alert>
-            ) : <span></span>}
-        </Form>
-      </Card.Body>
-    </Card>
-    );
+            <ul class="top-area">
+              <li class="tab active"><a href="/signup"><b>Log in</b></a></li>
+              <li class="tab inactive"><a href="/login"><b>Register</b></a></li>
+            </ul>
+
+                <div className="form-group">
+                    <label><b>Username or Email</b></label>
+                    <input type="email" className="form-control login" ref={(c) => loginEmail = c}/>
+                </div>
+
+                <div className="form-group">
+                    <label><b>Password</b></label>
+                    <input type="email" className="form-control login" ref={(c) => loginPassword = c}/>
+                </div>
+
+                <button type="submit" className="btn btn-lg btn-block btn-yellow" onClick={doLogin}><b>Log in</b></button>
+                { showAlert ? (
+                  <Alert variant="danger" onClose={() => setAlert(false)} dismissible>
+                    <p>Email/Password combination incorrect</p>
+                  </Alert>
+                  ) : <span></span>}
+            </form>
 };
 
 export default Login;

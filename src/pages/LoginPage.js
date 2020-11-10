@@ -8,16 +8,11 @@ import Login from '../components/Login';
 
 const LoginPage = () => {
   return (
-    <Container>
-      <Row>
-        <Col></Col>
-        <Col>
-        <PageHeader />
+    <div className="outer">
+        <div className="inner">
           <Login />
-        </Col>
-        <Col></Col>
-      </Row>
-    </Container>
+        </div>
+      </div>
   )
 }
 
