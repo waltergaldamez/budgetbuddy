@@ -10,13 +10,13 @@ const HomePageHeader = () => {
       <h3>Home</h3>
     </Navbar.Brand>
     <Nav className="mr-auto">
-    <Nav.Link href="/budget middle-nav">
+    <Nav.Link href="/budget" class="middle-nav">
       <span class="material-icons md-48 circle-icon">
         trending_up
       </span>
       <h3>Budgets</h3>
     </Nav.Link>
-      <Nav.Link href="/friends middle-nav">
+      <Nav.Link href="/friends" class="middle-nav">
         <i class="fa fa-trophy fa-2x circle-icon"></i>
         <h3>Leaderboard</h3>
       </Nav.Link>
