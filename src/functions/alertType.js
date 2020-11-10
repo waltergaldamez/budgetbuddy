@@ -1,18 +1,21 @@
 import { Alert } from 'react-bootstrap';
-import React from 'react';
+import React, { useState } from 'react';
 
 
 export const alertType = ({message}) => {
-  if (message === undefined )
+
+  const [ alert, setAlert ] = useState(true);
+
+  if (message === undefined || alert === false)
     return <span></span>;
   else if (message.includes("sent"))
-    return (<span class="alert-regisration"><Alert variant="success" onClose={() => setMessage('')} dismissible>
+    return (<span class="alert-regisration"><Alert variant="success" onClose={() => setAlert(false)} dismissible>
       <p>{message}</p>
     </Alert></span>);
   else if (message === "")
     return <span></span>;
   else
-    return (<span class="alert-regisration"><Alert variant="danger" onClose={() => setMessage('')} dismissible>
+    return (<span class="alert-regisration"><Alert variant="danger" onClose={() => setMessage(false)} dismissible>
       <p>{message}</p>
     </Alert></span>);
 }
