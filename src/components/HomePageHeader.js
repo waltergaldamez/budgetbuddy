@@ -11,7 +11,7 @@ const HomePageHeader = () => {
     </Navbar.Brand>
     <Nav className="mr-auto">
     <Nav.Link href="/budget">
-      <span class="material-icons md-48 circle-icon">
+      <span class="material-icons md-48 circle-icon middle-nav">
         trending_up
       </span>
       <h3>Budgets</h3>
