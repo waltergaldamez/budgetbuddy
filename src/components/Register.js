@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Card } from 'react-bootstrap';
 import { Alert } from 'react-bootstrap';
 import { buildPath } from '../functions/buildPath';
-import { alertType } from '../functions/alertType';
+import AlertType from './AlertType';
 
 function Register() {
   var registerUserName;
@@ -74,7 +74,7 @@ function Register() {
       </div>
 
       <button type="submit" className="btn btn-lg btn-block btn-yellow" onClick={doRegistration}><b>Register</b></button>
-      {alertType({message})}
+      <AlertType message={message} />
       </form>
   );
 };

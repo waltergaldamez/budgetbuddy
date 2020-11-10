@@ -2,7 +2,7 @@ import { Alert } from 'react-bootstrap';
 import React, { useState } from 'react';
 
 
-export const alertType = ({message}) => {
+export function AlertType = ({message}) => {
 
   const [ alert, setAlert ] = useState(true);
 
