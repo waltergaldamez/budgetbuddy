@@ -85,6 +85,6 @@ function Login()
                   </Alert>
                   ) : <span></span>}
             </form>
-};
+)};
 
 export default Login;
