@@ -16,6 +16,7 @@ function Register() {
   var registerEmail;
   var password;
   var passwordConfirm;
+  var budgetAndFriends =[];
 
   const [ message, setMessage ] = '';
 
@@ -36,14 +37,10 @@ function Register() {
     event.preventDefault();
     if (registerEmail.value.length === 0 || registerUserName.value.length === 0
         || password.value.length === 0 || passwordConfirm.value.length === 0) {
-          showAlert = true;
-          variant = "danger";
           setMessage("Please fill in all fields");
           return;
         }
     if (password.value != passwordConfirm.value) {
-      showAlert = true;
-      variant = "danger";
       setMessage("Passwords do not match");
       return;
     }
@@ -60,12 +57,8 @@ function Register() {
       var res = JSON.parse(await response.text());
 
       if (res.error != '') {
-        showAlert = true;
-        variant = "danger";
         setMessage(res.error);
       } else {
-        showAlert = true;
-        variant = "success";
         setMessage("An email has been sent to " + registerEmail.value + ". Please verify your email");
       }
     } catch (e) {
@@ -101,7 +94,7 @@ function Register() {
                       <input type="password" className="form-control login" ref={(c) => passwordConfirm = c}/>
                   </div>
 
-                  <button type="submit" className="btn btn-lg btn-block btn-yellow" onClick={doLogin}><b>Register</b></button>
+                  <button type="submit" className="btn btn-lg btn-block btn-yellow" onClick={doRegistration}><b>Register</b></button>
                   {alertType({message})}
               </form>
   );
