@@ -12,7 +12,7 @@ const HomePage = () =>
     return(
       <Container fluid>
         <Row>
-          <Col>
+          <Col width="100%">
             <HomePageHeader />
           </Col>
         </Row>
