@@ -23,6 +23,9 @@ function LoggedInName()
    <span id="userName">Logged In As {username}</span><br />
 	 <Button variant="danger" type="submit" onClick={doLogout}>
 		 Logout
+		 <span class="material-icons">
+		 	exit_to_app
+		 </span>
 	 </Button>
    </div>
   );
