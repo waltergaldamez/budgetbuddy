@@ -223,6 +223,11 @@ i {
 
 .yellow {
   background: #FCB401;
+  font-size: 36px;
+  color: black;
+  text-align: center;
+  margin-left: 50pt;
+  width: 40%;
 }
 .rank {
   display: inline;
@@ -231,4 +236,10 @@ i {
   bottom: 70px;
   font-size: 60px;
   color: #19C0FF;
+}
+
+.pink-header {
+  background-color: #FB2B60;
+  font-size: 36px;
+  color: black;
 }
