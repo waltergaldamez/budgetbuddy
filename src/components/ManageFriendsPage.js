@@ -2,7 +2,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import FriendsPageHeader from '../components/FriendsPageHeader';
 
-const ManageFriendsPage = () =>
+const ManageFriendsPage = () => {
   return (
     <div>
       <div className="upper">
