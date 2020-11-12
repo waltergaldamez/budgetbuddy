@@ -3,7 +3,7 @@ import { Form, Button, Card } from 'react-bootstrap';
 import SearchUsers from '../components/SearchUsers';
 import { Container, Row, Col } from 'react-bootstrap';
 
-const SearchBar = ({onClickFunction}) => {
+const FriendSearchBar = ({onClickFunction}) => {
     const [searchQuery, setSearchQuery] = useState('');
 
     const onChangeSearch = query => setSearchQuery(query);
@@ -21,4 +21,4 @@ const SearchBar = ({onClickFunction}) => {
     );
 };
 
-export default SearchBar;
+export default FriendSearchBar;
