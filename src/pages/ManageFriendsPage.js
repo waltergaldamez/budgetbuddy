@@ -1,5 +1,5 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import FriendsPageHeader from '../components/FriendsPageHeader';
 
 const ManageFriendsPage = () => {
