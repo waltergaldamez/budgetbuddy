@@ -220,3 +220,15 @@ i {
 .rank-header {
   margin-top: 3.7%;
 }
+
+.yellow {
+  background: #FCB401;
+}
+.rank {
+  display: inline;
+  margin-left: 30%;
+  position: relative;
+  bottom: 70px;
+  font-size: 60px;
+  color: #19C0FF;
+}
