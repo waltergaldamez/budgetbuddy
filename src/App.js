@@ -6,6 +6,7 @@ import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import FriendsPage from './pages/FriendsPage';
 import HomePage from './pages/HomePage';
+import ManageFriendsPage from './pages/ManageFriendsPage';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -26,6 +27,9 @@ function App() {
         </Route>
         <Route path="/friends" exact>
           <FriendsPage />
+        </Route>
+        <Route path="manage-friends" exact>
+          <ManageFriendsPage />
         </Route>
         <Redirect to="/" />
       </Switch>
