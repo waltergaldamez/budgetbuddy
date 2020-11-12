@@ -23,11 +23,11 @@ const FriendsPage = () =>
             <FriendSearchBar />
           </Col>
           <Col>
-            <button className="btn btn-lg btn-block btn-yellow" onClick={ReDirect}>
-            <span class="material-icons">
-              group
-            </span>
-            <div className="text-btn"> <b>Manage Friends</b></div>
+            <button className="btn btn-lg btn-block btn-yellow" onClick={() => windows.href.location='/friends'}>
+              <span class="material-icons">
+                group
+              </span>
+              <div className="text-btn"> <b>Manage Friends</b></div>
             </button>
           </Col>
         </Row>
