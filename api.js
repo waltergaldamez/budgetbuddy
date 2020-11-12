@@ -16,11 +16,11 @@ exports.setApp = function (app, client ){
     // Returns: error 
     app.post('/api/addbudget', async (req, res, next) =>
     {
-      // incoming: userID, budgetGoal, budgetProgress, budgetName
+      // incoming: email, budgetGoal, budgetProgress, budgetName
       // outgoing: error
       // Constructing the newBudget instance    
       const newBudget = {
-        "_id": req.param("userID"),
+        "email": req.param("email"),
         "BudgetName":req.param("BudgetName"),
         "BudgetGoal":parseFloat(req.param("BudgetGoal")),
         "BudgetProgress":parseFloat(req.param("BudgetProgress"))
@@ -113,11 +113,11 @@ exports.setApp = function (app, client ){
 
     app.post('/api/showAllBudgets', async (req, res, next) => {
         const db = client.db();
-        const userID= req.param('userID');
+        const email= req.param('email');
         var error = '';
          try{
 
-            const results = await db.collection('budgets').find({'_id' : userID}).toArray();
+            const results = await db.collection('budgets').find({'email' : email}).toArray();
             console.log(results);
             console.log("results length: "+results.length);
             var _ret = [];
