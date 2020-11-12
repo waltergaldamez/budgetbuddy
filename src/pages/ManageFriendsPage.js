@@ -41,3 +41,5 @@ const ManageFriendsPage = () => {
     </div>
   )
 }
+
+export default ManageFriendsPage;
