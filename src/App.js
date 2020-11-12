@@ -28,7 +28,7 @@ function App() {
         <Route path="/friends" exact>
           <FriendsPage />
         </Route>
-        <Route path="manage-friends" exact>
+        <Route path="/manage-friends" exact>
           <ManageFriendsPage />
         </Route>
         <Redirect to="/" />
