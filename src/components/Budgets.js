@@ -30,10 +30,12 @@ function Budgets()
     const addBudget = async event => 
     {
 
+        event.preventDefault();
+        alert('userEmail (from local storage): ' + userEmail);
         alert('budget name: ' + budgetName.value);
         alert('budget Goal: ' + budgetGoal.value);
         alert('budget Progress: ' + budgetProgress.value);
-	    event.preventDefault();
+	
 
         // Getting stuff out of UI
         // Need to change card: card.value
