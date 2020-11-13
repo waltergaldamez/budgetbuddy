@@ -15,42 +15,50 @@ exports.setApp = function (app, client ){
 	//
 	
     // Returns: error 
-    app.post('/api/addbudget', async (req, res, next) =>
+    app.post('/api/addbudget', verifyToken,async (req, res, next) =>
     {
       // incoming: email, budgetGoal, budgetProgress, budgetName
       // outgoing: error
-      // Constructing the newBudget instance    
-      const newBudget = {
-        "email": req.param("email"),
-        "BudgetName":req.param("BudgetName"),
-        "BudgetGoal":parseFloat(req.param("BudgetGoal")),
-        "BudgetProgress":parseFloat(req.param("BudgetProgress"))
-      };
+      // Constructing the newBudget instance  
+      jwt.verify(req.token, 'lol', (err, authData) => {
+        if(err){
+            res.sendStatus(403);
+        } else{
+                const newBudget = {
+            "email": req.param("email"),
+            "BudgetName":req.param("BudgetName"),
+            "BudgetGoal":parseFloat(req.param("BudgetGoal")),
+            "BudgetProgress":parseFloat(req.param("BudgetProgress"))
+          };
 
-	    
-      var error = '';
+            
+          var error = '';
 
-      try
-      {
-	// Connecting to the db	    
-        const db = client.db();
+          try
+          {
+        // Connecting to the db     
+            const db = client.db();
 
-	// Insert newBudget into db
-        db.collection('budgets').insertOne(newBudget);
-      }
-      catch(e)
-      {
-        error = e.toString();
-      }
+        // Insert newBudget into db
+            db.collection('budgets').insertOne(newBudget);
+          }
+          catch(e)
+          {
+            error = e.toString();
+          }
 
-      // Return: error
-      var ret = { error: error };
-      res.status(200).json(ret);
+          // Return: error
+          var BudgetName = req.param("BudgetName");
+          var ret = {BudgetName: BudgetName, authData, error: error };
+          res.status(200).json(ret);
+            }
+          });  
+      
     });
 
 
     // Adds
-    app.post('/api/addprogress', async (req, res, next) =>
+    app.post('/api/addprogress', verifyToken,async (req, res, next) =>
     {
         // in: _id of budget and progress to add
         // Need to find the budget to update the progress in
@@ -92,7 +100,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.delete('/api/removebudget', async (req, res, next) =>
+    app.delete('/api/removebudget', verifyToken,async (req, res, next) =>
     {
         const budgetID = req.param('_id');
         var error = '';
@@ -112,7 +120,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/showAllBudgets', async (req, res, next) => {
+    app.post('/api/showAllBudgets', verifyToken,async (req, res, next) => {
         const db = client.db();
         const email= req.param('email');
         var error = '';
@@ -136,7 +144,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/showBudget', async (req, res, next) => {
+    app.post('/api/showBudget', verifyToken,async (req, res, next) => {
         const db = client.db();
         // const userEmail = req.param('email');
         const budgetID = req.param('_id');
@@ -200,25 +208,31 @@ exports.setApp = function (app, client ){
         {
             id = results[0]._id;
             var username = results[0].username;
+            var token = {};
             // first = results[0].FirstName;
             // last = results[0].LastName;
+            // jwt.sign({user:results[0]}, 'lol', (err, token) => {token});
             ret = { id:id, username:username, error:''};
         }
         else
         {
             ret={error: "user not found"};
+            res.status(200).json(ret);
         }
 
-        jwt.sign({user:results[0]}, process.env['SECRET_KEY'], (err, token) => {
+        jwt.sign({user:results[0]}, 'lol', {expiresIn: '30s'},(err, token) => {
             res.json({
-                token: token
+                token:token,
+                ret:ret
             });
         });
 
-        res.status(200).json(ret);
+
+
+        
     });
 
-    app.post('/api/searchUsers', async (req, res, next) =>
+    app.post('/api/searchUsers', verifyToken,async (req, res, next) =>
     {
         // incoming: searchUsername
         // outgoing: results[], error
@@ -246,7 +260,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/addFriend', async (req, res, next) =>
+    app.post('/api/addFriend', verifyToken,async (req, res, next) =>
     {
         // incoming: userID, friendID
         // outgoing: friends object array
@@ -280,7 +294,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/removeFriend', async (req, res, next) => 
+    app.post('/api/removeFriend', verifyToken,async (req, res, next) => 
     {
         var error = '';
         const userID = req.param('userID');
@@ -308,7 +322,7 @@ exports.setApp = function (app, client ){
     });
 
 
-    app.post('/api/showFriends', async (req, res, next) => 
+    app.post('/api/showFriends', verifyToken,async (req, res, next) => 
     {
         // Incoming: userID or userEmail
         // Outgoing: friends array of user
@@ -339,7 +353,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/getRank', async (req, res, next) => {
+    app.post('/api/getRank', verifyToken,async (req, res, next) => {
 
         var error = '';
         
@@ -363,7 +377,7 @@ exports.setApp = function (app, client ){
 
     });
 
-    app.post('/api/updateRank', async (req, res, next) =>
+    app.post('/api/updateRank', verifyToken,async (req, res, next) =>
     {
         // incoming: new rank, userID
         // Outgoing: updateRank
@@ -387,7 +401,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/updatebudget', async (req, res, next) =>
+    app.post('/api/updatebudget', verifyToken,async (req, res, next) =>
     {
       const updatedBudget =  {"BudgetName":req.param("BudgetName"), "BudgetGoal":parseFloat(req.param("BudgetGoal"))};
       const budgetID = req.param('_id');
@@ -408,7 +422,7 @@ exports.setApp = function (app, client ){
       res.status(200).json(ret);
     });
 
-    app.post('/api/editAccount', async (req, res, next) =>
+    app.post('/api/editAccount', verifyToken,async (req, res, next) =>
     {
         // incoming: userID, updated username, updated email, updated password
         // Outgoing: error
@@ -453,4 +467,47 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
 
     });
+
+    // Verify Token
+    function verifyToken(req, res, next){
+        // Get auth header value
+        const bearerHeader = req.headers['authorization'];
+
+        //Undefined check
+        if(typeof bearerHeader !== 'undefined'){
+            const bearer = bearerHeader.split(' ');
+            
+            //Get the token
+            const bearerToken = bearer[1];
+
+            //Set the token
+            req.token = bearerToken;
+            next();
+        }
+        else{
+            res.sendStatus(403);
+        }
+  
+    }
+
+
+
+    /*
+
+        TODO:
+
+            1) editAccount has a problem
+                - if the email of the account is changed, then all of the budgets of that user are disconnected from them since a
+                user-budget relationship is bounded by the email address.
+            
+                Solution:
+                    Refactor the code such that each budget is linked to a user by the user's ID field (_id) since this cannot be changed by the user
+
+            
+
+                    - Brenden
+
+    */
+
+
 }
