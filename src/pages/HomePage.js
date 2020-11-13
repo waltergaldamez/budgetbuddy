@@ -1,6 +1,6 @@
 import React from 'react';
 
-import HomePageHeader from '../components/PageNav';
+import PageNav from '../components/PageNav';
 import LogOutButton from '../components/LogOutButton';
 import LoggedInName from '../components/LoggedInName';
 

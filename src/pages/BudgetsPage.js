@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
-import BudgetPageHeader from '../components/PageNav';
-import BudgetPageHeader from '../components/LogOutButton';
+import PageNav from '../components/PageNav';
+import LogOutButton from '../components/LogOutButton';
 import LoggedInName from '../components/LoggedInName';
 import Budgets from '../components/Budgets';
 
@@ -32,7 +32,7 @@ const BudgetsPage = () =>
             <LoggedInName />
           </Col>
         </Row>
-        
+
       </Container>
     );
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 
-import BudgetPageHeader from '../components/PageNav';
+import PageNav from '../components/PageNav';
 import FriendSearchBar from '../components/FriendSearchBar';
 import LoggedInName from '../components/LoggedInName';
 import CurrentRank from '../components/CurrentRank';
 import Avatar from '../components/Avatar';
 import FriendsTable from '../components/FriendsTable';
-import FriendsTable from '../components/LogOutButton';
+import LogOutButton from '../components/LogOutButton';
 
 import { Container, Row, Col } from 'react-bootstrap';
 //import FindUser from '../components/FindUser';
