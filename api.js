@@ -220,7 +220,7 @@ exports.setApp = function (app, client ){
             res.status(200).json(ret);
         }
 
-        jwt.sign({user:results[0]}, 'lol', (err, token) => {
+        jwt.sign({user:results[0]}, 'lol', {expiresIn: '30s'},(err, token) => {
             res.json({
                 token:token,
                 ret:ret
