@@ -23,6 +23,8 @@ code {
 /*navigation css start */
 .color-nav {
   background-color: #19c0ff;
+  text-align: center;
+  color: white;
 }
 
 .circle-icon {
@@ -30,10 +32,10 @@ code {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    text-align: center;
     line-height: 60px;
     vertical-align: middle;
     font-weight: 900;
+    color: white;
 }
 
 .circle-icon-selected {
@@ -41,14 +43,10 @@ code {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    text-align: center;
     line-height: 60px;
     vertical-align: middle;
     font-weight: 900;
-}
-
-svg {
-  height: 30px;
+    color: white;
 }
 
 h3 {
@@ -60,24 +58,14 @@ i {
   position: static;
 }
 
-.material-icons.md-48 { font-size: 48px; }
-
-.middle-nav {
-  padding-left: 400px;
-}
-
-.logout {
-  display: inline;
-  position: relative;
-  bottom: 5px;
-}
-
 .black-text {
   color: black;
 }
 
+/*logout button */
 .pink {
-  background-color: #FB2B60;;
+  width: 25%;
+  margin-top: 5%;
 }
 
 

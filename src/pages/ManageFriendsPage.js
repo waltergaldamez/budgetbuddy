@@ -1,6 +1,7 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import FriendsPageHeader from '../components/FriendsPageHeader';
+import FriendsPageHeader from '../components/PageNav';
+import LogOutButton from '../components/LogOutButton';
 
 const ManageFriendsPage = () => {
   return (
@@ -8,8 +9,14 @@ const ManageFriendsPage = () => {
       <div className="upper">
         <Container fluid>
           <Row>
+            <Col></Col>
+            <Col className="col-6">
+              <PageNav home={"fa fa-home fa-2x circle-icon"}
+              budget={"material-icons md-48 circle-icon"}
+              leaderboard={"fa fa-trophy fa-2x circle-icon-selected"}/>
+            </Col>
             <Col>
-              <FriendsPageHeader />
+              <LogOutButton />
             </Col>
           </Row>
         </Container>

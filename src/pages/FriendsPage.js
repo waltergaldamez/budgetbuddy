@@ -1,11 +1,12 @@
 import React from 'react';
 
-import FriendsPageHeader from '../components/FriendsPageHeader';
+import BudgetPageHeader from '../components/PageNav';
 import FriendSearchBar from '../components/FriendSearchBar';
 import LoggedInName from '../components/LoggedInName';
 import CurrentRank from '../components/CurrentRank';
 import Avatar from '../components/Avatar';
 import FriendsTable from '../components/FriendsTable';
+import FriendsTable from '../components/LogOutButton';
 
 import { Container, Row, Col } from 'react-bootstrap';
 //import FindUser from '../components/FindUser';
@@ -17,11 +18,19 @@ const FriendsPage = () =>
       <div>
       <div className="upper">
         <Container fluid>
+
           <Row>
+            <Col></Col>
+            <Col className="col-6">
+              <PageNav home={"fa fa-home fa-2x circle-icon"}
+              budget={"material-icons md-48 circle-icon"}
+              leaderboard={"fa fa-trophy fa-2x circle-icon-selected"}/>
+            </Col>
             <Col>
-              <FriendsPageHeader />
+              <LogOutButton />
             </Col>
           </Row>
+
           <Row>
             <Col>
               <Avatar />
@@ -38,6 +47,7 @@ const FriendsPage = () =>
               </button>
             </Col>
           </Row>
+
         </Container>
       </div>
       <FriendsTable />

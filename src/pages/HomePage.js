@@ -1,6 +1,7 @@
 import React from 'react';
 
-import HomePageHeader from '../components/HomePageHeader';
+import HomePageHeader from '../components/PageNav';
+import LogOutButton from '../components/LogOutButton';
 import LoggedInName from '../components/LoggedInName';
 
 import { Container, Row, Col } from 'react-bootstrap';
@@ -11,11 +12,19 @@ const HomePage = () =>
 {
     return(
       <Container fluid>
+
         <Row>
-          <Col width="100%">
-            <HomePageHeader />
+          <Col></Col>
+          <Col className="col-6">
+            <PageNav home={"fa fa-home fa-2x circle-icon-selected"}
+            budget={"material-icons md-48 circle-icon"}
+            leaderboard={"fa fa-trophy fa-2x circle-icon"}/>
+          </Col>
+          <Col>
+            <LogOutButton />
           </Col>
         </Row>
+
         <Row>
           <Col></Col>
           <Col></Col>
