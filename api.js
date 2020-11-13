@@ -28,7 +28,8 @@ exports.setApp = function (app, client ){
             "email": req.param("email"),
             "BudgetName":req.param("BudgetName"),
             "BudgetGoal":parseFloat(req.param("BudgetGoal")),
-            "BudgetProgress":parseFloat(req.param("BudgetProgress"))
+            "BudgetProgress":parseFloat(req.param("BudgetProgress")),
+            "isComplete" : false 
           };
 
             
@@ -80,16 +81,25 @@ exports.setApp = function (app, client ){
             console.log(result[0]);
             
             if(result.length > 0){
-            // found a budget with the correct ID
-            const currentAmount = result[0].BudgetProgress;
-            const newAmount = currentAmount + progToAdd;
-            console.log("current amount: " + currentAmount);
-            console.log("new AMount: "+newAmount);
-            response = db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetProgress: newAmount}});
+                // found a budget with the correct ID
+                const budgetGoal = result[0].BudgetGoal;
+                const currentAmount = result[0].BudgetProgress;
+                const newAmount = currentAmount + progToAdd;
+
+                // If new progress over the goal
+                if(newAmount >= budgetGoal){
+                    newAmount = budgetGoal; // budget completed
+                    // mark budget as completed (boolean)
+                    db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {isComplete: true}});   
+                }
+                    
+                console.log("current amount: " + currentAmount);
+                console.log("new AMount: " + newAmount);
+                response = db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetProgress: newAmount}});   
 
             }else{
-            // didnt find the budget
-            error = "brenden not found";
+                // didnt find the budget
+                error = "brenden not found";
             
             }
         }catch(e){
