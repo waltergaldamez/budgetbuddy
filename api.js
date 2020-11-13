@@ -19,33 +19,41 @@ exports.setApp = function (app, client ){
     {
       // incoming: email, budgetGoal, budgetProgress, budgetName
       // outgoing: error
-      // Constructing the newBudget instance    
-      const newBudget = {
-        "email": req.param("email"),
-        "BudgetName":req.param("BudgetName"),
-        "BudgetGoal":parseFloat(req.param("BudgetGoal")),
-        "BudgetProgress":parseFloat(req.param("BudgetProgress"))
-      };
+      // Constructing the newBudget instance  
+      jwt.verify(req.token, 'lol', (err, authData) => {
+        if(err){
+            res.sendStatus(403);
+        } else{
+                const newBudget = {
+            "email": req.param("email"),
+            "BudgetName":req.param("BudgetName"),
+            "BudgetGoal":parseFloat(req.param("BudgetGoal")),
+            "BudgetProgress":parseFloat(req.param("BudgetProgress"))
+          };
 
-	    
-      var error = '';
+            
+          var error = '';
 
-      try
-      {
-	// Connecting to the db	    
-        const db = client.db();
+          try
+          {
+        // Connecting to the db     
+            const db = client.db();
 
-	// Insert newBudget into db
-        db.collection('budgets').insertOne(newBudget);
-      }
-      catch(e)
-      {
-        error = e.toString();
-      }
+        // Insert newBudget into db
+            db.collection('budgets').insertOne(newBudget);
+          }
+          catch(e)
+          {
+            error = e.toString();
+          }
 
-      // Return: error
-      var ret = { error: error };
-      res.status(200).json(ret);
+          // Return: error
+          var BudgetName = req.param("BudgetName");
+          var ret = {BudgetName: BudgetName, error: error };
+          res.status(200).json(ret);
+            }
+          });  
+      
     });
 
 
@@ -467,7 +475,14 @@ exports.setApp = function (app, client ){
 
         //Undefined check
         if(typeof bearerHeader !== 'undefined'){
+            const bearer = bearerHeader.split(' ');
+            
+            //Get the token
+            const bearerToken = bearer[1];
 
+            //Set the token
+            req.token = bearerToken;
+            next();
         }
         else{
             res.sendStatus(403);
