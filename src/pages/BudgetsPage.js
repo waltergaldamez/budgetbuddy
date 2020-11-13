@@ -22,6 +22,7 @@ const BudgetsPage = () =>
             <LogOutButton />
           </Col>
         </Row>
+      </div>
 
         <Row>
           <Col></Col>
@@ -31,7 +32,6 @@ const BudgetsPage = () =>
           <Col>
           </Col>
         </Row>
-      </div>
 
       </Container>
     );

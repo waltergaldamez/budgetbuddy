@@ -30,7 +30,6 @@ const HomePage = () =>
           <Col></Col>
           <Col></Col>
           <Col>
-            <LoggedInName />
           </Col>
         </Row>
       </Container>
