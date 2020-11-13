@@ -16,9 +16,8 @@ const FriendsPage = () =>
 {
     return(
       <div>
-      <div className="color-nav">
         <Container fluid>
-
+        <div className="color-nav">
           <Row>
             <Col></Col>
             <Col className="col-6">
