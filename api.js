@@ -207,6 +207,13 @@ exports.setApp = function (app, client ){
         {
             ret={error: "user not found"};
         }
+
+        jwt.sign({user:results[0]}, process.env['SECRET_KEY'], (err, token) => {
+            res.json({
+                token: token
+            });
+        });
+
         res.status(200).json(ret);
     });
 

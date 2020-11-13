@@ -1,4 +1,5 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
@@ -13,6 +14,7 @@ app.set('port', (process.env.PORT || 5000));
 
 const MongoClient = require('mongodb').MongoClient;
 const url = 'mongodb+srv://brendenm:xdxAoJ6GBmGQk4I0@budgetbuddies.rc2gm.mongodb.net/budgetbuddies?retryWrites=true&w=majority';
+// const url = process.env.MONGODB_URI;
 const client = new MongoClient(url, { useUnifiedTopology: true });
 client.connect();
 
