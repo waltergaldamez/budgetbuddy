@@ -49,7 +49,7 @@ exports.setApp = function (app, client ){
 
           // Return: error
           var BudgetName = req.param("BudgetName");
-          var ret = {BudgetName: BudgetName, error: error };
+          var ret = {BudgetName: BudgetName, authData, error: error };
           res.status(200).json(ret);
             }
           });  
