@@ -6,7 +6,7 @@ import LogOutButton from '../components/LogOutButton';
 const ManageFriendsPage = () => {
   return (
     <div>
-      <div className="upper">
+      <div className="color-nav">
         <Container fluid>
           <Row>
             <Col></Col>

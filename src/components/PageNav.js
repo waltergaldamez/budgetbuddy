@@ -4,7 +4,7 @@ import { Navbar,Nav,NavDropdown,Form,FormControl,Button } from 'react-bootstrap'
 const PageNav = ({home, budget, leaderboard}) => {
   return (
     <Navbar className="color-nav" variant="dark">
-      <Nav.Link href="/budget">
+      <Nav.Link href="/home">
         <i class={home}></i>
         <h3 className="color-nav">Home</h3>
       </Nav.Link>

@@ -16,7 +16,7 @@ const FriendsPage = () =>
 {
     return(
       <div>
-      <div className="upper">
+      <div className="color-nav">
         <Container fluid>
 
           <Row>
@@ -30,7 +30,7 @@ const FriendsPage = () =>
               <LogOutButton />
             </Col>
           </Row>
-
+        </div>
           <Row>
             <Col>
               <Avatar />
@@ -49,7 +49,6 @@ const FriendsPage = () =>
           </Row>
 
         </Container>
-      </div>
       <FriendsTable />
     </div>
     );

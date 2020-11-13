@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 const LogOutButton = () => {
   return (
     <Button variant="danger" type="submit" className="pink">
-      <span class="material-icons black-text">
+      <span class="material-icons">
         exit_to_app
       </span>
       <div class="logout black-text">Logout</div>

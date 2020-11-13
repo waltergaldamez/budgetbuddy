@@ -12,7 +12,7 @@ const HomePage = () =>
 {
     return(
       <Container fluid>
-
+      <div class="color-nav">
         <Row>
           <Col></Col>
           <Col className="col-6">
@@ -24,6 +24,7 @@ const HomePage = () =>
             <LogOutButton />
           </Col>
         </Row>
+      </div>
 
         <Row>
           <Col></Col>

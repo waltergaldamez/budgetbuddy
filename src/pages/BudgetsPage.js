@@ -10,7 +10,7 @@ const BudgetsPage = () =>
 {
     return(
       <Container fluid>
-
+      <div className="color-nav">
         <Row>
           <Col></Col>
           <Col className="col-6">
@@ -29,9 +29,9 @@ const BudgetsPage = () =>
             <Budgets />
           </Col>
           <Col>
-            <LoggedInName />
           </Col>
         </Row>
+      </div>
 
       </Container>
     );
