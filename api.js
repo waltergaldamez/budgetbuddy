@@ -200,22 +200,28 @@ exports.setApp = function (app, client ){
         {
             id = results[0]._id;
             var username = results[0].username;
+            var token = {};
             // first = results[0].FirstName;
             // last = results[0].LastName;
+            // jwt.sign({user:results[0]}, 'lol', (err, token) => {token});
             ret = { id:id, username:username, error:''};
         }
         else
         {
             ret={error: "user not found"};
+            res.status(200).json(ret);
         }
 
-        jwt.sign({user:results[0]}, process.env['SECRET_KEY'], (err, token) => {
+        jwt.sign({user:results[0]}, 'lol', (err, token) => {
             res.json({
-                token: token
+                token:token,
+                ret:ret
             });
         });
 
-        res.status(200).json(ret);
+
+
+        
     });
 
     app.post('/api/searchUsers', async (req, res, next) =>
