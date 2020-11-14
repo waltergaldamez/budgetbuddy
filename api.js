@@ -182,7 +182,7 @@ exports.setApp = function (app, client ){
     app.post('/api/register', async (req, res, next) => {
         const db = client.db();
         const js = {"email":req.param('email'), "password":req.param('password'),
-                    "username":req.param('username'), "verification":req.param('verification'),
+                    "username":req.param('username'), "verification":false,
                     "budget":req.param('budget'), "friends":req.param('friends'),
                      "rankMetric": req.param("rankMetric")};
         var ret={};
@@ -193,6 +193,32 @@ exports.setApp = function (app, client ){
         } catch(e) {
             ret={error:e.toString()};
         }
+
+
+
+
+
+        // using Twilio SendGrid's v3 Node.js Library
+        // https://github.com/sendgrid/sendgrid-nodejs
+        // javascript
+        const sgMail = require('@sendgrid/mail')
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+        const msg = {
+        to: js.email, // Change to your recipient
+        from: 'budgetbuddiesapp@gmail.com', // Change to your verified sender
+        subject: 'Brenden where my money',
+        text: 'yo brenden, where is my money',
+        html: '<strong>Send dat moeny</strong>',
+        }
+        sgMail
+        .send(msg)
+        .then(() => {
+            console.log('Email sent')
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+        
         res.status(200).json(ret);
     });
 
