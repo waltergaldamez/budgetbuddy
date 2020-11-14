@@ -198,13 +198,14 @@ exports.setApp = function (app, client ){
 
 
 
+        console.log(js.email);
         // using Twilio SendGrid's v3 Node.js Library
         // https://github.com/sendgrid/sendgrid-nodejs
         // javascript
         const sgMail = require('@sendgrid/mail')
         sgMail.setApiKey(process.env.SENDGRID_API_KEY)
         const msg = {
-        to: js.email, // Change to your recipient
+        to: js.email.toString(), // Change to your recipient
         from: 'budgetbuddiesapp@gmail.com', // Change to your verified sender
         subject: 'Brenden where my money',
         text: 'yo brenden, where is my money',
