@@ -20,7 +20,7 @@ exports.setApp = function (app, client ){
       // incoming: email, budgetGoal, budgetProgress, budgetName
       // outgoing: error
       // Constructing the newBudget instance  
-      jwt.verify(req.token, 'lol', (err, authData) => {
+      jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
         if(err){
             res.sendStatus(403);
         } else{
@@ -256,13 +256,13 @@ exports.setApp = function (app, client ){
             res.status(200).json(ret);
         }
 
-        jwt.sign({user:results[0]}, 'lol', {expiresIn: '30s'},(err, token) => {
-            res.json({
-                token:token,
+        const refreshToken = jwt.sign({user:results[0]}, process.env.REFRESH_TOKEN_SECRET)
+        const accessToken = jwt.sign({user:results[0]}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '30s'})
+        res.json({
+                refreshToken : refreshToken,
+                accessToken:accessToken,
                 ret:ret
             });
-        });
-
 
 
         
@@ -525,6 +525,8 @@ exports.setApp = function (app, client ){
         }
   
     }
+
+    //function 
 
 
 
