@@ -527,6 +527,10 @@ exports.setApp = function (app, client ){
   
     }
 
+    app.post('/api/token', async (req, res) =>{
+        const refreshToken = req.body.token;
+    })
+
     //function 
 
 
