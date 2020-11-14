@@ -1,4 +1,5 @@
 const { ObjectId } = require('mongodb');
+const jwt = require('jsonwebtoken');
 exports.setApp = function (app, client ){
 
 	
@@ -14,42 +15,51 @@ exports.setApp = function (app, client ){
 	//
 	
     // Returns: error 
-    app.post('/api/addbudget', async (req, res, next) =>
+    app.post('/api/addbudget', verifyToken,async (req, res, next) =>
     {
       // incoming: email, budgetGoal, budgetProgress, budgetName
       // outgoing: error
-      // Constructing the newBudget instance    
-      const newBudget = {
-        "email": req.param("email"),
-        "BudgetName":req.param("BudgetName"),
-        "BudgetGoal":parseFloat(req.param("BudgetGoal")),
-        "BudgetProgress":parseFloat(req.param("BudgetProgress"))
-      };
+      // Constructing the newBudget instance  
+      jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+        if(err){
+            res.sendStatus(403);
+        } else{
+                const newBudget = {
+            "email": req.param("email"),
+            "BudgetName":req.param("BudgetName"),
+            "BudgetGoal":parseFloat(req.param("BudgetGoal")),
+            "BudgetProgress":parseFloat(req.param("BudgetProgress")),
+            "isComplete" : false 
+          };
 
-	    
-      var error = '';
+            
+          var error = '';
 
-      try
-      {
-	// Connecting to the db	    
-        const db = client.db();
+          try
+          {
+        // Connecting to the db     
+            const db = client.db();
 
-	// Insert newBudget into db
-        db.collection('budgets').insertOne(newBudget);
-      }
-      catch(e)
-      {
-        error = e.toString();
-      }
+        // Insert newBudget into db
+            db.collection('budgets').insertOne(newBudget);
+          }
+          catch(e)
+          {
+            error = e.toString();
+          }
 
-      // Return: error
-      var ret = { error: error };
-      res.status(200).json(ret);
+          // Return: error
+          var BudgetName = req.param("BudgetName");
+          var ret = {BudgetName: BudgetName, authData, error: error };
+          res.status(200).json(ret);
+            }
+          });  
+      
     });
 
 
     // Adds
-    app.post('/api/addprogress', async (req, res, next) =>
+    app.post('/api/addprogress', verifyToken,async (req, res, next) =>
     {
         // in: _id of budget and progress to add
         // Need to find the budget to update the progress in
@@ -71,16 +81,25 @@ exports.setApp = function (app, client ){
             console.log(result[0]);
             
             if(result.length > 0){
-            // found a budget with the correct ID
-            const currentAmount = result[0].BudgetProgress;
-            const newAmount = currentAmount + progToAdd;
-            console.log("current amount: " + currentAmount);
-            console.log("new AMount: "+newAmount);
-            response = db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetProgress: newAmount}});
+                // found a budget with the correct ID
+                const budgetGoal = result[0].BudgetGoal;
+                const currentAmount = result[0].BudgetProgress;
+                const newAmount = currentAmount + progToAdd;
+
+                // If new progress over the goal
+                if(newAmount >= budgetGoal){
+                    newAmount = budgetGoal; // budget completed
+                    // mark budget as completed (boolean)
+                    db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {isComplete: true}});   
+                }
+                    
+                console.log("current amount: " + currentAmount);
+                console.log("new AMount: " + newAmount);
+                response = db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetProgress: newAmount}});   
 
             }else{
-            // didnt find the budget
-            error = "brenden not found";
+                // didnt find the budget
+                error = "brenden not found";
             
             }
         }catch(e){
@@ -91,7 +110,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.delete('/api/removebudget', async (req, res, next) =>
+    app.delete('/api/removebudget', verifyToken,async (req, res, next) =>
     {
         const budgetID = req.param('_id');
         var error = '';
@@ -111,7 +130,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/showAllBudgets', async (req, res, next) => {
+    app.post('/api/showAllBudgets', verifyToken,async (req, res, next) => {
         const db = client.db();
         const email= req.param('email');
         var error = '';
@@ -135,7 +154,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/showBudget', async (req, res, next) => {
+    app.post('/api/showBudget', verifyToken,async (req, res, next) => {
         const db = client.db();
         // const userEmail = req.param('email');
         const budgetID = req.param('_id');
@@ -163,7 +182,7 @@ exports.setApp = function (app, client ){
     app.post('/api/register', async (req, res, next) => {
         const db = client.db();
         const js = {"email":req.param('email'), "password":req.param('password'),
-                    "username":req.param('username'), "verification":req.param('verification'),
+                    "username":req.param('username'), "verification":false,
                     "budget":req.param('budget'), "friends":req.param('friends'),
                      "rankMetric": req.param("rankMetric")};
         var ret={};
@@ -174,6 +193,33 @@ exports.setApp = function (app, client ){
         } catch(e) {
             ret={error:e.toString()};
         }
+
+
+
+
+
+        console.log(js.email);
+        // using Twilio SendGrid's v3 Node.js Library
+        // https://github.com/sendgrid/sendgrid-nodejs
+        // javascript
+        const sgMail = require('@sendgrid/mail')
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+        const msg = {
+        to: js.email.toString(), // Change to your recipient
+        from: 'budgetbuddiesapp@gmail.com', // Change to your verified sender
+        subject: 'Brenden where my money',
+        text: 'yo brenden, where is my money',
+        html: '<strong>Send dat moeny</strong>',
+        }
+        sgMail
+        .send(msg)
+        .then(() => {
+            console.log('Email sent')
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+        
         res.status(200).json(ret);
     });
 
@@ -199,18 +245,31 @@ exports.setApp = function (app, client ){
         {
             id = results[0]._id;
             var username = results[0].username;
+            var token = {};
             // first = results[0].FirstName;
             // last = results[0].LastName;
+            // jwt.sign({user:results[0]}, 'lol', (err, token) => {token});
             ret = { id:id, username:username, error:''};
         }
         else
         {
             ret={error: "user not found"};
+            res.status(200).json(ret);
         }
-        res.status(200).json(ret);
+
+        const refreshToken = jwt.sign({user:results[0]}, process.env.REFRESH_TOKEN_SECRET)
+        const accessToken = jwt.sign({user:results[0]}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '30s'})
+        res.json({
+                refreshToken : refreshToken,
+                accessToken:accessToken,
+                ret:ret
+            });
+
+
+        
     });
 
-    app.post('/api/searchUsers', async (req, res, next) =>
+    app.post('/api/searchUsers', verifyToken,async (req, res, next) =>
     {
         // incoming: searchUsername
         // outgoing: results[], error
@@ -238,7 +297,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/addFriend', async (req, res, next) =>
+    app.post('/api/addFriend', verifyToken,async (req, res, next) =>
     {
         // incoming: userID, friendID
         // outgoing: friends object array
@@ -272,7 +331,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/removeFriend', async (req, res, next) => 
+    app.post('/api/removeFriend', verifyToken,async (req, res, next) => 
     {
         var error = '';
         const userID = req.param('userID');
@@ -300,7 +359,7 @@ exports.setApp = function (app, client ){
     });
 
 
-    app.post('/api/showFriends', async (req, res, next) => 
+    app.post('/api/showFriends', verifyToken,async (req, res, next) => 
     {
         // Incoming: userID or userEmail
         // Outgoing: friends array of user
@@ -331,7 +390,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/getRank', async (req, res, next) => {
+    app.post('/api/getRank', verifyToken,async (req, res, next) => {
 
         var error = '';
         
@@ -355,7 +414,7 @@ exports.setApp = function (app, client ){
 
     });
 
-    app.post('/api/updateRank', async (req, res, next) =>
+    app.post('/api/updateRank', verifyToken,async (req, res, next) =>
     {
         // incoming: new rank, userID
         // Outgoing: updateRank
@@ -379,7 +438,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/updatebudget', async (req, res, next) =>
+    app.post('/api/updatebudget', verifyToken,async (req, res, next) =>
     {
       const updatedBudget =  {"BudgetName":req.param("BudgetName"), "BudgetGoal":parseFloat(req.param("BudgetGoal"))};
       const budgetID = req.param('_id');
@@ -400,7 +459,7 @@ exports.setApp = function (app, client ){
       res.status(200).json(ret);
     });
 
-    app.post('/api/editAccount', async (req, res, next) =>
+    app.post('/api/editAccount', verifyToken,async (req, res, next) =>
     {
         // incoming: userID, updated username, updated email, updated password
         // Outgoing: error
@@ -445,6 +504,34 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
 
     });
+
+    // Verify Token
+    function verifyToken(req, res, next){
+        // Get auth header value
+        const bearerHeader = req.headers['authorization'];
+
+        //Undefined check
+        if(typeof bearerHeader !== 'undefined'){
+            const bearer = bearerHeader.split(' ');
+            
+            //Get the token
+            const bearerToken = bearer[1];
+
+            //Set the token
+            req.token = bearerToken;
+            next();
+        }
+        else{
+            res.sendStatus(403);
+        }
+  
+    }
+
+    app.post('/api/token', async (req, res) =>{
+        const refreshToken = req.body.token;
+    })
+
+    //function 
 
 
 
