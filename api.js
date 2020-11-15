@@ -29,7 +29,7 @@ exports.setApp = function (app, client ){
             "BudgetName":req.param("BudgetName"),
             "BudgetGoal":parseFloat(req.param("BudgetGoal")),
             "BudgetProgress":parseFloat(req.param("BudgetProgress")),
-            "isComplete" : false 
+            "isComplete" : parseBoolean(true)
           };
 
             
@@ -195,9 +195,6 @@ exports.setApp = function (app, client ){
         }
 
 
-
-
-
         console.log(js.email);
         // using Twilio SendGrid's v3 Node.js Library
         // https://github.com/sendgrid/sendgrid-nodejs
@@ -259,7 +256,7 @@ exports.setApp = function (app, client ){
         }
 
         const refreshToken = jwt.sign({user:results[0]}, process.env.REFRESH_TOKEN_SECRET)
-        const accessToken = jwt.sign({user:results[0]}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '30s'})
+        const accessToken = jwt.sign({user:results[0]}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15m'})
         res.json({
                 refreshToken : refreshToken,
                 accessToken:accessToken,
@@ -487,15 +484,43 @@ exports.setApp = function (app, client ){
 
     });
 
-    app.post('/api/verifyAccount', async (req, res, next) =>
+
+    // Need to re-direct to a password reset page with proper JWT possibly
+    app.post('/api/recoverPassword', async (req, res, next) =>
     {
         // incoming: email
-        // Outgoing: error
+        // Outgoing: er
         var error = '';
 
         const db = client.db();
 
+        const email = req.param('email');
+        console.log(email);
+
         try{
+            const result = db.collection('users').find({"email":email}).toArray();
+
+            if(result.length > 0 ){
+                const sgMail = require('@sendgrid/mail')
+                sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+                const msg = {
+                to: email.toString(), // Change to your recipient
+                from: 'budgetbuddiesapp@gmail.com', // Change to your verified sender
+                subject: 'Password Reset',
+                text: '',
+                html: '<p3>Click the link to reset your password: <a href="https://www.google.com/">Reset Password</a> </p3>',
+                }
+                sgMail
+                .send(msg)
+                .then(() => {
+                    console.log('Email sent')
+                })
+                .catch((error) => {
+                    console.error(error)
+                })
+            }else{
+                error = email + " does not exist in our records.";
+            }
 
         }catch(e){
             error = e.toString();
@@ -531,27 +556,4 @@ exports.setApp = function (app, client ){
     app.post('/api/token', async (req, res) =>{
         const refreshToken = req.body.token;
     })
-
-    //function 
-
-
-
-    /*
-
-        TODO:
-
-            1) editAccount has a problem
-                - if the email of the account is changed, then all of the budgets of that user are disconnected from them since a
-                user-budget relationship is bounded by the email address.
-            
-                Solution:
-                    Refactor the code such that each budget is linked to a user by the user's ID field (_id) since this cannot be changed by the user
-
-            
-
-                    - Brenden
-
-    */
-
-
 }
