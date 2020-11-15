@@ -1,0 +1,244 @@
+/*included css start */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #B2EAFF;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.container-fluid{
+  padding-left: 0rem;
+  padding-right: 0rem;
+  overflow: hidden;
+}
+
+/*navigation css start */
+.color-nav {
+  background-color: #19c0ff;
+  text-align: center;
+  color: white;
+}
+
+.circle-icon {
+    background: #FCB401;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    line-height: 60px;
+    vertical-align: middle;
+    font-weight: 900;
+    color: white;
+}
+
+.circle-icon-selected {
+    background: #FB2B60;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    line-height: 60px;
+    vertical-align: middle;
+    font-weight: 900;
+    color: white;
+}
+
+h3 {
+  display: inline;
+  padding-left: 10pt;
+}
+
+i {
+  position: static;
+}
+
+.black-text {
+  color: black;
+}
+
+/*logout button */
+.pink {
+  width: 30%;
+  margin-top: 5%;
+  color:black;
+}
+
+.black-text {
+  display: inline;
+  color: black;
+  position: relative;
+  bottom: 5px;
+}
+
+
+/*Login/Registration css start */
+.outer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: left;
+}
+
+.inner {
+  width: 450px;
+  height: 625px;
+  margin: auto;
+  margin-bottom: 20px;
+  background: #19c0ff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  padding: 40px 55px 45px 55px;
+  border-radius: 15px;
+  transition: all .3s;
+}
+
+.inner-login{
+  width: 450px;
+  height: 475px;
+  margin: auto;
+  margin-bottom: 20px;
+  background: #19c0ff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  padding: 40px 55px 45px 55px;
+  border-radius: 15px;
+  transition: all .3s;
+}
+
+.outer .form-control:focus {
+  border-color: #167bff;
+  box-shadow: none;
+}
+
+.outer h3 {
+  text-align: center;
+  margin: 0;
+  line-height: 1;
+  padding-bottom: 20px;
+}
+
+.top-area {
+  list-style: none;
+  padding: 0;
+  background-color: #B2EAFF;
+  border-radius: 16px;
+}
+.top-area:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.top-area li a {
+  display: block;
+  text-decoration: none;
+  padding: 15px;
+  color: #a0b3b0;
+  font-size: 20px;
+  float: left;
+  width: 50%;
+  text-align: center;
+  cursor: pointer;
+  transition: .5s ease;
+  border-radius: 16px;
+}
+
+.top-area .active a {
+  background: #FB2B60;
+  color: black;
+  width: 45%;
+}
+
+.top-area .inactive a {
+  background-color: #B2EAFF;
+  width: 55%;
+  color: black;
+}
+
+.login {
+  background-color: #B2EAFF;
+  margin-top: -10px;
+}
+
+.btn-yellow {
+  background-color: #FCB401;
+  width: 40%;
+  height: 70%;
+  border-radius: 50px;
+  margin-left: 100px;
+  margin-top: 4.5%;
+  text-align: center;
+  font-size: 24pt;
+}
+
+.alert {
+  margin-top: 50px;
+}
+
+.alert-registration {
+  vertical-align: -2px;
+}
+
+/*Friends Page CSS */
+
+.btn-yellow {
+  background-color: #FCB401;
+  width: 40%;
+  height: 47%;
+  border-radius: 50px;
+  margin-left: 100px;
+  margin-top: 4.5%;
+  text-align: center;
+  font-size: 24pt;
+}
+
+.text-btn {
+  display: inline-flex;
+  position: relative;
+  bottom: 5px;
+  font-size: 13pt;
+}
+
+.avatar {
+    background: black;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 60px;
+    vertical-align: middle;
+    font-weight: 900;
+    border: solid 2pt red;
+    margin-left: 10%;
+    margin-top: 3.7%;
+}
+
+.rank-header {
+  margin-top: 3.7%;
+}
+
+.yellow {
+  background: #FCB401;
+  font-size: 36px;
+  color: black;
+  text-align: center;
+  margin-left: 50pt;
+  width: 40%;
+}
+.rank {
+  display: inline;
+  margin-left: 30%;
+  position: relative;
+  bottom: 70px;
+  font-size: 60px;
+  color: #19C0FF;
+}
+
+.pink-header {
+  background-color: #FB2B60;
+  font-size: 36px;
+  color: black;
+}
