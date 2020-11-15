@@ -207,8 +207,8 @@ exports.setApp = function (app, client ){
         const msg = {
         to: js.email.toString(), // Change to your recipient
         from: 'budgetbuddiesapp@gmail.com', // Change to your verified sender
-        subject: 'Brenden where my money',
-        text: 'yo brenden, where is my money',
+        subject: 'Verify your e-mail account for BudgetBuddies',
+        text: 'yo brenden, where is my money i realy need to see some money soon but i dont know where to get it \n\n',
         html: '<strong>Send dat moeny</strong>',
         }
         sgMail
