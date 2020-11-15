@@ -237,6 +237,7 @@ exports.setApp = function (app, client ){
         // Query database for login information
         const results = await db.collection('users').find({"email":req.param('email'), "password":req.param('password')}).toArray();
 
+        console.log("results: " + results);
 
         var id = -1;
         var ret = {};
