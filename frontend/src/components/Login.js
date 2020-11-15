@@ -26,7 +26,8 @@ function Login()
             // Parse JSON response
             var res = JSON.parse(await response.text());
 
-            if( res.error != '')
+
+            if( res.ret.error !== '')
             {
                 message = 'Email/Password combination incorrect';
                 setAlert(true);
