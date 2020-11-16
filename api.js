@@ -496,9 +496,12 @@ exports.setApp = function (app, client ){
 
         const email = req.param('email');
         console.log(email);
+        var userRoute = "1234";
+        var link = "<strong>Click the link to reset your password:" + '<a href="https://budgetbuddiesapp.herokuapp.com/recoverPassword">Reset Password</a>'+"</strong>";
 
         try{
-            const result = db.collection('users').find({"email":email}).toArray();
+            const result = await db.collection('users').find({email:email}).toArray();
+            console.log("result.length: " + result.length);
 
             if(result.length > 0 ){
                 const sgMail = require('@sendgrid/mail')
@@ -507,8 +510,8 @@ exports.setApp = function (app, client ){
                 to: email.toString(), // Change to your recipient
                 from: 'budgetbuddiesapp@gmail.com', // Change to your verified sender
                 subject: 'Password Reset',
-                text: '',
-                html: '<p3>Click the link to reset your password: <a href="https://www.google.com/">Reset Password</a> </p3>',
+                text: 'View this email in HTML',
+                html: '<strong>Click the link to reset your password:<a href="https://budgetbuddiesapp.herokuapp.com/recover-password">Reset Password</a></strong>',
                 }
                 sgMail
                 .send(msg)

@@ -25,7 +25,7 @@ function Recover() {
     var js = JSON.stringify(obj);
 
     try {
-      const response = await fetch(buildPath('api/recover'),
+      const response = await fetch(buildPath('api/recoverPassword'),
             {method:'POST', body:js, headers:{'Content-Type': 'application/json'}});
 
       var res = JSON.parse(await response.text());
