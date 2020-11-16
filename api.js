@@ -183,8 +183,7 @@ exports.setApp = function (app, client ){
         const db = client.db();
         const js = {"email":req.param('email'), "password":req.param('password'),
                     "username":req.param('username'), "verification":false,
-                    "budget":req.param('budget'), "friends":req.param('friends'),
-                     "rankMetric": req.param("rankMetric")};
+                    "friends":req.param('friends'), "rankMetric": req.param("rankMetric")};
         var ret={};
 
         try {
@@ -205,8 +204,8 @@ exports.setApp = function (app, client ){
         to: js.email.toString(), // Change to your recipient
         from: 'budgetbuddiesapp@gmail.com', // Change to your verified sender
         subject: 'Verify your e-mail account for BudgetBuddies',
-        text: 'yo brenden, where is my money i realy need to see some money soon but i dont know where to get it \n\n',
-        html: '<strong>Send dat moeny</strong>',
+        text: 'View this in html',
+        html: '<strong>Click the link to verify your email:<a href="https://budgetbuddiesapp.herokuapp.com/api/emailVerification">wicked dude</a></strong>',
         }
         sgMail
         .send(msg)
