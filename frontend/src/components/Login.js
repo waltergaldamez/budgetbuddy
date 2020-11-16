@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Form, Button, Card } from 'react-bootstrap';
 import { Alert } from 'react-bootstrap';
 import { buildPath } from '../functions/buildPath'
 
@@ -27,7 +26,7 @@ function Login()
             var res = JSON.parse(await response.text());
 
 
-            if( res.ret.error !== '')
+            if( res.error !== '')
             {
                 message = 'Email/Password combination incorrect';
                 setAlert(true);
@@ -50,9 +49,9 @@ function Login()
 
     return(
       <form>
-        <ul class="top-area">
-          <li class="tab active"><a href="/"><b>Log in</b></a></li>
-          <li class="tab inactive"><a href="/register"><b>Register</b></a></li>
+        <ul className="top-area">
+          <li className="tab active"><a href="/"><b>Log in</b></a></li>
+          <li className="tab inactive"><a href="/register"><b>Register</b></a></li>
         </ul>
 
         <div className="form-group">
@@ -65,7 +64,7 @@ function Login()
           <input type="password" className="form-control login" ref={(c) => loginPassword = c}/>
         </div>
 
-        <button type="submit" className="btn btn-lg btn-block btn-yellow" onClick={doLogin}><b>Log in</b></button>
+        <button type="submit" className="btn btn-lg btn-block login-btn-yellow" onClick={doLogin}><b>Log in</b></button>
         {
           showAlert ? (
                 <span class="alert">

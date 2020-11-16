@@ -73,7 +73,7 @@ function Register() {
         <input type="password" className="form-control login" ref={(c) => passwordConfirm = c}/>
       </div>
 
-      <button type="submit" className="btn btn-lg btn-block btn-yellow" onClick={doRegistration}><b>Register</b></button>
+      <button type="submit" className="btn btn-lg btn-block register-btn-yellow" onClick={doRegistration}><b>Register</b></button>
       <AlertType message={message} />
       </form>
   );
