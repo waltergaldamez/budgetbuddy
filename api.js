@@ -2,9 +2,9 @@ const { ObjectId } = require('mongodb');
 const jwt = require('jsonwebtoken');
 exports.setApp = function (app, client ){
 
-	
-	
-	
+
+
+
     // Adds a single budget with the following parameters for JSON:
 	// {
 	//	userID,
@@ -13,13 +13,13 @@ exports.setApp = function (app, client ){
 	//	BudgetProgress
 	// }
 	//
-	
-    // Returns: error 
+
+    // Returns: error
     app.post('/api/addbudget', verifyToken,async (req, res, next) =>
     {
       // incoming: email, budgetGoal, budgetProgress, budgetName
       // outgoing: error
-      // Constructing the newBudget instance  
+      // Constructing the newBudget instance
       jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
         if(err){
             res.sendStatus(403);
@@ -32,12 +32,12 @@ exports.setApp = function (app, client ){
             "isComplete" : parseBoolean(true)
           };
 
-            
+
           var error = '';
 
           try
           {
-        // Connecting to the db     
+        // Connecting to the db
             const db = client.db();
 
         // Insert newBudget into db
@@ -53,7 +53,7 @@ exports.setApp = function (app, client ){
           var ret = {BudgetName: BudgetName, authData, error: error };
           res.status(200).json(ret);
             }
-          });  
+          });
       
     });
 
@@ -67,7 +67,7 @@ exports.setApp = function (app, client ){
         // Get the previous value of the progress
         // Add to it
         // Update value
-    
+
         const budgetID = req.param('_id');
         console.log(ObjectId(budgetID));
         const progToAdd = req.param('progToAdd');
@@ -79,7 +79,7 @@ exports.setApp = function (app, client ){
             const db = client.db();
             const result = await db.collection('budgets').find({'_id': ObjectId(budgetID)}).toArray();
             console.log(result[0]);
-            
+
             if(result.length > 0){
                 // found a budget with the correct ID
                 const budgetGoal = result[0].BudgetGoal;
@@ -90,17 +90,17 @@ exports.setApp = function (app, client ){
                 if(newAmount >= budgetGoal){
                     newAmount = budgetGoal; // budget completed
                     // mark budget as completed (boolean)
-                    db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {isComplete: true}});   
+                    db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {isComplete: true}});
                 }
-                    
+
                 console.log("current amount: " + currentAmount);
                 console.log("new AMount: " + newAmount);
-                response = db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetProgress: newAmount}});   
+                response = db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetProgress: newAmount}});
 
             }else{
                 // didnt find the budget
                 error = "brenden not found";
-            
+
             }
         }catch(e){
             error = e.toString();
@@ -168,7 +168,7 @@ exports.setApp = function (app, client ){
 
             var _ret = [];
             _ret.push(results[0]);
-            
+
         }catch(e){
             error = e.toString();
         }
@@ -215,7 +215,7 @@ exports.setApp = function (app, client ){
         .catch((error) => {
             console.error(error)
         })
-        
+
         res.status(200).json(ret);
     });
 
@@ -233,8 +233,6 @@ exports.setApp = function (app, client ){
         // Query database for login information
         const results = await db.collection('users').find({"email":req.param('email'), "password":req.param('password')}).toArray();
 
-        console.log("results: " + results[0].toString());
-
         var id = -1;
         var ret = {};
 
@@ -247,23 +245,17 @@ exports.setApp = function (app, client ){
             // last = results[0].LastName;
             // jwt.sign({user:results[0]}, 'lol', (err, token) => {token});
             ret = { id:id, username:username, error:''};
+
+						const refreshToken = jwt.sign({user:results[0]}, process.env.REFRESH_TOKEN_SECRET)
+		        const accessToken = jwt.sign({user:results[0]}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15m'})
+						ret.refreshToken = refreshToken;
+						ret.accessToken = accessToken;
         }
         else
         {
             ret={error: "user not found"};
-            res.status(200).json(ret);
         }
-
-        const refreshToken = jwt.sign({user:results[0]}, process.env.REFRESH_TOKEN_SECRET)
-        const accessToken = jwt.sign({user:results[0]}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15m'})
-        res.json({
-                refreshToken : refreshToken,
-                accessToken:accessToken,
-                ret:ret
-            });
-
-
-        
+				res.status(200).json(ret);
     });
 
     app.post('/api/searchUsers', verifyToken,async (req, res, next) =>
@@ -328,7 +320,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/removeFriend', verifyToken,async (req, res, next) => 
+    app.post('/api/removeFriend', verifyToken,async (req, res, next) =>
     {
         var error = '';
         const userID = req.param('userID');
@@ -356,7 +348,7 @@ exports.setApp = function (app, client ){
     });
 
 
-    app.post('/api/showFriends', verifyToken,async (req, res, next) => 
+    app.post('/api/showFriends', verifyToken,async (req, res, next) =>
     {
         // Incoming: userID or userEmail
         // Outgoing: friends array of user
@@ -365,15 +357,15 @@ exports.setApp = function (app, client ){
 
         const userID = req.param('userID');
         console.log("API JSON: " + userID);
-        
+
         const db = client.db();
         var friendsArr = [];
-        
+
         try{
-        
+
             // Get the user from the database
            const user = await db.collection('users').find({'_id' : ObjectId(userID)}).toArray();
-            
+
             // Converts friend array in JSON into an array of the values (friendIDs)
             friendsArr = Object.values(user[0].friends);
 
@@ -390,7 +382,7 @@ exports.setApp = function (app, client ){
     app.post('/api/getRank', verifyToken,async (req, res, next) => {
 
         var error = '';
-        
+
         const db = client.db();
         var rank = -99;
 
@@ -400,7 +392,7 @@ exports.setApp = function (app, client ){
             // Get the user from the database
             const user = await db.collection('users').find({'_id' : ObjectId(userID)}).toArray();
 
-            rank = user[0].rankMetric;            
+            rank = user[0].rankMetric;
 
         }catch(e){
             error = e.toString();
@@ -416,7 +408,7 @@ exports.setApp = function (app, client ){
         // incoming: new rank, userID
         // Outgoing: updateRank
         var error = '';
-        
+
         const db = client.db();
         var user = {};
 
@@ -441,12 +433,12 @@ exports.setApp = function (app, client ){
       const budgetID = req.param('_id');
       var error = '';
       var response = '';
-    
+
       try
       {
         const db = client.db();
         db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetName: updatedBudget.BudgetName, BudgetGoal: updatedBudget.BudgetGoal}});
-    
+
       }
       catch(e)
       {
@@ -461,7 +453,7 @@ exports.setApp = function (app, client ){
         // incoming: userID, updated username, updated email, updated password
         // Outgoing: error
         var error = '';
-    
+
         const userID = req.param('userID');
         const newEmail = req.param('newEmail');
         const newUsername = req.param('userName');
@@ -488,7 +480,7 @@ exports.setApp = function (app, client ){
         // incoming: email
         // Outgoing: error
         var error = '';
-    
+
         const email = req.param('email');
 
         const db = client.db();
@@ -563,7 +555,7 @@ exports.setApp = function (app, client ){
         //Undefined check
         if(typeof bearerHeader !== 'undefined'){
             const bearer = bearerHeader.split(' ');
-            
+
             //Get the token
             const bearerToken = bearer[1];
 
@@ -574,7 +566,7 @@ exports.setApp = function (app, client ){
         else{
             res.sendStatus(403);
         }
-  
+
     }
 
     app.post('/api/token', async (req, res) =>{
