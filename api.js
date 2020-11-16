@@ -181,6 +181,23 @@ exports.setApp = function (app, client ){
 
     app.post('/api/register', async (req, res, next) => {
         const db = client.db();
+
+				// check if email is already registerd
+				var assertUnique = await db.collection('users').find({"email":req.param('email')}).toArray();
+
+				// check if user is registered if email isn't
+				if (assertUnique.length === 0) {
+					assertUnique = await db.collection('users').find({"username":req.param('username')}).toArray();
+				} else { //email is registerd already
+					res.status(200).json({error:"User with that email already exists. Use another email."});
+					return;
+				}
+
+				if (assertUnique.length !== 0) {
+					res.status(200).json({error:"Username already taken."});
+					return;
+				}
+
         const js = {"email":req.param('email'), "password":req.param('password'),
                     "username":req.param('username'), "verification":false,
                     "friends":req.param('friends'), "rankMetric": req.param("rankMetric")};
@@ -230,11 +247,16 @@ exports.setApp = function (app, client ){
         // Acquire a database object
         const db = client.db();
 
-        // Query database for login information
-        const results = await db.collection('users').find({"email":req.param('email'), "password":req.param('password')}).toArray();
+        // Check if using email to login
+        var results = await db.collection('users').find({"email":req.param('email'), "password":req.param('password')}).toArray();
+
+				// if email didn't work, try as username
+				if (results.length === 0)
+					results = await db.collection('users').find({"username":req.param('email'), "password":req.param('password')}).toArray();
 
         var id = -1;
         var ret = {};
+
 
         if( results.length > 0 )
         {
