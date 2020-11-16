@@ -484,6 +484,28 @@ exports.setApp = function (app, client ){
 
     });
 
+    app.post('/api/emailVerification', async (req, res, next) =>
+    {
+        // incoming: email
+        // Outgoing: error
+        var error = '';
+    
+        const email = req.param('email');
+
+        const db = client.db();
+
+        try{
+            db.collection('users').updateOne({'email':email}, { $set: {verification:true}});
+
+        }catch(e){
+            error = e.toString();
+        }
+
+        var ret = {error:error};
+        res.status(200).json(ret);
+
+    });
+
 
     // Need to re-direct to a password reset page with proper JWT possibly
     app.post('/api/recoverPassword', async (req, res, next) =>
