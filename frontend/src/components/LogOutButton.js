@@ -14,10 +14,10 @@ const LogOutButton = () => {
 
   return (
     <Button variant="danger" type="submit" className="pink" onClick={doLogout}>
-      <span class="material-icons">
+      <span className="material-icons">
         exit_to_app
       </span>
-      <div class="logout black-text">Logout</div>
+      <div className="logout black-text">Logout</div>
     </Button>
   );
 }

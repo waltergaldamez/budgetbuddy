@@ -3,10 +3,9 @@ import React from 'react';
 import PageNav from '../components/PageNav';
 import LogOutButton from '../components/LogOutButton';
 import LoggedInName from '../components/LoggedInName';
+import EditProfile from '../components/EditProfile';
 
 import { Container, Row, Col } from 'react-bootstrap';
-//import FindUser from '../components/FindUser';
-//import AddFriend from '../components/AddFriend';
 
 const HomePage = () =>
 {
@@ -27,10 +26,13 @@ const HomePage = () =>
       </div>
 
         <Row>
-          <Col></Col>
-          <Col></Col>
           <Col>
+            <EditProfile />
           </Col>
+          <Col>
+            <LoggedInName />
+          </Col>
+          <Col></Col>
         </Row>
       </Container>
     );

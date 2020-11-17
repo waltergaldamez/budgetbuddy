@@ -208,7 +208,7 @@ i {
 .btn-yellow {
   background-color: #FCB401;
   width: 40%;
-  height: 47%;
+  height: 35%;
   border-radius: 50px;
   margin-left: 100px;
   margin-top: 4.5%;
@@ -267,3 +267,31 @@ i {
 
 tr:nth-child(even) {background-color: #979797;}
 tr:nth-child(odd) {background-color: #C4C4C4;}
+
+.edit-btn-yellow {
+  background-color: #FCB401;
+  width: 35%;
+  height: 70%;
+  border-radius: 50px;
+  margin-left: 100px;
+  margin-top: 4.5%;
+  text-align: center;
+  font-size: 18pt;
+}
+
+.edit-profile-text {
+  display: inline;
+  position: relative;
+  bottom: 6px;
+  font-size: 14pt;
+  font-style: bold;
+}
+
+.md-34 {
+  font-size: 34px;
+}
+
+.loggedInDiv {
+  font-size: 24pt;
+  margin-top: 5%;
+}
