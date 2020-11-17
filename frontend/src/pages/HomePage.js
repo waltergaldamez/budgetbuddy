@@ -17,7 +17,7 @@ const HomePage = () =>
           <Col></Col>
           <Col className="col-6">
             <PageNav home={"fa fa-home fa-2x circle-icon-selected"}
-            budget={"material-icons md-48 circle-icon"}
+            budget={"material-icons md-50 circle-icon"}
             leaderboard={"fa fa-trophy fa-2x circle-icon"}/>
           </Col>
           <Col>
