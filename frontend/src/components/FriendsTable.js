@@ -7,7 +7,7 @@ const FriendsTable = () => {
           <thead>
             <tr>
               <th scope="col" class="yellow">Friends</th>
-              <th scope="col" class="pink">Find New Friends</th>
+              <th scope="col" class="pink-header">Global</th>
             </tr>
           </thead>
           <tbody >

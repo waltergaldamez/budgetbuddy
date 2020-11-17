@@ -58,9 +58,8 @@ i {
   position: static;
 }
 
-.black-text {
-  color: black;
-}
+.material-icons.md-50 { font-size: 50px; }
+
 
 /*logout button */
 .pink {
@@ -263,4 +262,8 @@ i {
   background-color: #FB2B60;
   font-size: 36px;
   color: black;
+  text-align: center;
 }
+
+tr:nth-child(even) {background-color: #979797;}
+tr:nth-child(odd) {background-color: #C4C4C4;}
