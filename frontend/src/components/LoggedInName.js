@@ -1,11 +1,10 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
 
 function LoggedInName()
 {
 
     // Getting from persistant storage
-    var username = localStorage.getItem('username'); 
+    var username = localStorage.getItem('userName'); 
 
   return(
    <div className="loggedInDiv">

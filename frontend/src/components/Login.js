@@ -33,11 +33,11 @@ function Login()
             }
             else
             {
-                localStorage.setItem('email', loginEmail.value);
+                localStorage.setItem('userName', res.username);
                 localStorage.setItem('userID', res.id);
 
                 // re-route
-                window.location.href = '/budget';
+                window.location.href = '/home';
             }
         }
         catch(e)

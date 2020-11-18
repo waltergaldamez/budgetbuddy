@@ -295,3 +295,35 @@ tr:nth-child(odd) {background-color: #C4C4C4;}
   font-size: 24pt;
   margin-top: 5%;
 }
+
+.grow { transition: all .2s ease-in-out; }
+.grow:hover { transform: scale(1.1); }
+
+.budget-breakdown {
+  width: 80%;
+  height: 550px;
+  margin-left: 10%;
+  margin-top: 5%;
+  background: #19C0FF;
+  text-align: center;
+  border-radius: 10%;
+}
+
+.budget-graphics {
+  background-color:  #979797;
+  border-radius: 3%;
+  height: 400px;
+}
+
+.num-budgets {
+  margin-top: 3%;
+}
+
+.apexcharts-legend-marker {
+  height: 20pt !important;
+  width: 20pt !important;
+}
+
+.apexcharts-legend-text {
+  font-size: 24pt !important;
+}

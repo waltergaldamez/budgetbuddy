@@ -38,7 +38,7 @@ const FriendsPage = () =>
               <CurrentRank />
             </Col>
             <Col>
-              <button className="btn btn-yellow" onClick={() => window.location.href='/manage-friends'}>
+              <button className="btn btn-yellow grow" onClick={() => window.location.href='/manage-friends'}>
                 <span class="material-icons">
                   group
                 </span>
