@@ -515,6 +515,11 @@ exports.setApp = function (app, client ){
 
     app.get('/api/emailVerification', async (req, res, next) =>
     {
+
+        /*
+            Email verification works fine so far but clicking on the link does not seem to launch the API might need help from leinecker or more tutorials
+
+        */
         
         // const email = req.param('email');
 
