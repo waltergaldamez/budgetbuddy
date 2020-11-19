@@ -15,7 +15,7 @@ exports.setApp = function (app, client ){
 	//
 
     // Returns: error
-    app.post('/api/addbudget', verifyToken,async (req, res, next) =>
+    app.post('/api/addbudget',async (req, res, next) =>
     {
       // incoming: email, budgetGoal, budgetProgress, budgetName
       // outgoing: error
@@ -59,7 +59,7 @@ exports.setApp = function (app, client ){
 
 
     // Adds
-    app.post('/api/addprogress', verifyToken,async (req, res, next) =>
+    app.post('/api/addprogress', async (req, res, next) =>
     {
         // in: _id of budget and progress to add
         // Need to find the budget to update the progress in
@@ -110,7 +110,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.delete('/api/removebudget', verifyToken,async (req, res, next) =>
+    app.delete('/api/removebudget', async (req, res, next) =>
     {
         const budgetID = req.param('_id');
         var error = '';
@@ -130,7 +130,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/showAllBudgets', verifyToken,async (req, res, next) => {
+    app.post('/api/showAllBudgets', async (req, res, next) => {
         const db = client.db();
         const email= req.param('email');
         var error = '';
@@ -154,7 +154,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/showBudget', verifyToken,async (req, res, next) => {
+    app.post('/api/showBudget', async (req, res, next) => {
         const db = client.db();
         // const userEmail = req.param('email');
         const budgetID = req.param('_id');
@@ -296,7 +296,7 @@ exports.setApp = function (app, client ){
 				res.status(200).json(ret);
     });
 
-    app.post('/api/searchUsers', verifyToken,async (req, res, next) =>
+    app.post('/api/searchUsers', async (req, res, next) =>
     {
         // incoming: searchUsername
         // outgoing: results[], error
@@ -324,7 +324,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/addFriend', verifyToken,async (req, res, next) =>
+    app.post('/api/addFriend', async (req, res, next) =>
     {
         // incoming: userID, friendID
         // outgoing: friends object array
@@ -358,7 +358,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/removeFriend', verifyToken,async (req, res, next) =>
+    app.post('/api/removeFriend', async (req, res, next) =>
     {
         var error = '';
         const userID = req.param('userID');
@@ -386,7 +386,7 @@ exports.setApp = function (app, client ){
     });
 
 
-    app.post('/api/showFriends', verifyToken,async (req, res, next) =>
+    app.post('/api/showFriends', async (req, res, next) =>
     {
         // Incoming: userID or userEmail
         // Outgoing: friends array of user
@@ -417,7 +417,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/getRank', verifyToken,async (req, res, next) => {
+    app.post('/api/getRank', async (req, res, next) => {
 
         var error = '';
 
@@ -441,7 +441,7 @@ exports.setApp = function (app, client ){
 
     });
 
-    app.post('/api/updateRank', verifyToken,async (req, res, next) =>
+    app.post('/api/updateRank', async (req, res, next) =>
     {
         // incoming: new rank, userID
         // Outgoing: updateRank
@@ -465,7 +465,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/updatebudget', verifyToken,async (req, res, next) =>
+    app.post('/api/updatebudget', async (req, res, next) =>
     {
       const updatedBudget =  {"BudgetName":req.param("BudgetName"), "BudgetGoal":parseFloat(req.param("BudgetGoal"))};
       const budgetID = req.param('_id');
@@ -486,7 +486,7 @@ exports.setApp = function (app, client ){
       res.status(200).json(ret);
     });
 
-    app.post('/api/editAccount', verifyToken,async (req, res, next) =>
+    app.post('/api/editAccount', async (req, res, next) =>
     {
         // incoming: userID, updated username, updated email, updated password
         // Outgoing: error
