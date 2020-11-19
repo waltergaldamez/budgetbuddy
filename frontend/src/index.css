@@ -267,21 +267,21 @@ i {
 
 tr:nth-child(even) > td.first {
   color: black;
-  background-color: #EDD7A4;
+  background-color: #8CDFFF;
 }
 
 tr:nth-child(even) > td.second {
-  background-color: #EFCED3;
+  background-color: #C5EFFF;
   color: black;
 }
 
 tr:nth-child(odd) > td.first {
-  background-color: #EFCED3;
+  background-color: #C5EFFF;
   color: black;
 }
 tr:nth-child(odd) > td.second {
   color: black;
-  background-color: #EDD7A4;
+  background-color: #8CDFFF;
 }
 
 .edit-btn-yellow {
@@ -326,7 +326,7 @@ tr:nth-child(odd) > td.second {
 }
 
 .budget-graphics {
-  background-color:  #979797;
+  background-color:  #55D0F1;
   border-radius: 3%;
   height: 400px;
 }

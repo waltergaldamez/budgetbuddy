@@ -3,7 +3,7 @@ import React from 'react';
 const FriendsTable = () => {
   return (
     <div class="lower">
-        <table class="table table-dark">
+        <table class="table">
           <thead>
             <tr>
               <th scope="col" class="yellow">Friends</th>
