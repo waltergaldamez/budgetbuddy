@@ -265,8 +265,24 @@ i {
   text-align: center;
 }
 
-tr:nth-child(even) {background-color: #979797;}
-tr:nth-child(odd) {background-color: #C4C4C4;}
+tr:nth-child(even) > td.first {
+  color: black;
+  background-color: #EDD7A4;
+}
+
+tr:nth-child(even) > td.second {
+  background-color: #EFCED3;
+  color: black;
+}
+
+tr:nth-child(odd) > td.first {
+  background-color: #EFCED3;
+  color: black;
+}
+tr:nth-child(odd) > td.second {
+  color: black;
+  background-color: #EDD7A4;
+}
 
 .edit-btn-yellow {
   background-color: #FCB401;

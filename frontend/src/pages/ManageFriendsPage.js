@@ -30,16 +30,16 @@ const ManageFriendsPage = () => {
           </thead>
           <tbody >
             <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
+              <td className="first">1</td>
+              <td className="second">Mark</td>
             </tr>
             <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
+              <td className="first">2</td>
+              <td className="second">Jacob</td>
             </tr>
             <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
+              <td className="first">3</td>
+              <td className="second">Larry</td>
             </tr>
           </tbody>
           </table>
