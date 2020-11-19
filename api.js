@@ -182,48 +182,63 @@ exports.setApp = function (app, client ){
     app.post('/api/register', async (req, res, next) => {
         const db = client.db();
 
-				// check if email is already registerd
-				var assertUnique = await db.collection('users').find({"email":req.param('email')}).toArray();
+        // // check if email is already registerd
+        // var assertUnique = await db.collection('users').find({"email":req.param('email')}).toArray();
 
-				// check if user is registered if email isn't
-				if (assertUnique.length === 0) {
-					assertUnique = await db.collection('users').find({"username":req.param('username')}).toArray();
-				} else { //email is registerd already
-					res.status(200).json({error:"User with that email already exists. Use another email."});
-					return;
-				}
+        // // check if user is registered if email isn't
+        // if (assertUnique.length === 0) {
+        //     assertUnique = await db.collection('users').find({"username":req.param('username')}).toArray();
+        // } else { //email is registerd already
+        //     res.status(200).json({error:"User with that email already exists. Use another email."});
+        //     return;
+        // }
 
-				if (assertUnique.length !== 0) {
-					res.status(200).json({error:"Username already taken."});
-					return;
-				}
+        // if (assertUnique.length !== 0) {
+        //     res.status(200).json({error:"Username already taken."});
+        //     return;
+        // }
 
-        const js = {"email":req.param('email'), "password":req.param('password'),
+        const newUser = {"email":req.param('email'), "password":req.param('password'),
                     "username":req.param('username'), "verification":false,
                     "friends":req.param('friends'), "rankMetric": req.param("rankMetric")};
         var ret={};
 
         try {
-            const result = db.collection('users').insertOne(js);
+            const result = await db.collection('users').insertOne(newUser);
             ret={success:"true", error:""};
         } catch(e) {
             ret={error:e.toString()};
         }
 
 
-        console.log(js.email);
+        console.log(newUser.email);
         // using Twilio SendGrid's v3 Node.js Library
         // https://github.com/sendgrid/sendgrid-nodejs
         // javascript
         const sgMail = require('@sendgrid/mail')
         sgMail.setApiKey(process.env.SENDGRID_API_KEY)
         const msg = {
-        to: js.email.toString(), // Change to your recipient
-        from: 'budgetbuddiesapp@gmail.com', // Change to your verified sender
-        subject: 'Verify your e-mail account for BudgetBuddies',
-        text: 'View this in html',
-        html: '<strong>Click the link to verify your email:<a href="https://budgetbuddiesapp.herokuapp.com/api/emailVerification">wicked dude</a></strong>',
+            to: newUser.email.toString(), // Change to your recipient
+            from: 'budgetbuddiesapp@gmail.com', // Change to your verified sender
+            subject: 'Verify your e-mail account for BudgetBuddies',
+            text: `Click the link to verify your email:
+                    https://budgetbuddiesapp.herokuapp.com/api/emailVerification?email=${newUser.email}`,
+            html: ` <h1> Hello ! </h1>
+                    <p>Click the link to verify your email</p>
+                    <a href="https://budgetbuddiesapp.herokuapp.com/emailVerification?email=${newUser.email}">Verify account</a>
+                    <p> Or copy and past the following link in your browser: https://budgetbuddiesapp.herokuapp.com/emailVerification?email=${newUser.email}`
+                                                                                                                                
         }
+
+        try{
+            await sgMail.send(msg);
+            res.redirect('/budget');
+            // window.location.href = '/budget';
+
+        }catch(error){
+            console.log(error);
+        }
+        /*
         sgMail
         .send(msg)
         .then(() => {
@@ -232,8 +247,9 @@ exports.setApp = function (app, client ){
         .catch((error) => {
             console.error(error)
         })
+        */
 
-        res.status(200).json(ret);
+        // res.status(200).json(ret);
     });
 
 
@@ -497,25 +513,37 @@ exports.setApp = function (app, client ){
 
     });
 
-    app.post('/api/emailVerification', async (req, res, next) =>
+    app.get('/api/emailVerification', async (req, res, next) =>
     {
-        // incoming: email
-        // Outgoing: error
-        var error = '';
-
-        const email = req.param('email');
+        
+        // const email = req.param('email');
 
         const db = client.db();
-
         try{
-            db.collection('users').updateOne({'email':email}, { $set: {verification:true}});
+            const user = await db.collection('users').findOne({email: req.query.email});
+            if(!user){
+                console.log("Invalid!");
+                return res.redirect('/');
+            }
 
-        }catch(e){
-            error = e.toString();
+            console.log("About to verify the user");
+            await db.collection('users').updateOne({'email': req.query.email}, { $set: {verification:true}});
+            console.log("Verified the user");
+            // await req.login(user, async(err) =>{
+            //     if (err) return next(err);
+
+            //     const redirectURL = '/budget';
+            //     res.redirect(redirectURL);
+            // })
+        }catch(error){
+            console.log(error.toString());
+            res.redirect('/');
         }
 
-        var ret = {error:error};
-        res.status(200).json(ret);
+        
+        // var ret = {error:error};
+        res.status(200);
+
 
     });
 
