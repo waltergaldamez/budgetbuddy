@@ -50,17 +50,16 @@ const FriendSearchTable = () => {
       </thead>
       <tbody >
 
-        <tr>
+
         {searchResults.map((result) => {
           return (
-            <div>
+            <tr>
             <td className="first">1</td>
-            <td className="second">{ result }</td>
-            </div>
+            <td className="second">{ result.username }</td>
+            </tr>
           );
         })
       }
-        </tr>
       </tbody>
       </table>
   )
