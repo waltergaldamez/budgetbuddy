@@ -35,7 +35,7 @@ function Budgets()
         alert('budget name: ' + budgetName.value);
         alert('budget Goal: ' + budgetGoal.value);
         alert('budget Progress: ' + budgetProgress.value);
-	
+
 
         // Getting stuff out of UI
         // Need to change card: card.value
@@ -110,27 +110,12 @@ function Budgets()
 
 
     return(
-        <Form>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Budget Name</Form.Label>
-            <Form.Control type="email" placeholder="Grocery, Rent, etc." ref={(c) => budgetName = c} />
-          </Form.Group>
-
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Budget Goal</Form.Label>
-            <Form.Control type="text" placeholder="$$"ref={(c) => budgetGoal = c}/>
-          </Form.Group>
-
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Starting Amount</Form.Label>
-            <Form.Control type="text" placeholder="$$"ref={(c) => budgetProgress = c}/>
-          </Form.Group>
-
-          <Button variant="success" type="submit" onClick={addBudget}>
-            Add Budget
-          </Button>
-          <span id="BudgetAddResult">{message}</span>
-        </Form>
+      <Button variant="warning"type="submit" className="budget-btn-yellow">
+        <b><span className="material-icons md-48">
+          add_task
+        </span>
+        <div className="logout black-text"> Add a New Budget</div></b>
+      </Button>
     );
 }
 

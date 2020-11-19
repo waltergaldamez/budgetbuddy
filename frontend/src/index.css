@@ -327,3 +327,18 @@ tr:nth-child(odd) {background-color: #C4C4C4;}
 .apexcharts-legend-text {
   font-size: 24pt !important;
 }
+
+.budget-btn-yellow {
+  background-color: #FCB401;
+  width: 40%;
+  height: 75%;
+  border-radius: 50px;
+  margin-left: 100px;
+  margin-top: 2.5%;
+  text-align: center;
+  font-size: 18pt;
+}
+
+.md-48 {
+  font-size: 50px;
+}

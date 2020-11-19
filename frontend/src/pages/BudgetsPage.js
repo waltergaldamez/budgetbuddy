@@ -26,7 +26,7 @@ const BudgetsPage = () =>
 
         <Row>
           <Col></Col>
-          <Col>
+          <Col className="col-6">
             <Budgets />
           </Col>
           <Col>

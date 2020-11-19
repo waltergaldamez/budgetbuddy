@@ -38,7 +38,7 @@ const HomePage = () =>
 
         <Row>
           <Col>
-            <div className="budget-breakdown">
+            <div className="budget-breakdown grow">
               <h2>Budget Breakdown</h2>
               <br/>
               <div className="budget-graphics">

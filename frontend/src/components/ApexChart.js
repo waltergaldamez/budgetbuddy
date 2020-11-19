@@ -13,7 +13,7 @@ export default class ApexChart extends React.Component {
                width: 380,
                type: 'pie',
              },
-             labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+             labels: ['Budget 1', 'Budget 2', 'Budget 3', 'Budget 4', 'Budget 5'],
              responsive: [{
                breakpoint: 480,
                options: {
