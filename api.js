@@ -227,7 +227,7 @@ exports.setApp = function (app, client ){
                     <p>Click the link to verify your email</p>
                     <a href="https://budgetbuddiesapp.herokuapp.com/emailVerification?email=${newUser.email}">Verify account</a>
                     <p> Or copy and past the following link in your browser: https://budgetbuddiesapp.herokuapp.com/emailVerification?email=${newUser.email}`
-                                                                                                                                
+
         }
 
         try{
@@ -520,7 +520,7 @@ exports.setApp = function (app, client ){
             Email verification works fine so far but clicking on the link does not seem to launch the API might need help from leinecker or more tutorials
 
         */
-        
+
         // const email = req.param('email');
 
         const db = client.db();
@@ -545,7 +545,7 @@ exports.setApp = function (app, client ){
             res.redirect('/');
         }
 
-        
+
         // var ret = {error:error};
         res.status(200);
 

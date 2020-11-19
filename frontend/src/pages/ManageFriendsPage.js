@@ -1,6 +1,7 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import PageNav from '../components/PageNav';
 import LogOutButton from '../components/LogOutButton';
+import FriendSearchTable from '../components/FriendSearchTable';
 
 const ManageFriendsPage = () => {
   return (
@@ -20,30 +21,7 @@ const ManageFriendsPage = () => {
           </Row>
         </Container>
       </div>
-      <div class="lower">
-        <table class="table table-dark">
-          <thead>
-            <tr>
-              <th scope="col" class="yellow">My Friends</th>
-              <th scope="col" class="pink-header">Find New Friends <input class="friends-search"></input> <i class="fa fa-search"></i></th>
-            </tr>
-          </thead>
-          <tbody >
-            <tr>
-              <td className="first">1</td>
-              <td className="second">Mark</td>
-            </tr>
-            <tr>
-              <td className="first">2</td>
-              <td className="second">Jacob</td>
-            </tr>
-            <tr>
-              <td className="first">3</td>
-              <td className="second">Larry</td>
-            </tr>
-          </tbody>
-          </table>
-        </div>
+      <FriendSearchTable />
     </div>
   )
 }

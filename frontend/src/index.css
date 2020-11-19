@@ -262,7 +262,21 @@ i {
   background-color: #FB2B60;
   font-size: 36px;
   color: black;
-  text-align: center;
+}
+
+.friends-search {
+  border-radius: 50px;
+  width: 60%;
+  display: inline;
+  position: relative;
+  bottom: 8px;
+  height: 50px;
+}
+
+.friends-button {
+  margin-left: 2%;
+  margin-bottom: 1%;
+  background-color: #19C0FF;
 }
 
 tr:nth-child(even) > td.first {
