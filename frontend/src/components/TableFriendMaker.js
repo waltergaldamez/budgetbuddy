@@ -75,8 +75,8 @@ render() {
         {friends.map((friend, i) => {
           return (
             <tr>
-              <td className="first">{ friend.username }</td>
-              <td className="second">{ i >= results.length ? '' : results[i].username }</td>
+              <td className="first grow"><h4>{ friend.username }</h4></td>
+              <td className="second grow"><h4>{ i >= results.length ? '' : results[i].username }{ i >= results.length ? '' :  <div className="add-icon grow"><i class="fa fa-user-plus fa-2x user-add"></i></div> }</h4></td>
             </tr>
           );
         })
@@ -101,8 +101,11 @@ render() {
         {results.map((result, i) => {
           return (
             <tr>
-            <td className="first">{  typeof friends === 'undefined' || i >= friends.length ? '' : friends[i].username } </td>
-            <td className="second">{ result.username }</td>
+            <td className="first grow"><h4>{  typeof friends === 'undefined' || i >= friends.length ? '' : friends[i].username }</h4></td>
+            <td className="second grow">
+              <h4 className="user-add">{ result.username }</h4>
+              <div className="add-icon grow"><i class="fa fa-user-plus fa-2x user-add"></i></div>
+            </td>
             </tr>
           );
         })

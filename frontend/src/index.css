@@ -282,20 +282,24 @@ i {
 tr:nth-child(even) > td.first {
   color: black;
   background-color: #19C0FF;
+  text-align: center;
 }
 
 tr:nth-child(even) > td.second {
   background-color: #55D0F1;
   color: black;
+  text-align: center;
 }
 
 tr:nth-child(odd) > td.first {
   background-color: #55D0F1;
   color: black;
+  text-align: center;
 }
 tr:nth-child(odd) > td.second {
   color: black;
   background-color: #19C0FF;
+  text-align: center;
 }
 
 .edit-btn-yellow {
@@ -373,6 +377,20 @@ tr:nth-child(odd) > td.second {
   font-size: 50px;
 }
 
-table {
-  empty-cells: show;
+.add-icon {
+  background: #FCB401;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  line-height: 60px;
+  color: white;
+  margin-left: 75%;
+  position: relative;
+  bottom: 35px;
+}
+
+
+.user-add {
+  display: inline;
+  margin-top: 10%;
 }
