@@ -15,7 +15,7 @@ exports.setApp = function (app, client ){
 	//
 
     // Returns: error
-    app.post('/api/addbudget', verifyToken,async (req, res, next) =>
+    app.post('/api/addbudget', async (req, res, next) =>
     {
       // incoming: email, budgetGoal, budgetProgress, budgetName
       // outgoing: error
@@ -59,7 +59,7 @@ exports.setApp = function (app, client ){
 
 
     // Adds
-    app.post('/api/addprogress', verifyToken,async (req, res, next) =>
+    app.post('/api/addprogress', async (req, res, next) =>
     {
         // in: _id of budget and progress to add
         // Need to find the budget to update the progress in
@@ -110,7 +110,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.delete('/api/removebudget', verifyToken,async (req, res, next) =>
+    app.delete('/api/removebudget', async (req, res, next) =>
     {
         const budgetID = req.param('_id');
         var error = '';
@@ -130,7 +130,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/showAllBudgets', verifyToken,async (req, res, next) => {
+    app.post('/api/showAllBudgets', async (req, res, next) => {
         const db = client.db();
         const email= req.param('email');
         var error = '';
@@ -154,7 +154,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/showBudget', verifyToken,async (req, res, next) => {
+    app.post('/api/showBudget', async (req, res, next) => {
         const db = client.db();
         // const userEmail = req.param('email');
         const budgetID = req.param('_id');
@@ -223,10 +223,10 @@ exports.setApp = function (app, client ){
             subject: 'Verify your e-mail account for BudgetBuddies',
             text: `Click the link to verify your email:
                     https://budgetbuddiesapp.herokuapp.com/api/emailVerification?email=${newUser.email}`,
-            html: ` <h1> Hello ! </h1>
+            html: ` <h1> Hello !</h1>
                     <p>Click the link to verify your email</p>
                     <a href="https://budgetbuddiesapp.herokuapp.com/emailVerification?email=${newUser.email}">Verify account</a>
-                    <p> Or copy and past the following link in your browser: https://budgetbuddiesapp.herokuapp.com/emailVerification?email=${newUser.email}`
+                    <p> Or copy and past the following link in your browser: https://budgetbuddiesapp.herokuapp.com/api/emailVerification?email=${newUser.email}`
 
         }
 
@@ -324,7 +324,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/addFriend', verifyToken,async (req, res, next) =>
+    app.post('/api/addFriend', async (req, res, next) =>
     {
         // incoming: userID, friendID
         // outgoing: friends object array
@@ -358,7 +358,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/removeFriend', verifyToken,async (req, res, next) =>
+    app.post('/api/removeFriend', async (req, res, next) =>
     {
         var error = '';
         const userID = req.param('userID');
@@ -421,7 +421,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/getRank', verifyToken,async (req, res, next) => {
+    app.post('/api/getRank', async (req, res, next) => {
 
         var error = '';
 
@@ -445,7 +445,7 @@ exports.setApp = function (app, client ){
 
     });
 
-    app.post('/api/updateRank', verifyToken,async (req, res, next) =>
+    app.post('/api/updateRank', async (req, res, next) =>
     {
         // incoming: new rank, userID
         // Outgoing: updateRank
@@ -469,7 +469,7 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    app.post('/api/updatebudget', verifyToken,async (req, res, next) =>
+    app.post('/api/updatebudget', async (req, res, next) =>
     {
       const updatedBudget =  {"BudgetName":req.param("BudgetName"), "BudgetGoal":parseFloat(req.param("BudgetGoal"))};
       const budgetID = req.param('_id');
@@ -490,7 +490,7 @@ exports.setApp = function (app, client ){
       res.status(200).json(ret);
     });
 
-    app.post('/api/editAccount', verifyToken,async (req, res, next) =>
+    app.post('/api/editAccount', async (req, res, next) =>
     {
         // incoming: userID, updated username, updated email, updated password
         // Outgoing: error
@@ -525,8 +525,6 @@ exports.setApp = function (app, client ){
 
         */
 
-        // const email = req.param('email');
-
         const db = client.db();
         try{
             const user = await db.collection('users').findOne({email: req.query.email});
@@ -544,16 +542,14 @@ exports.setApp = function (app, client ){
             //     const redirectURL = '/budget';
             //     res.redirect(redirectURL);
             // })
+            // next();
         }catch(error){
             console.log(error.toString());
             res.redirect('/');
         }
 
-
         // var ret = {error:error};
         res.status(200);
-
-
     });
 
 
