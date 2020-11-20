@@ -76,7 +76,7 @@ render() {
           return (
             <tr>
               <td className="first">{ friend.username }</td>
-              <td className="second">{ i >= this.props.results.length ? '' : results[i].username }</td>
+              <td className="second">{ i >= results.length ? '' : results[i].username }</td>
             </tr>
           );
         })
