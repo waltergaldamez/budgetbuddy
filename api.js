@@ -530,7 +530,7 @@ exports.setApp = function (app, client ){
             const user = await db.collection('users').findOne({email: req.query.email});
             if(!user){
                 console.log("Invalid!");
-                return res.redirect('https://budgetbuddiesapp.herokuapp.com/');
+                return res.redirect('https://budgetbuddiesapp.herokuapp.com/budget');
             }
 
             console.log("About to verify the user");
@@ -543,10 +543,10 @@ exports.setApp = function (app, client ){
             //     res.redirect(redirectURL);
             // })
             // next();
-            res.redirect('https://budgetbuddiesapp.herokuapp.com/');
+            res.redirect('https://budgetbuddiesapp.herokuapp.com/budget');
         }catch(error){
             console.log(error.toString());
-            res.redirect('https://budgetbuddiesapp.herokuapp.com/');
+            res.redirect('https://budgetbuddiesapp.herokuapp.com/budget');
         }
     });
 
@@ -562,9 +562,7 @@ exports.setApp = function (app, client ){
 
         const email = req.param('email');
         console.log(email);
-        var userRoute = "1234";
-        var link = "<strong>Click the link to reset your password:" + '<a href="https://budgetbuddiesapp.herokuapp.com/recoverPassword">Reset Password</a>'+"</strong>";
-
+        
         try{
             const result = await db.collection('users').find({email:email}).toArray();
             console.log("result.length: " + result.length);
