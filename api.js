@@ -408,7 +408,7 @@ exports.setApp = function (app, client ){
             // Converts friend array in JSON into an array of the values (friendIDs)
             for (var i = 0; i < user[0].friends.length; i++) {
               var friend = await db.collection('users').find({'_id' : ObjectId(user[0].friends[i])}).toArray();
-              friendsArr.push({id: user[0].friends, username: friend[0].username})
+              friendsArr.push({id: user[0].friends[i], username: friend[0].username})
             }
             //friendsArr = Object.values(user[0].friends[i]);
 
@@ -564,7 +564,7 @@ exports.setApp = function (app, client ){
 
         const email = req.param('email');
         console.log(email);
-        
+
         try{
             const result = await db.collection('users').find({email:email}).toArray();
             console.log("result.length: " + result.length);

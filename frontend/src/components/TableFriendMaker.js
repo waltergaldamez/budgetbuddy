@@ -55,10 +55,41 @@ render() {
       }
       catch(e)
       {
-          alert(e.toString() + "yess");
+          alert(e.toString());
           return;
       }
   };
+
+  const doAddFriend = async event => {
+    event.preventDefault();
+    alert(event.target.getAttribute("data-id"));
+    if (event.target.getAttribute("data-id") === null || event.target.getAttribute("data-id") === undefined) {
+      alert('something went wrong');
+      return;
+    }
+
+    var obj = {userID: localStorage.getItem('userID'), friendID: event.target.getAttribute("data-id")};
+    var js = JSON.stringify(obj);
+   try
+    {
+        // API call
+        const response = await fetch(buildPath('api/addFriend'),
+            {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+        // Parse JSON response
+        var res = JSON.parse(await response.text());
+
+
+        if( res.error === '')
+          this.setState({results: results});
+    }
+    catch(e)
+    {
+        alert(e.toString() + "yess");
+        return;
+    }
+  }
+
   if (typeof friends !== 'undefined' && friends.length >= results.length) {
     return (
       <table class="table table-dark">
@@ -76,7 +107,8 @@ render() {
           return (
             <tr>
               <td className="first grow"><h4>{ friend.username }</h4></td>
-              <td className="second grow"><h4>{ i >= results.length ? '' : results[i].username }{ i >= results.length ? '' :  <div className="add-icon grow"><i class="fa fa-user-plus fa-2x user-add"></i></div> }</h4></td>
+              { i >= results.length ? <td className="second grow"></td> : <td className="second grow"><h4>{results[i].username}</h4><div onClick={doAddFriend} className="add-icon grow" data-id={results[i].id}><i class="fa fa-user-plus fa-2x user-add"></i></div></td> }
+
             </tr>
           );
         })
@@ -104,7 +136,7 @@ render() {
             <td className="first grow"><h4>{  typeof friends === 'undefined' || i >= friends.length ? '' : friends[i].username }</h4></td>
             <td className="second grow">
               <h4 className="user-add">{ result.username }</h4>
-              <div className="add-icon grow"><i class="fa fa-user-plus fa-2x user-add"></i></div>
+              <div className="add-icon grow" onClick={doAddFriend} data-id={result.id}><i class="fa fa-user-plus fa-2x user-add"></i></div>
             </td>
             </tr>
           );
