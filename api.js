@@ -223,10 +223,10 @@ exports.setApp = function (app, client ){
             subject: 'Verify your e-mail account for BudgetBuddies',
             text: `Click the link to verify your email:
                     https://budgetbuddiesapp.herokuapp.com/api/emailVerification?email=${newUser.email}`,
-            html: ` <h1> Hello ! </h1>
+            html: ` <h1> Hello !</h1>
                     <p>Click the link to verify your email</p>
                     <a href="https://budgetbuddiesapp.herokuapp.com/emailVerification?email=${newUser.email}">Verify account</a>
-                    <p> Or copy and past the following link in your browser: https://budgetbuddiesapp.herokuapp.com/emailVerification?email=${newUser.email}`
+                    <p> Or copy and past the following link in your browser: https://budgetbuddiesapp.herokuapp.com/api/emailVerification?email=${newUser.email}`
 
         }
 
@@ -521,8 +521,6 @@ exports.setApp = function (app, client ){
 
         */
 
-        // const email = req.param('email');
-
         const db = client.db();
         try{
             const user = await db.collection('users').findOne({email: req.query.email});
@@ -540,16 +538,14 @@ exports.setApp = function (app, client ){
             //     const redirectURL = '/budget';
             //     res.redirect(redirectURL);
             // })
+            // next();
         }catch(error){
             console.log(error.toString());
             res.redirect('/');
         }
 
-
         // var ret = {error:error};
         res.status(200);
-
-
     });
 
 
