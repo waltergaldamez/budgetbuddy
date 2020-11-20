@@ -223,11 +223,11 @@ exports.setApp = function (app, client ){
             from: 'budgetbuddiesapp@gmail.com', // Change to your verified sender
             subject: 'Verify your e-mail account for BudgetBuddies',
             text: `Click the link to verify your email:
-                    https://budgetbuddiesapp.herokuapp.com/api/emailVerification?_id=${user._id}`,
+                    https://budgetbuddiesapp.herokuapp.com/api/emailVerification?id=${user._id}`,
             html: ` <h1> Hello !</h1>
                     <p>Click the link to verify your email</p>
-                    <a href="https://budgetbuddiesapp.herokuapp.com/emailVerification?_id=${user._id}">Verify account</a>
-                    <p> Or copy and past the following link in your browser: https://budgetbuddiesapp.herokuapp.com/api/emailVerification?_id=${user._id}`
+                    <a href="https://budgetbuddiesapp.herokuapp.com/api/emailVerification?id=${user._id}">Verify account</a>
+                    <p> Or copy and past the following link in your browser: https://budgetbuddiesapp.herokuapp.com/api/emailVerification?id=${user._id}`
 
         }
 
@@ -529,13 +529,14 @@ exports.setApp = function (app, client ){
         const db = client.db();
         try{
             const user = await db.collection('users').findOne({'_id': ObjectId(req.query.id)});
+            console.log(user);
             if(!user){
                 console.log("Invalid!");
                 return res.redirect('https://budgetbuddiesapp.herokuapp.com/budget');
             }
 
             console.log("About to verify the user");
-            await db.collection('users').updateOne({'_id': ObjectId(req.query.id)}, { $set: {verification:true}});
+            await db.collection('users').updateOne({'_id': ObjectId(req.query._id)}, { $set: {verification:true}});
             console.log("Verified the user");
             // await req.login(user, async(err) =>{
             //     if (err) return next(err);
