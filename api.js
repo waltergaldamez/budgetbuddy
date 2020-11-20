@@ -233,7 +233,8 @@ exports.setApp = function (app, client ){
 
         try{
             await sgMail.send(msg);
-            res.redirect('https://budgetbuddiesapp.herokuapp.com/budget');
+            console.log("The email has been verified");
+            res.redirect('https://budgetbuddiesapp.herokuapp.com/');
             // window.location.href = '/budget';
 
         }catch(error){
@@ -532,7 +533,7 @@ exports.setApp = function (app, client ){
             console.log(user);
             if(!user){
                 console.log("Invalid!");
-                return res.redirect('https://budgetbuddiesapp.herokuapp.com/budget');
+                return res.redirect('https://budgetbuddiesapp.herokuapp.com/');
             }
 
             console.log("About to verify the user");
@@ -545,16 +546,20 @@ exports.setApp = function (app, client ){
             //     res.redirect(redirectURL);
             // })
             // next();
-            res.redirect('https://budgetbuddiesapp.herokuapp.com/budget');
+            res.redirect('https://budgetbuddiesapp.herokuapp.com/');
         }catch(error){
             console.log(error.toString());
-            res.redirect('https://budgetbuddiesapp.herokuapp.com/budget');
+            res.redirect('https://budgetbuddiesapp.herokuapp.com/');
         }
     });
 
 
-    // Need to re-direct to a password reset page with proper JWT possibly
-    app.post('/api/recoverPassword', async (req, res, next) =>
+    // We need to edit this endpoint
+    /*
+        Once the email is sent, we have to wait 
+    
+    */
+    app.post('/api/forgot-password-email', async (req, res, next) =>
     {
         // incoming: email
         // Outgoing: er
@@ -573,11 +578,11 @@ exports.setApp = function (app, client ){
                 const sgMail = require('@sendgrid/mail')
                 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
                 const msg = {
-                to: email.toString(), // Change to your recipient
-                from: 'budgetbuddiesapp@gmail.com', // Change to your verified sender
-                subject: 'Password Reset',
-                text: 'View this email in HTML',
-                html: '<strong>Click the link to reset your password:<a href="https://budgetbuddiesapp.herokuapp.com/recover-password">Reset Password</a></strong>',
+                    to: email.toString(), // Change to your recipient
+                    from: 'budgetbuddiesapp@gmail.com', // Change to your verified sender
+                    subject: 'Password Reset',
+                    text: 'Copy and paste this link in your browser to reset your password: https://budgetbuddiesapp.herokuapp.com/recover-password',
+                    html: '<p1>Click the link to reset your password:<a href="https://budgetbuddiesapp.herokuapp.com/recover-password">Reset Password</a></p1>'
                 }
                 sgMail
                 .send(msg)
@@ -599,6 +604,19 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
 
     });
+
+    app.get('/api/reset-password', async (req, res, next) =>
+    {
+        const db = client.db();
+
+        try{
+
+        }catch(error){
+
+        }
+
+    });
+
 
     // Verify Token
     function verifyToken(req, res, next){
