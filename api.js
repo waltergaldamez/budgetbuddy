@@ -539,13 +539,11 @@ exports.setApp = function (app, client ){
             //     res.redirect(redirectURL);
             // })
             // next();
+            res.redirect('https://budgetbuddiesapp.herokuapp.com/');
         }catch(error){
             console.log(error.toString());
             res.redirect('/');
         }
-
-        // var ret = {error:error};
-        res.status(200);
     });
 
 
