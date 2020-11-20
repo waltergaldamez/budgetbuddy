@@ -1,10 +1,16 @@
 import { Button } from 'react-bootstrap';
 import { useState } from 'react';
 import { buildPath } from '../functions/buildPath';
+import TableFriendMaker from '../components/TableFriendMaker';
 
 const FriendSearchTable = () => {
   var search = "";
   const [searchResults, setResult] = useState([]);
+
+  var objFriend = {userID:localStorage.getItem("userID")};
+  var jsFriends = JSON.stringify(objFriend);
+  var friends = [];
+
 
   const doSearch = async event =>
   {
@@ -22,13 +28,8 @@ const FriendSearchTable = () => {
           var res = JSON.parse(await response.text());
 
 
-          if( res.error !== '')
-          {
-          }
-          else
-          {
-              setResult(res.results);
-          }
+          if( res.error === '')
+            setResult(res.results);
       }
       catch(e)
       {
@@ -38,30 +39,7 @@ const FriendSearchTable = () => {
   };
 
   return (
-    <table class="table table-dark">
-      <thead>
-        <tr>
-          <th scope="col" class="yellow">My Friends</th>
-          <th scope="col" class="pink-header">
-            Find New Friends <input type="text" className="form-control friends-search"  ref={(c) => search = c}></input>
-             <Button type="primary" className="friends-button"> <i class="fa fa-search fa-2x" onClick={doSearch}></i> </Button>
-          </th>
-        </tr>
-      </thead>
-      <tbody >
-
-
-        {searchResults.map((result) => {
-          return (
-            <tr>
-            <td className="first">1</td>
-            <td className="second">{ result.username }</td>
-            </tr>
-          );
-        })
-      }
-      </tbody>
-      </table>
+    <TableFriendMaker results={searchResults} />
   )
 }
 

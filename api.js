@@ -386,7 +386,7 @@ exports.setApp = function (app, client ){
     });
 
 
-    app.post('/api/showFriends', async (req, res, next) =>
+    app.post('/api/showFriends',async (req, res, next) =>
     {
         // Incoming: userID or userEmail
         // Outgoing: friends array of user
@@ -394,7 +394,7 @@ exports.setApp = function (app, client ){
         var error = '';
 
         const userID = req.param('userID');
-        console.log("API JSON: " + userID);
+
 
         const db = client.db();
         var friendsArr = [];
@@ -405,7 +405,11 @@ exports.setApp = function (app, client ){
            const user = await db.collection('users').find({'_id' : ObjectId(userID)}).toArray();
 
             // Converts friend array in JSON into an array of the values (friendIDs)
-            friendsArr = Object.values(user[0].friends);
+            for (var i = 0; i < user[0].friends.length; i++) {
+              var friend = await db.collection('users').find({'_id' : ObjectId(user[0].friends[i])}).toArray();
+              friendsArr.push({id: user[0].friends, username: friend[0].username})
+            }
+            //friendsArr = Object.values(user[0].friends[i]);
 
             // console.log('Friends: '+ friendsArr);
 
