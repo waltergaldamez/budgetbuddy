@@ -528,14 +528,14 @@ exports.setApp = function (app, client ){
 
         const db = client.db();
         try{
-            const user = await db.collection('users').findOne({_id: req.query._id});
+            const user = await db.collection('users').findOne({'_id': ObjectId(req.query.id)});
             if(!user){
                 console.log("Invalid!");
                 return res.redirect('https://budgetbuddiesapp.herokuapp.com/budget');
             }
 
             console.log("About to verify the user");
-            await db.collection('users').updateOne({'_id': req.query._id}, { $set: {verification:true}});
+            await db.collection('users').updateOne({'_id': ObjectId(req.query.id)}, { $set: {verification:true}});
             console.log("Verified the user");
             // await req.login(user, async(err) =>{
             //     if (err) return next(err);
