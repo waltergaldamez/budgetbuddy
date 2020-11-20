@@ -232,7 +232,7 @@ exports.setApp = function (app, client ){
 
         try{
             await sgMail.send(msg);
-            res.redirect('/budget');
+            res.redirect('https://budgetbuddiesapp.herokuapp.com/');
             // window.location.href = '/budget';
 
         }catch(error){
@@ -530,7 +530,7 @@ exports.setApp = function (app, client ){
             const user = await db.collection('users').findOne({email: req.query.email});
             if(!user){
                 console.log("Invalid!");
-                return res.redirect('/');
+                return res.redirect('https://budgetbuddiesapp.herokuapp.com/');
             }
 
             console.log("About to verify the user");
@@ -546,7 +546,7 @@ exports.setApp = function (app, client ){
             res.redirect('https://budgetbuddiesapp.herokuapp.com/');
         }catch(error){
             console.log(error.toString());
-            res.redirect('/');
+            res.redirect('https://budgetbuddiesapp.herokuapp.com/');
         }
     });
 
