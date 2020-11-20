@@ -536,7 +536,7 @@ exports.setApp = function (app, client ){
             }
 
             console.log("About to verify the user");
-            await db.collection('users').updateOne({'_id': ObjectId(req.query._id)}, { $set: {verification:true}});
+            await db.collection('users').updateOne({'_id': ObjectId(req.query.id)}, { $set: {verification:true}});
             console.log("Verified the user");
             // await req.login(user, async(err) =>{
             //     if (err) return next(err);
