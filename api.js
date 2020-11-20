@@ -211,7 +211,8 @@ exports.setApp = function (app, client ){
         }
 
 
-        console.log(newUser.email);
+        const user = await db.collection('users').findOne({email: newUser.email});
+        console.log(user._id);
         // using Twilio SendGrid's v3 Node.js Library
         // https://github.com/sendgrid/sendgrid-nodejs
         // javascript
@@ -222,17 +223,17 @@ exports.setApp = function (app, client ){
             from: 'budgetbuddiesapp@gmail.com', // Change to your verified sender
             subject: 'Verify your e-mail account for BudgetBuddies',
             text: `Click the link to verify your email:
-                    https://budgetbuddiesapp.herokuapp.com/api/emailVerification?email=${newUser.email}`,
+                    https://budgetbuddiesapp.herokuapp.com/api/emailVerification?_id=${user._id}`,
             html: ` <h1> Hello !</h1>
                     <p>Click the link to verify your email</p>
-                    <a href="https://budgetbuddiesapp.herokuapp.com/emailVerification?email=${newUser.email}">Verify account</a>
-                    <p> Or copy and past the following link in your browser: https://budgetbuddiesapp.herokuapp.com/api/emailVerification?email=${newUser.email}`
+                    <a href="https://budgetbuddiesapp.herokuapp.com/emailVerification?_id=${user._id}">Verify account</a>
+                    <p> Or copy and past the following link in your browser: https://budgetbuddiesapp.herokuapp.com/api/emailVerification?_id=${user._id}`
 
         }
 
         try{
             await sgMail.send(msg);
-            res.redirect('https://budgetbuddiesapp.herokuapp.com/');
+            res.redirect('https://budgetbuddiesapp.herokuapp.com/budget');
             // window.location.href = '/budget';
 
         }catch(error){
@@ -527,14 +528,14 @@ exports.setApp = function (app, client ){
 
         const db = client.db();
         try{
-            const user = await db.collection('users').findOne({email: req.query.email});
+            const user = await db.collection('users').findOne({_id: req.query._id});
             if(!user){
                 console.log("Invalid!");
                 return res.redirect('https://budgetbuddiesapp.herokuapp.com/budget');
             }
 
             console.log("About to verify the user");
-            await db.collection('users').updateOne({'email': req.query.email}, { $set: {verification:true}});
+            await db.collection('users').updateOne({'_id': req.query._id}, { $set: {verification:true}});
             console.log("Verified the user");
             // await req.login(user, async(err) =>{
             //     if (err) return next(err);
