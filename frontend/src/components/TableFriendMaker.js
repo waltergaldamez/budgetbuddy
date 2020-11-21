@@ -12,7 +12,6 @@ class TableFriendMaker extends React.Component {
   }
 
   componentDidMount() {
-    localStorage.setItem("userID", "5fa37752a361aa0017e7ce6c");
     var objFriend = {userID:localStorage.getItem("userID")};
     var jsFriends = JSON.stringify(objFriend);
     fetch(buildPath('api/showFriends'),
@@ -21,7 +20,7 @@ class TableFriendMaker extends React.Component {
         .then(
           (result) => {
             this.setState({
-              friends: result.friendsArr
+              friends: result.friendsArr,
             })
           }
         )
@@ -29,10 +28,6 @@ class TableFriendMaker extends React.Component {
 render() {
   const {friends, results} = this.state;
   var search = "";
-
-  var objFriend = {userID:localStorage.getItem("userID")};
-  var jsFriends = JSON.stringify(objFriend);
-
 
   const doSearch = async event =>
   {
@@ -62,13 +57,12 @@ render() {
 
   const doAddFriend = async event => {
     event.preventDefault();
-    alert(event.target.getAttribute("data-id"));
-    if (event.target.getAttribute("data-id") === null || event.target.getAttribute("data-id") === undefined) {
-      alert('something went wrong');
+    if (event.currentTarget.dataset.id === null || event.currentTarget.dataset.id === undefined) {
+      alert('id is null');
       return;
     }
 
-    var obj = {userID: localStorage.getItem('userID'), friendID: event.target.getAttribute("data-id")};
+    var obj = {userID: localStorage.getItem('userID'), friendID: event.currentTarget.dataset.id};
     var js = JSON.stringify(obj);
    try
     {
@@ -78,7 +72,7 @@ render() {
 
         // Parse JSON response
         var res = JSON.parse(await response.text());
-
+        alert("friend added")
 
         if( res.error === '')
           this.setState({results: results});
@@ -89,6 +83,7 @@ render() {
         return;
     }
   }
+
 
   if (typeof friends !== 'undefined' && friends.length >= results.length) {
     return (
@@ -107,7 +102,7 @@ render() {
           return (
             <tr>
               <td className="first grow"><h4>{ friend.username }</h4></td>
-              { i >= results.length ? <td className="second grow"></td> : <td className="second grow"><h4>{results[i].username}</h4><div onClick={doAddFriend} className="add-icon grow" data-id={results[i].id}><i class="fa fa-user-plus fa-2x user-add"></i></div></td> }
+              { i >= results.length ? <td className="second grow"></td> : <td className="second grow"><h4>{results[i].username}</h4><Button onClick={doAddFriend} type="submit" data-key={i} className="add-icon grow" data-id={results[i].id}><i class="fa fa-user-plus fa-2x user-add"></i></Button></td> }
 
             </tr>
           );
@@ -136,7 +131,7 @@ render() {
             <td className="first grow"><h4>{  typeof friends === 'undefined' || i >= friends.length ? '' : friends[i].username }</h4></td>
             <td className="second grow">
               <h4 className="user-add">{ result.username }</h4>
-              <div className="add-icon grow" onClick={doAddFriend} data-id={result.id}><i class="fa fa-user-plus fa-2x user-add"></i></div>
+              <Button className="add-icon grow" onClick={doAddFriend} data-key={i} data-id={result.id}><i class="fa fa-user-plus fa-2x user-add"></i></Button>
             </td>
             </tr>
           );

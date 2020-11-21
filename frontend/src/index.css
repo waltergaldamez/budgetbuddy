@@ -266,7 +266,7 @@ i {
 
 .friends-search {
   border-radius: 50px;
-  width: 60%;
+  width: 50%;
   display: inline;
   position: relative;
   bottom: 8px;
@@ -384,9 +384,8 @@ tr:nth-child(odd) > td.second {
   border-radius: 50%;
   line-height: 60px;
   color: white;
-  margin-left: 75%;
+  margin-left: 15%;
   position: relative;
-  bottom: 35px;
 }
 
 
