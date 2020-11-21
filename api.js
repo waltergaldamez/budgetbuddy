@@ -29,7 +29,7 @@ exports.setApp = function (app, client ){
             "BudgetName":req.param("BudgetName"),
             "BudgetGoal":parseFloat(req.param("BudgetGoal")),
             "BudgetProgress":parseFloat(req.param("BudgetProgress")),
-            "isComplete" : parseBoolean(true)
+            "isComplete" : parseBoolean(false)
           };
 
 
@@ -70,7 +70,8 @@ exports.setApp = function (app, client ){
 
         const budgetID = req.param('_id');
         console.log(ObjectId(budgetID));
-        const progToAdd = req.param('progToAdd');
+        const progToAdd = (req.param('progToAdd'));
+       
         console.log(" " + progToAdd);
         var error = '';
         var response = '';
@@ -79,23 +80,36 @@ exports.setApp = function (app, client ){
             const db = client.db();
             const result = await db.collection('budgets').find({'_id': ObjectId(budgetID)}).toArray();
             console.log(result[0]);
+            console.log(result[0].isComplete);
 
             if(result.length > 0){
                 // found a budget with the correct ID
-                const budgetGoal = result[0].BudgetGoal;
-                const currentAmount = result[0].BudgetProgress;
-                const newAmount = currentAmount + progToAdd;
+                var budgetGoal = result[0].BudgetGoal;
+                var currentAmount = result[0].BudgetProgress;
+                var newAmount = currentAmount + progToAdd;
+
+
+                // Budget is already complete and newAmount is negative number
+                if(result[0].isComplete == true && (newAmount < 0)){
+                    console.log("Insside here");
+                    db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {isComplete: false}});
+
+                }
 
                 // If new progress over the goal
                 if(newAmount >= budgetGoal){
                     newAmount = budgetGoal; // budget completed
                     // mark budget as completed (boolean)
                     db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {isComplete: true}});
+                    response = db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetProgress: budgetGoal}});
+                }else{
+                    response = db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetProgress: newAmount}});
                 }
+
 
                 console.log("current amount: " + currentAmount);
                 console.log("new AMount: " + newAmount);
-                response = db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetProgress: newAmount}});
+                
 
             }else{
                 // didnt find the budget
