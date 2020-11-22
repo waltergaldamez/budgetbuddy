@@ -537,11 +537,6 @@ exports.setApp = function (app, client ){
     app.get('/api/emailVerification', async (req, res, next) =>
     {
 
-        /*
-            Email verification works fine so far but clicking on the link does not seem to launch the API might need help from leinecker or more tutorials
-
-        */
-
         const db = client.db();
         try{
             const user = await db.collection('users').findOne({'_id': ObjectId(req.query.id)});
@@ -554,13 +549,6 @@ exports.setApp = function (app, client ){
             console.log("About to verify the user");
             await db.collection('users').updateOne({'_id': ObjectId(req.query.id)}, { $set: {verification:true}});
             console.log("Verified the user");
-            // await req.login(user, async(err) =>{
-            //     if (err) return next(err);
-
-            //     const redirectURL = '/budget';
-            //     res.redirect(redirectURL);
-            // })
-            // next();
             res.redirect('https://budgetbuddiesapp.herokuapp.com/');
         }catch(error){
             console.log(error.toString());
@@ -569,11 +557,7 @@ exports.setApp = function (app, client ){
     });
 
 
-    // We need to edit this endpoint
-    /*
-        Once the email is sent, we have to wait 
-    
-    */
+
     app.post('/api/forgot-password-email', async (req, res, next) =>
     {
         // incoming: email
