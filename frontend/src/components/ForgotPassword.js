@@ -13,6 +13,8 @@ function ForgotPassword()
     var message = '';
     const [ showAlert, setAlert ] = useState(false);
 
+
+    /*setMessage is returning undefined not sure how to fix this*/
     const doForgotPasswordEmail = async event => {
       event.preventDefault();
 
