@@ -7,7 +7,8 @@ import LoginPage from './pages/LoginPage';
 import FriendsPage from './pages/FriendsPage';
 import HomePage from './pages/HomePage';
 import ManageFriendsPage from './pages/ManageFriendsPage';
-import RecoverPasswordPage from './pages/RecoverPasswordPage'
+import RecoverPasswordPage from './pages/RecoverPasswordPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -34,6 +35,9 @@ function App() {
         </Route>
         <Route path="/recover-password" exact>
           <RecoverPasswordPage />
+        </Route>
+        <Route path="/forgot-password" exact>
+          <ForgotPasswordPage />
         </Route>
         <Redirect to="/" />
       </Switch>

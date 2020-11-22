@@ -98,7 +98,7 @@ i {
 
 .inner-login{
   width: 450px;
-  height: 475px;
+  height: 500px;
   margin: auto;
   margin-bottom: 20px;
   background: #19c0ff;
@@ -266,7 +266,7 @@ i {
 
 .friends-search {
   border-radius: 50px;
-  width: 60%;
+  width: 50%;
   display: inline;
   position: relative;
   bottom: 8px;
@@ -282,20 +282,24 @@ i {
 tr:nth-child(even) > td.first {
   color: black;
   background-color: #19C0FF;
+  text-align: center;
 }
 
 tr:nth-child(even) > td.second {
   background-color: #55D0F1;
   color: black;
+  text-align: center;
 }
 
 tr:nth-child(odd) > td.first {
   background-color: #55D0F1;
   color: black;
+  text-align: center;
 }
 tr:nth-child(odd) > td.second {
   color: black;
   background-color: #19C0FF;
+  text-align: center;
 }
 
 .edit-btn-yellow {
@@ -369,10 +373,51 @@ tr:nth-child(odd) > td.second {
   font-size: 18pt;
 }
 
+.recover-btn-yellow {
+  background-color: #FCB401;
+  width: 70%;
+  height: 75%;
+  border-radius: 50px;
+  margin-left: 15%;
+  margin-top: 2.5%;
+  text-align: center;
+  font-size: 18pt;
+}
+
 .md-48 {
   font-size: 50px;
 }
 
-table {
-  empty-cells: show;
+.add-icon {
+  background: #FCB401;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  line-height: 60px;
+  color: white;
+  margin-left: 15%;
+  position: relative;
+}
+
+
+.user-add {
+  display: inline;
+  margin-top: 10%;
+}
+
+.budget-card-outer {
+  width: 30%;
+  height: 300px;
+  margin-left: 2%;
+  margin-top: 2%;
+  background: #19C0FF;
+  text-align: center;
+  border-radius: 10%;
+  display: inline-block;
+}
+
+.budget-card-inner {
+  background-color:  #55D0F1;
+  border-radius: 3%;
+  height: 160px;
 }

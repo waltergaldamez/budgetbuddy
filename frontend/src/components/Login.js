@@ -62,6 +62,7 @@ function Login()
         <div className="form-group">
           <label><b>Password</b></label>
           <input type="password" className="form-control login" ref={(c) => loginPassword = c}/>
+           Forgot Password? Click -><a href="/forgot-password">here</a>
         </div>
 
         <button type="submit" className="btn btn-lg btn-block login-btn-yellow" onClick={doLogin}><b>Log in</b></button>

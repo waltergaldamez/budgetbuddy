@@ -53,7 +53,7 @@ function Recover() {
         <input type="text" className="form-control login" ref={(c) => recoverPasswordConfirm = c}/>
       </div>
 
-      <button type="submit" className="btn btn-lg btn-block btn-yellow"><b>Update Password</b></button>
+      <button type="submit" className="btn btn-lg btn-block recover-btn-yellow"><b>Update Password</b></button>
       </form>
   );
 };

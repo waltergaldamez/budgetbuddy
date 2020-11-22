@@ -5,6 +5,7 @@ import PageNav from '../components/PageNav';
 import LogOutButton from '../components/LogOutButton';
 import LoggedInName from '../components/LoggedInName';
 import Budgets from '../components/Budgets';
+import BudgetDisplays from '../components/BudgetDisplays';
 
 const BudgetsPage = () =>
 {
@@ -35,6 +36,7 @@ const BudgetsPage = () =>
 
         <Row>
           <Col>
+            <BudgetDisplays />
           </Col>
         </Row>
 
