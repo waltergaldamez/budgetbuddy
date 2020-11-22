@@ -615,19 +615,7 @@ exports.setApp = function (app, client ){
 
     });
 
-    app.get('/api/reset-password', async (req, res, next) =>
-    {
-        const db = client.db();
-
-        try{
-
-        }catch(error){
-
-        }
-
-    });
-
-
+   
     // Verify Token
     function verifyToken(req, res, next){
         // Get auth header value
