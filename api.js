@@ -615,7 +615,7 @@ exports.setApp = function (app, client ){
 
     });
 
-   
+
     // Verify Token
     function verifyToken(req, res, next){
         // Get auth header value
