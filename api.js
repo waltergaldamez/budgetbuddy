@@ -642,5 +642,16 @@ exports.setApp = function (app, client ){
 
     app.post('/api/token', async (req, res) =>{
         const refreshToken = req.body.token;
-    })
+    });
+
+
+
+    // Returns array of users based on rank (Top 10 or some number)
+    app.post('/api/get-top-10', async (req, res)=>{
+
+    });
+
+
+
+
 }
