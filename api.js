@@ -71,7 +71,7 @@ exports.setApp = function (app, client ){
         const budgetID = req.param('_id');
         console.log(ObjectId(budgetID));
         const progToAdd = (req.param('progToAdd'));
-       
+
         console.log(" " + progToAdd);
         var error = '';
         var response = '';
@@ -109,7 +109,7 @@ exports.setApp = function (app, client ){
 
                 console.log("current amount: " + currentAmount);
                 console.log("new AMount: " + newAmount);
-                
+
 
             }else{
                 // didnt find the budget

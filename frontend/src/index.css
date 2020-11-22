@@ -393,3 +393,20 @@ tr:nth-child(odd) > td.second {
   display: inline;
   margin-top: 10%;
 }
+
+.budget-card-outer {
+  width: 30%;
+  height: 300px;
+  margin-left: 2%;
+  margin-top: 2%;
+  background: #19C0FF;
+  text-align: center;
+  border-radius: 10%;
+  display: inline-block;
+}
+
+.budget-card-inner {
+  background-color:  #55D0F1;
+  border-radius: 3%;
+  height: 160px;
+}
