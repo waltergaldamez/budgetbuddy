@@ -1,5 +1,6 @@
 const { ObjectId } = require('mongodb');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 exports.setApp = function (app, client ){
 
 
@@ -584,9 +585,18 @@ exports.setApp = function (app, client ){
         const email = req.param('email');
         console.log(email);
 
+        var temp_pass = crypto.randomBytes(24).toString('hex');
+        console.log(temp_pass);
+
         try{
             const result = await db.collection('users').find({email:email}).toArray();
-            console.log("result.length: " + result.length);
+
+            try{
+                await db.collection('users').updateOne({'email':email},{$set: {password: temp_pass}});
+            }catch(error){
+                console.log("Error with updating password to temp_pass");
+                console.log(error.toString());
+            }
 
             if(result.length > 0 ){
                 const sgMail = require('@sendgrid/mail')
@@ -595,8 +605,10 @@ exports.setApp = function (app, client ){
                     to: email.toString(), // Change to your recipient
                     from: 'budgetbuddiesapp@gmail.com', // Change to your verified sender
                     subject: 'Password Reset',
-                    text: 'Copy and paste this link in your browser to reset your password: https://budgetbuddiesapp.herokuapp.com/recover-password',
-                    html: '<p1>Click the link to reset your password:<a href="https://budgetbuddiesapp.herokuapp.com/recover-password">Reset Password</a></p1>'
+                    text: `Here is your temporary password: ${temp_pass}
+                        Click the link to login with your temporary password and then head over to settings to change your password: https://budgetbuddiesapp.herokuapp.com/`,
+                    html: `<p1>Here is your temporary passowrd: ${temp_pass} </p1>
+                        <p1>Click the link to login with your temporary password and then head over to settings to change your password:<a href="https://budgetbuddiesapp.herokuapp.com/">Reset Password</a></p1>`
                 }
                 sgMail
                 .send(msg)
