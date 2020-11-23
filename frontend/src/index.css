@@ -421,3 +421,55 @@ tr:nth-child(odd) > td.second {
   border-radius: 3%;
   height: 160px;
 }
+
+.top-area-password {
+  list-style: none;
+  padding: 0;
+  background-color: #B2EAFF;
+  border-radius: 16px;
+  width: 100%;
+}
+
+.top-area-password:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.top-area-password li a {
+  display: block;
+  text-decoration: none;
+  padding: 15px;
+  color: #a0b3b0;
+  font-size: 20px;
+  float: left;
+  width: 60%;
+  text-align: center;
+  cursor: pointer;
+  transition: .5s ease;
+  border-radius: 16px;
+}
+
+.top-area-password .active a {
+  background: #FB2B60;
+  color: black;
+  width: 55%;
+}
+
+.top-area-password .inactive a {
+  background-color: #B2EAFF;
+  width: 45%;
+  color: black;
+}
+
+
+.inner-forgot-password{
+  width: 450px;
+  height: 400px;
+  margin: auto;
+  margin-bottom: 20px;
+  background: #19c0ff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  padding: 40px 55px 45px 55px;
+  border-radius: 15px;
+  transition: all .3s;
+}

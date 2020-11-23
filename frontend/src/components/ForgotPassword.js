@@ -10,8 +10,7 @@ function ForgotPassword()
     var loginEmail;
     var loginPassword;
 
-    var message = '';
-    const [ showAlert, setAlert ] = useState(false);
+    const [ message, setMessage ] = useState({show: false, message: ''});
 
 
     /*setMessage is returning undefined not sure how to fix this*/
@@ -19,11 +18,11 @@ function ForgotPassword()
       event.preventDefault();
 
       if(loginEmail.value.length === 0){
-      //   setMessage("Please fill in all fields");
+        setMessage({show: true, message: "Please fill in all fields"});
         return;
       }
 
-      
+
       var obj = {email: loginEmail.value};
       var js = JSON.stringify(obj);
 
@@ -34,9 +33,9 @@ function ForgotPassword()
         var res = JSON.parse(await response.text());
 
         if (res.error != '') {
-          // setMessage(res.error);
+          setMessage({show: true, message: res.error});
         } else {
-          // setMessage("An email has been sent to " + loginEmail.value + ". Please verify your email");
+          setMessage({show: true, message: "An email has been sent to " + loginEmail.value + ". Please check your email."});
         }
 
 
@@ -50,7 +49,7 @@ function ForgotPassword()
 
     return(
       <form>
-        <ul className="top-area">
+        <ul className="top-area-password">
           <li className="tab active"><a href="/forgot-password"><b>Forgot Password</b></a></li>
           <li className="tab inactive"><a href="/"><b>Home</b></a></li>
         </ul>
@@ -63,10 +62,10 @@ function ForgotPassword()
 
         <button type="submit" className="btn btn-lg btn-block login-btn-yellow" onClick={doForgotPasswordEmail}><b>Submit</b></button>
         {
-          showAlert ? (
+          message.show ? (
                 <span class="alert">
-                  <Alert variant="danger" onClose={() => setAlert(false)} dismissible>
-                    <p>Email/Password combination incorrect</p>
+                  <Alert variant="danger" onClose={() => setMessage({show: false, message: ''})} dismissible>
+                    <p>{message.message}</p>
                   </Alert>
                 </span>
                 ) :
