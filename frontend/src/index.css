@@ -248,6 +248,7 @@ i {
   text-align: center;
   margin-left: 50pt;
   width: 40%;
+
 }
 .rank {
   display: inline;
@@ -262,6 +263,10 @@ i {
   background-color: #FB2B60;
   font-size: 36px;
   color: black;
+}
+
+th{
+  text-align: center;
 }
 
 .friends-search {
@@ -395,14 +400,8 @@ tr:nth-child(odd) > td.second {
   border-radius: 50%;
   line-height: 60px;
   color: white;
-  margin-left: 15%;
   position: relative;
-}
 
-
-.user-add {
-  display: inline;
-  margin-top: 10%;
 }
 
 .budget-card-outer {
@@ -472,4 +471,26 @@ tr:nth-child(odd) > td.second {
   padding: 40px 55px 45px 55px;
   border-radius: 15px;
   transition: all .3s;
+}
+
+#chart {
+  margin-right: 50%;
+}
+
+.meta-data {
+  background-color: white;
+  width: 30%;
+  margin-left: 60%;
+  position: relative;
+  bottom: 200px;
+}
+
+.remove-button {
+  margin-left: 2%;
+  margin-bottom: 1%;
+  background-color: red;
+}
+
+.remove-button:hover {
+  background-color: red;
 }

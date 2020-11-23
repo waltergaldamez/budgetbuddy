@@ -25,6 +25,7 @@ class TableFriendMaker extends React.Component {
           }
         )
   }
+
 render() {
   const {friends, results} = this.state;
   var search = "";
@@ -79,6 +80,32 @@ render() {
     }
     catch(e)
     {
+        alert(e.toString());
+        return;
+    }
+  }
+
+  const removeFriend = async event => {
+    event.preventDefault();
+    if (event.currentTarget.dataset.id === null || event.currentTarget.dataset.id === undefined) {
+      alert('id is null');
+      return;
+    }
+
+    var obj = {userID: localStorage.getItem('userID'), friendID: event.currentTarget.dataset.id};
+    var js = JSON.stringify(obj);
+   try
+    {
+        // API call
+        const response = await fetch(buildPath('api/removeFriend'),
+            {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+        // Parse JSON response
+        var res = JSON.parse(await response.text());
+        alert("friend deleted");
+    }
+    catch(e)
+    {
         alert(e.toString() + "yess");
         return;
     }
@@ -101,7 +128,7 @@ render() {
         {friends.map((friend, i) => {
           return (
             <tr>
-              <td className="first grow"><h4>{ friend.username }</h4></td>
+              <td className="first grow"><h4>{ friend.username }</h4><Button type="danger" className="remove-button" data-id={friend.id} onClick={removeFriend}> <i class="fa fa-user-times fa-2x"></i>  </Button></td>
               { i >= results.length ? <td className="second grow"></td> : <td className="second grow"><h4>{results[i].username}</h4><Button onClick={doAddFriend} type="submit" data-key={i} className="add-icon grow" data-id={results[i].id}><i class="fa fa-user-plus fa-2x user-add"></i></Button></td> }
 
             </tr>
@@ -128,7 +155,7 @@ render() {
         {results.map((result, i) => {
           return (
             <tr>
-            <td className="first grow"><h4>{  typeof friends === 'undefined' || i >= friends.length ? '' : friends[i].username }</h4></td>
+            <td className="first grow">{  typeof friends === 'undefined' || i >= friends.length ? '' : <div><h4>{friends[i].username}</h4> <Button type="danger" data-id={friends[i].id} onClick={removeFriend} className="remove-button"><i class="fa fa-user-times fa-2x"></i> </Button></div>}</td>
             <td className="second grow">
               <h4 className="user-add">{ result.username }</h4>
               <Button className="add-icon grow" onClick={doAddFriend} data-key={i} data-id={result.id}><i class="fa fa-user-plus fa-2x user-add"></i></Button>
@@ -142,40 +169,5 @@ render() {
     );
 }
 }
-
-
-
-
-/*
-const TableFriendMaker = ({ friends, results }) => {
-  if (friends.length >= results.length) {
-    return (
-      <tbody>
-      {friends.map((friend, i) => {
-        return (
-          <tr>
-            <td className="first">{ friend.username }</td>
-            <td className="second">{ i >= results.length ? '' : results[i].username }</td>
-          </tr>
-        );
-      })
-    }
-    </tbody>
-    );
-  } else
-    return (
-      <tbody>
-      {results.map((result, i) => {
-        return (
-          <tr>
-          <td className="first">{  i >= friends.length ? '' : friends[i].username } }</td>
-          <td className="second">{ result.username }</td>
-          </tr>
-        );
-      })
-    }
-    </tbody>
-    );
-} */
 
 export default TableFriendMaker;

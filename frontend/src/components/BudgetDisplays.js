@@ -1,3 +1,4 @@
+import ApexProgressChart from './ApexProgressChart';
 
 const BudgetDisplays = () => {
   return (
@@ -6,6 +7,7 @@ const BudgetDisplays = () => {
       <h2>Budget Breakdown</h2>
       <br/>
       <div className="budget-card-inner">
+        <ApexProgressChart />
       </div>
       <h4 className="num-budgets">Current Budgets:</h4>
     </div>
@@ -14,6 +16,7 @@ const BudgetDisplays = () => {
       <h2>Budget Breakdown</h2>
       <br/>
       <div className="budget-card-inner">
+        <ApexProgressChart />
       </div>
       <h4 className="num-budgets">Current Budgets:</h4>
     </div>
@@ -22,6 +25,7 @@ const BudgetDisplays = () => {
       <h2>Budget Breakdown</h2>
       <br/>
       <div className="budget-card-inner">
+        <ApexProgressChart />
       </div>
       <h4 className="num-budgets">Current Budgets:</h4>
     </div>
@@ -32,6 +36,7 @@ const BudgetDisplays = () => {
       <h2>Budget Breakdown</h2>
       <br/>
       <div className="budget-card-inner">
+        <ApexProgressChart />
       </div>
       <h4 className="num-budgets">Current Budgets:</h4>
     </div>
@@ -40,6 +45,7 @@ const BudgetDisplays = () => {
       <h2>Budget Breakdown</h2>
       <br/>
       <div className="budget-card-inner">
+        <ApexProgressChart />
       </div>
       <h4 className="num-budgets">Current Budgets:</h4>
     </div>
@@ -48,6 +54,7 @@ const BudgetDisplays = () => {
       <h2>Budget Breakdown</h2>
       <br/>
       <div className="budget-card-inner">
+        <ApexProgressChart />
       </div>
       <h4 className="num-budgets">Current Budgets:</h4>
     </div>
