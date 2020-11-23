@@ -215,7 +215,7 @@ exports.setApp = function (app, client ){
 
         const newUser = {"email":req.param('email'), "password":req.param('password'),
                     "username":req.param('username'), "verification":false,
-                    "friends":req.param('friends'), "rankMetric": req.param("rankMetric")};
+                    "friends":req.param('friends'), "rankMetric": 1000};
         var ret={};
 
         try {
@@ -645,11 +645,32 @@ exports.setApp = function (app, client ){
 
 
     // Returns array of users based on rank (Top 10 or some number)
-    app.post('/api/get-top-10', async (req, res)=>{
+    app.post('/api/get-top-10', async (req, res)=>
+    {
+       
+        var error = '';
+        const db = client.db();
+        var usersArr = [];
 
+        try{
+
+            // Returns the top 10 users in the database based on rank (1-10)
+           const top_users = await db.collection('users').find({rankMetric : {$lte: 5} }).toArray();
+
+            // Converts friend array in JSON into an array of the values (friendIDs)
+            for (var i = 0; i < user[0].friends.length; i++) {
+              userArr.push({rank:top_users[i].rankMetric, username:top_users[i].username});
+            }
+            // console.log('Friends: '+ friendsArr);
+
+        }catch(e){
+            error = e.toString();
+        }
+
+
+        var ret = {userArr: userArr, error:error};
+        res.status(200).json(ret);
     });
-
-
 
 
 }
