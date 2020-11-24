@@ -495,3 +495,30 @@ tr:nth-child(odd) > td.second {
 .remove-button:hover {
   background-color: red;
 }
+
+.budget-card-display {
+  width: 27%;
+  height: 370px;
+  margin-left: 5%;
+  margin-top: 2%;
+  background: #19C0FF;
+  text-align: center;
+  border-radius: 10%;
+  display: inline-block;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+}
+
+.budget-card-inner-display {
+  background-color:  #55D0F1;
+  border-radius: 3%;
+  height: 240px;
+}
+
+#metadata {
+  background-color: white;
+  width: 45%;
+  margin-left: 49%;
+  position: relative;
+  bottom: 190px;
+  height: 150px;
+}

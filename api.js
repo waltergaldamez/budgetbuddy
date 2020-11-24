@@ -320,7 +320,6 @@ exports.setApp = function (app, client ){
         // outgoing: results[], error
 
         var error = '';
-        const user = req.param('user');
         const uname = req.param('searchUsername');
 
         var _search = uname.trim();
@@ -661,7 +660,7 @@ exports.setApp = function (app, client ){
     // Returns array of users based on rank (Top 10 or some number)
     app.post('/api/get-top-10', async (req, res)=>
     {
-       
+
         var error = 'success';
         const db = client.db();
         var userArr = [];
@@ -669,27 +668,13 @@ exports.setApp = function (app, client ){
         try{
 
             // Returns the top 10 users in the database based on rank (1-10)
-        //    const top_users = await db.collection('users').find({rankMetric : {$lte: 10} }).toArray();
+           const top_users = await db.collection('users').find({rankMetric : {$lte: 10} }).toArray();
 
-            // Returns the top 10 users with the highest ranks
-            // const top_users = await db.collection('users').find( { $query: {}, $orderby: { rankMetric : -1}}).limit(10).toArray();
-            var top_users = await db.collection('users').find( { $query: {}, $orderby: { rankMetric : -1}}).toArray();
-
-            // Only need the top 10 users (first 10 elements in the array)
-            // If want more top users shown, increase the parameter of .slice(parameter)
-            top_users = top_users.slice(10);
-          
             // Converts friend array in JSON into an array of the values (friendIDs)
             for (var i = 0; i < top_users.length; i++) {
               userArr.push({rank:top_users[i].rankMetric, username:top_users[i].username});
             }
-
-            // Not needed
-            // Sort the elements in the array by increasing order of rank
-            // userArr.sort((a,b) => (parseInt(a.rank) - parseInt(b.rank)));
-
-            // Sort the elements in the array by decreasing order of rank
-            userArr.sort((a,b) => (parseInt(b.rank) - parseInt(a.rank)));
+            userArr.sort((a,b) => (parseInt(a.rank) - parseInt(b.rank)));
 
         }catch(e){
             error = e.toString();
