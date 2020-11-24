@@ -26,7 +26,7 @@ function Register() {
     }
 
     var obj = {email: registerEmail.value, username: registerUserName.value, verification: false,
-                budget: budgetAndFriends, friends: budgetAndFriends, password: password.value,
+              friends: budgetAndFriends, password: password.value,
                 rankMetric: -1};
     var js = JSON.stringify(obj);
 

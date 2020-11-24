@@ -34,7 +34,7 @@ export default class ApexProgressChart extends React.Component {
 
 
      <div id="chart">
- <ReactApexChart options={this.state.options} series={this.state.series} type="radialBar" height={250} />
+ <ReactApexChart options={this.state.options} series={this.state.series} type="radialBar" height={225} />
 </div>
 
 
