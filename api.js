@@ -1,6 +1,7 @@
 const { ObjectId } = require('mongodb');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const { parse } = require('path');
 exports.setApp = function (app, client ){
 
 
@@ -648,25 +649,24 @@ exports.setApp = function (app, client ){
     app.post('/api/get-top-10', async (req, res)=>
     {
        
-        var error = '';
+        var error = 'success';
         const db = client.db();
-        var usersArr = [];
+        var userArr = [];
 
         try{
 
             // Returns the top 10 users in the database based on rank (1-10)
-           const top_users = await db.collection('users').find({rankMetric : {$lte: 5} }).toArray();
+           const top_users = await db.collection('users').find({rankMetric : {$lte: 10} }).toArray();
 
             // Converts friend array in JSON into an array of the values (friendIDs)
-            for (var i = 0; i < user[0].friends.length; i++) {
+            for (var i = 0; i < top_users.length; i++) {
               userArr.push({rank:top_users[i].rankMetric, username:top_users[i].username});
             }
-            // console.log('Friends: '+ friendsArr);
+            userArr.sort((a,b) => (parseInt(a.rank) - parseInt(b.rank)));
 
         }catch(e){
             error = e.toString();
         }
-
 
         var ret = {userArr: userArr, error:error};
         res.status(200).json(ret);
