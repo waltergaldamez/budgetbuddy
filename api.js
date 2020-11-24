@@ -216,7 +216,7 @@ exports.setApp = function (app, client ){
 
         const newUser = {"email":req.param('email'), "password":req.param('password'),
                     "username":req.param('username'), "verification":false,
-                    "friends":req.param('friends'), "rankMetric": 1000};
+                    "friends": [], "rankMetric": 1000};
         var ret={};
 
         try {
@@ -320,6 +320,7 @@ exports.setApp = function (app, client ){
         // outgoing: results[], error
 
         var error = '';
+        const user = req.param('user');
         const uname = req.param('searchUsername');
 
         var _search = uname.trim();
@@ -330,6 +331,10 @@ exports.setApp = function (app, client ){
         // Query database to find users with this info
         const results = await db.collection('users').find({"username":{$regex:_search+'.*', $options:'r'}}).toArray();
 
+        
+        const curr_user = await db.collection('users').find({username : user});
+        const friends = curr_user.friends;
+        console.log(friends);
         var _ret = [];
 
         // Return each username in our results array
@@ -656,13 +661,27 @@ exports.setApp = function (app, client ){
         try{
 
             // Returns the top 10 users in the database based on rank (1-10)
-           const top_users = await db.collection('users').find({rankMetric : {$lte: 10} }).toArray();
+        //    const top_users = await db.collection('users').find({rankMetric : {$lte: 10} }).toArray();
 
+            // Returns the top 10 users with the highest ranks
+            // const top_users = await db.collection('users').find( { $query: {}, $orderby: { rankMetric : -1}}).limit(10).toArray();
+            var top_users = await db.collection('users').find( { $query: {}, $orderby: { rankMetric : -1}}).toArray();
+
+            // Only need the top 10 users (first 10 elements in the array)
+            // If want more top users shown, increase the parameter of .slice(parameter)
+            top_users = top_users.slice(10);
+          
             // Converts friend array in JSON into an array of the values (friendIDs)
             for (var i = 0; i < top_users.length; i++) {
               userArr.push({rank:top_users[i].rankMetric, username:top_users[i].username});
             }
-            userArr.sort((a,b) => (parseInt(a.rank) - parseInt(b.rank)));
+
+            // Not needed
+            // Sort the elements in the array by increasing order of rank
+            // userArr.sort((a,b) => (parseInt(a.rank) - parseInt(b.rank)));
+
+            // Sort the elements in the array by decreasing order of rank
+            userArr.sort((a,b) => (parseInt(b.rank) - parseInt(a.rank)));
 
         }catch(e){
             error = e.toString();
