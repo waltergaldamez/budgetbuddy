@@ -320,6 +320,7 @@ exports.setApp = function (app, client ){
         // outgoing: results[], error
 
         var error = '';
+        const user = req.param('user');
         const uname = req.param('searchUsername');
 
         var _search = uname.trim();
@@ -336,6 +337,8 @@ exports.setApp = function (app, client ){
         var friends = curr_user[0].friends;
         console.log(friends);
         var _ret = [];
+        console.log("is already friend: " + friends.includes('5fa0844d9fb9530017f6d0ee'));
+        
 
 
         // Return each username in our results array
@@ -344,9 +347,11 @@ exports.setApp = function (app, client ){
             if(!friends.includes(results[i]._id)){
                 _ret.push({id:results[i]._id, username:results[i].username});
                 console.log("added friend");
+            }else{
+                console.log("User is already a friend");
             }
 
-            console.log("User is already a friend");
+            
         }
 
         var ret = {results:_ret, error:error};
