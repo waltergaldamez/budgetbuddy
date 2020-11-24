@@ -282,6 +282,7 @@ th{
   margin-left: 2%;
   margin-bottom: 1%;
   background-color: #19C0FF;
+  height: 10%;
 }
 
 tr:nth-child(even) > td.first {

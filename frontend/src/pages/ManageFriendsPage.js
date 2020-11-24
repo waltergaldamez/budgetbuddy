@@ -2,13 +2,15 @@ import { Container, Row, Col } from 'react-bootstrap';
 import PageNav from '../components/PageNav';
 import LogOutButton from '../components/LogOutButton';
 import FriendSearchTable from '../components/FriendSearchTable';
+import CurrentRank from '../components/CurrentRank';
+import Avatar from '../components/Avatar';
 
 const ManageFriendsPage = () => {
   return (
     <div>
-      <div className="color-nav">
+      <div >
         <Container fluid>
-          <Row>
+          <Row className="color-nav">
             <Col></Col>
             <Col className="col-6">
               <PageNav home={"fa fa-home fa-2x circle-icon"}
@@ -17,6 +19,23 @@ const ManageFriendsPage = () => {
             </Col>
             <Col>
               <LogOutButton />
+            </Col>
+          </Row>
+
+          <Row className="blue">
+            <Col className="blue">
+              <Avatar />
+            </Col>
+            <Col>
+              <CurrentRank />
+            </Col>
+            <Col>
+              <button className="btn btn-yellow grow" onClick={() => window.location.href='/friends'}>
+                <span class="material-icons">
+                  group
+                </span>
+                <div className="text-btn"> <b>Back</b></div>
+              </button>
             </Col>
           </Row>
         </Container>
