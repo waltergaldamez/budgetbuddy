@@ -215,8 +215,8 @@ exports.setApp = function (app, client ){
         // }
 
         const newUser = {"email":req.param('email'), "password":req.param('password'),
-                        "username":req.param('username'), "verification":false,
-                        "friends": req.params('friends'), "rankMetric": 0};
+                    "username":req.param('username'), "verification":false,
+                    "friends":req.param('friends'), "rankMetric": 1000};
         var ret={};
 
         try {
@@ -330,27 +330,15 @@ exports.setApp = function (app, client ){
         // Query database to find users with this info
         const results = await db.collection('users').find({"username":{$regex:_search+'.*', $options:'r'}}).toArray();
 
-        
-        const curr_user = await db.collection('users').find({"username" : user}).toArray();
-        console.log(curr_user[0]);
-        var friends = curr_user[0].friends;
-        console.log(friends);
         var _ret = [];
-
 
         // Return each username in our results array
         for( var i=0; i<results.length; i++ )
         {
-            if(!friends.includes(results[i]._id)){
-                _ret.push({id:results[i]._id, username:results[i].username});
-                console.log("added friend");
-            }
-
-            console.log("User is already a friend");
+            _ret.push( {id:results[i]._id, username:results[i].username} );
         }
 
         var ret = {results:_ret, error:error};
-        // console.log("here");
         res.status(200).json(ret);
     });
 

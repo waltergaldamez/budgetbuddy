@@ -521,4 +521,14 @@ tr:nth-child(odd) > td.second {
   position: relative;
   bottom: 190px;
   height: 150px;
+  text-align: left;
+}
+
+.budget-table {
+  width: 60%;
+  margin-left: 17%;
+}
+
+.budget-header {
+  font-size: 36px;
 }
