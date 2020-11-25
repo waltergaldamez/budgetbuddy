@@ -296,11 +296,12 @@ exports.setApp = function (app, client ){
         {
             id = results[0]._id;
             var username = results[0].username;
+            var email = results[0].email;
             var token = {};
             // first = results[0].FirstName;
             // last = results[0].LastName;
             // jwt.sign({user:results[0]}, 'lol', (err, token) => {token});
-            ret = { id:id, username:username, error:''};
+            ret = { id:id, username:username, email:email,error:''};
 
 				const refreshToken = jwt.sign({user:results[0]}, process.env.REFRESH_TOKEN_SECRET)
                 const accessToken = jwt.sign({user:results[0]}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15m'})
