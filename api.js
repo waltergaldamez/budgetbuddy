@@ -322,6 +322,7 @@ exports.setApp = function (app, client ){
 
         var error = '';
         const uname = req.param('searchUsername');
+        const username = req.param('username');
 
         var _search = uname.trim();
 
@@ -330,14 +331,29 @@ exports.setApp = function (app, client ){
 
         // Query database to find users with this info
         const results = await db.collection('users').find({"username":{$regex:_search+'.*', $options:'r'}}).toArray();
+        const user = await db.collection('users').find({username: username}).toArray();
+        var friends = user[0].friends;
+        console.log(friends);
 
+        var iggy = await db.collection('users').find({username : "iggy"}).toArray();
+        console.log("iggy ID: " + iggy[0]._id);
+
+
+        if(friends.includes(ObjectId(iggy[0]._id.toString()))){
+            console.log("TRUE");
+        }else{
+            console.log("FALSE");
+        }
         var _ret = [];
 
         // Return each username in our results array
         for( var i=0; i<results.length; i++ )
         {
+
             _ret.push( {id:results[i]._id, username:results[i].username} );
         }
+
+        console.log("ret: " + _ret);
 
         var ret = {results:_ret, error:error};
         res.status(200).json(ret);
