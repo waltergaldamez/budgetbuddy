@@ -28,76 +28,27 @@ export default class BudgetDisplays extends React.Component {
   render() {
     const { budgets } = this.state;
     return (
-      <div>
-      <div className="budget-card-display">
-        <h2>Budget Breakdown</h2>
-        <br/>
-        <div className="budget-card-inner-display">
-          <ApexProgressChart />
-          <div id="metadata">
-            Budget Name:<br/>
-            Priority:<br/>
-            Current Amount:<br/>
-            Amount Needed:<br/>
-            Category:
+      budgets.map((budget, i) => {
+        return (
+          <div className="inline">
+          <div className="budget-card-display">
+            <h2>{ budget.BudgetName }</h2>
+            <br/>
+            <div className="budget-card-inner-display">
+              <ApexProgressChart series={[budget.BudgetProgress / budget.BudgetGoal ]}/>
+              <div id="metadata">
+                Priority:<br/>
+                Current Amount:<br/>
+                Amount Needed:<br/>
+                Category:
+              </div>
+            </div>
+            <h4 className="num-budgets">Current Budgets:</h4>
           </div>
-        </div>
-        <h4 className="num-budgets">Current Budgets:</h4>
-      </div>
-
-      <div className="budget-card-display">
-      <h2>Budget Breakdown</h2>
-      <br/>
-      <div className="budget-card-inner-display">
-        <ApexProgressChart />
-        <div id="metadata">hello</div>
-      </div>
-      <h4 className="num-budgets">Current Budgets:</h4>
-      </div>
-
-      <div className="budget-card-display">
-      <h2>Budget Breakdown</h2>
-      <br/>
-      <div className="budget-card-inner-display">
-        <ApexProgressChart />
-        <div id="metadata">hello</div>
-      </div>
-      <h4 className="num-budgets">Current Budgets:</h4>
-      </div>
-
-      <br/>
-
-      <div className="budget-card-display">
-      <h2>Budget Breakdown</h2>
-      <br/>
-      <div className="budget-card-inner-display">
-        <ApexProgressChart />
-        <div id="metadata">hello</div>
-      </div>
-      <h4 className="num-budgets">Current Budgets:</h4>
-      </div>
-
-      <div className="budget-card-display">
-      <h2>Budget Breakdown</h2>
-      <br/>
-      <div className="budget-card-inner-display">
-        <ApexProgressChart />
-        <div id="metadata">hello</div>
-      </div>
-      <h4 className="num-budgets">Current Budgets:</h4>
-      </div>
-
-      <div className="budget-card-display">
-      <h2>Budget Breakdown</h2>
-      <br/>
-      <div className="budget-card-inner-display">
-        <ApexProgressChart />
-        <div id="metadata">hello</div>
-      </div>
-      <h4 className="num-budgets">Current Budgets:</h4>
-      </div>
-
-      </div>
+          {(i + 1) % 3 == 0 ? <br/> : ""}
+          </div>
+        )
+      })
     );
   }
 }
