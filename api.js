@@ -330,19 +330,25 @@ exports.setApp = function (app, client ){
         const db = client.db();
 
         // Query database to find users with this info
-        const results = await db.collection('users').find({"username":{$regex:_search+'.*', $options:'r'}}).toArray();
-        const user = await db.collection('users').find({username: username}).toArray();
+        var results = await db.collection('users').find({"username":{$regex:_search+'.*', $options:'r'}}).toArray();
+        var user = await db.collection('users').find({username: username}).toArray();
         var friends = user[0].friends;
+        console.log("friends: ");
         console.log(friends);
+        console.log("results: ");
+        console.log(results[0]._id);
+
 
         var iggy = await db.collection('users').find({username : "iggy"}).toArray();
         console.log("iggy ID: " + iggy[0]._id);
+        console.log("typeof iggy[0]._id: " + (typeof iggy[0]._id.toString()));
+        console.log("typeof results[0]._id: " + (typeof results[0]._id));
 
-
-        if(friends.includes(ObjectId(iggy[0]._id.toString()))){
-            console.log("TRUE");
+       
+        if(results.some(result => result._id === new ObjectId("5fa0844d9fb9530017f6d0ee"))){
+            console.log("TRUE TRUE");
         }else{
-            console.log("FALSE");
+            console.log("FALSE FALSE");
         }
         var _ret = [];
 
@@ -355,7 +361,7 @@ exports.setApp = function (app, client ){
 
         console.log("ret: " + _ret);
 
-        var ret = {results:_ret, error:error};
+        var ret = {friends:friends, results:_ret, error:error};
         res.status(200).json(ret);
     });
 
