@@ -7,7 +7,7 @@ export default class ApexProgressChart extends React.Component {
 
          this.state = {
 
-           series: [70],
+           series: props.series,
            options: {
              chart: {
                height: 350,
@@ -20,7 +20,7 @@ export default class ApexProgressChart extends React.Component {
                  }
                },
              },
-             labels: ['Cricket'],
+             labels: [props.name],
            },
 
 

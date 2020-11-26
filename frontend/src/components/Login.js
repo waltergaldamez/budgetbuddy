@@ -35,6 +35,7 @@ function Login()
             {
                 localStorage.setItem('userName', res.username);
                 localStorage.setItem('userID', res.id);
+                localStorage.setItem('email', res.email);
 
                 // re-route
                 window.location.href = '/home';

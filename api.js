@@ -22,6 +22,36 @@ exports.setApp = function (app, client ){
       // incoming: email, budgetGoal, budgetProgress, budgetName
       // outgoing: error
       // Constructing the newBudget instance
+
+      const newBudget = {
+      "email": req.param("email"),
+      "BudgetName":req.param("BudgetName"),
+      "BudgetGoal":parseFloat(req.param("BudgetGoal")),
+      "BudgetProgress":parseFloat(req.param("BudgetProgress")),
+      "isComplete" : false
+    };
+
+
+      var error = '';
+
+      try
+      {
+    // Connecting to the db
+        const db = client.db();
+
+    // Insert newBudget into db
+      db.collection('budgets').insertOne(newBudget);
+      }
+      catch(e)
+      {
+        error = e.toString();
+      }
+
+    // Return: error
+      var budgetName = req.param("BudgetName");
+      var ret = {BudgetName: budgetName, error: error };
+      res.status(200).json(ret);
+      /*
       jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
         if(err){
             res.sendStatus(403);
@@ -56,7 +86,7 @@ exports.setApp = function (app, client ){
           res.status(200).json(ret);
             }
           });
-      
+      */
     });
 
 
@@ -215,8 +245,8 @@ exports.setApp = function (app, client ){
         // }
 
         const newUser = {"email":req.param('email'), "password":req.param('password'),
-                        "username":req.param('username'), "verification":false,
-                        "friends": req.params('friends'), "rankMetric": 0};
+                    "username":req.param('username'), "verification":false,
+                    "friends":req.param('friends'), "rankMetric": 1000};
         var ret={};
 
         try {
@@ -296,11 +326,12 @@ exports.setApp = function (app, client ){
         {
             id = results[0]._id;
             var username = results[0].username;
+            var email = results[0].email;
             var token = {};
             // first = results[0].FirstName;
             // last = results[0].LastName;
             // jwt.sign({user:results[0]}, 'lol', (err, token) => {token});
-            ret = { id:id, username:username, error:''};
+            ret = { id:id, username:username, email:email,error:''};
 
 				const refreshToken = jwt.sign({user:results[0]}, process.env.REFRESH_TOKEN_SECRET)
                 const accessToken = jwt.sign({user:results[0]}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15m'})
@@ -320,42 +351,37 @@ exports.setApp = function (app, client ){
         // outgoing: results[], error
 
         var error = '';
-        const user = req.param('user');
-        const uname = req.param('searchUsername');
+        // const user = req.param('user');
+        const searchName = req.param('searchUsername');
+        const username = req.param('username');
 
-        var _search = uname.trim();
+        var _search = searchName.trim();
 
         // Acquire a database object
         const db = client.db();
 
         // Query database to find users with this info
-        const results = await db.collection('users').find({"username":{$regex:_search+'.*', $options:'r'}}).toArray();
-
-        
-        const curr_user = await db.collection('users').find({"username" : user}).toArray();
-        console.log(curr_user[0]);
-        var friends = curr_user[0].friends;
-        console.log(friends);
+        var results = await db.collection('users').find({"username":{$regex:_search+'.*', $options:'r'}}).toArray();
+        var user = await db.collection('users').find({username: username}).toArray();
+        var friends = user[0].friends;
         var _ret = [];
-        console.log("is already friend: " + friends.includes('5fa0844d9fb9530017f6d0ee'));
+
+        var iggy = await db.collection('users').find({username : "iggy"}).toArray();
+      
+        var _ret = [];
         
-
-
-        // Return each username in our results array
-        for( var i=0; i<results.length; i++ )
-        {
-            if(!friends.includes(results[i]._id)){
-                _ret.push({id:results[i]._id, username:results[i].username});
-                console.log("added friend");
-            }else{
-                console.log("User is already a friend");
+        for(var i = 0; i < friends.length;i++){
+            for(var j = 0; j < results.length; j++){
+                if(!friends[i].equals(results[j]._id)){
+                    console.log("not already a friend");
+                    _ret.push({id:results[j]._id, username:results[j].username});
+                    continue;
+                }
+                console.log("already a friend");
             }
-
-            
         }
-
-        var ret = {results:_ret, error:error};
-        // console.log("here");
+        
+        var ret = {friends:friends, results:_ret, error:error};
         res.status(200).json(ret);
     });
 

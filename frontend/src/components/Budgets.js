@@ -57,13 +57,13 @@ function Budgets()
             var txt = await response.text();
             var res = JSON.parse(txt);
 
-            if( res.error.length > 0 )
+            if( res.error !== '' )
             {
-                setMessage( "API Error:" + res.error );
+                alert( "API Error:" + res.error );
             }
             else
             {
-                setMessage('Budget has been added');
+                alert('Budget has been added');
             }
         }
         catch(e)
@@ -110,7 +110,7 @@ function Budgets()
 
 
     return(
-      <Button variant="warning"type="submit" className="budget-btn-yellow">
+      <Button variant="warning"type="submit" className="budget-btn-yellow" onClick={ () => window.location.href="/budget-manager"} >
         <b><span className="material-icons md-48">
           add_task
         </span>

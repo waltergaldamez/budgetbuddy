@@ -8,6 +8,7 @@ const LogOutButton = () => {
 
           localStorage.removeItem("username");
   				localStorage.removeItem("userID");
+          localStorage.removeItem("email");
           window.location.href = '/';
 
       };  
