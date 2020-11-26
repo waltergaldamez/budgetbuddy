@@ -7,7 +7,7 @@ import Recover from '../components/Recover';
 const RecoverPasswordPage = () => {
   return (
     <div className="outer">
-        <div className="inner-login">
+        <div className="inner-recover">
           <Recover />
         </div>
       </div>

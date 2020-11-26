@@ -5,7 +5,7 @@ import { buildPath } from '../functions/buildPath';
 import AlertType from './AlertType';
 
 
-function ForgotPassword()
+const ForgotPassword = () =>
 {
     var loginEmail;
     var loginPassword;
@@ -50,8 +50,8 @@ function ForgotPassword()
     return(
       <form>
         <ul className="top-area-password">
-          <li className="tab active"><a href="/forgot-password"><b>Forgot Password</b></a></li>
           <li className="tab inactive"><a href="/"><b>Home</b></a></li>
+          <li className="tab active"><a href="/forgot-password"><b>Forgot Password</b></a></li>
         </ul>
 
         <div className="form-group">

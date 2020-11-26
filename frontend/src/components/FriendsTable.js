@@ -32,7 +32,6 @@ export default class FriendsTable extends React.Component {
     const { global, friends } = this.state;
 
     return (
-      <div class="lower">
           <table class="table">
             <thead>
               <tr>
@@ -60,7 +59,6 @@ export default class FriendsTable extends React.Component {
               }
             </tbody>
             </table>
-        </div>
     )
   }
 }
