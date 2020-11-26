@@ -156,10 +156,8 @@ export default class BudgetDisplays extends React.Component {
               <div className="budget-card-inner-display">
                 <ApexProgressChart series={[(budget.BudgetProgress / budget.BudgetGoal) * 100 ]}  name={budget.BudgetName}/>
                 <div id="metadata">
-                  Priority:<br/>
-                  Current Amount:<br/>
-                  Amount Needed:<br/>
-                  Category:
+                  Current Amount:{budget.BudgetProgress}<br/>
+                  Amount Needed:{budget.BudgetGoal - budget.BudgetProgress}<br/>
                 </div>
               </div>
               <Button className="budget-edit-btn" variant="warning" onClick={handleShow} data-id={i}>

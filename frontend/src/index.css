@@ -515,7 +515,6 @@ tr:nth-child(odd) > td.second {
 }
 
 #metadata {
-  background-color: white;
   width: 45%;
   margin-left: 49%;
   position: relative;
