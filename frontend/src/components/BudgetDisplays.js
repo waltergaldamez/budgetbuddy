@@ -31,12 +31,14 @@ export default class BudgetDisplays extends React.Component {
   }
 
   render() {
-    const { budgets, show, currentBudget } = this.state;
+    const { budgets, show, currentBudget, name } = this.state;
+    var newName = '', newGoal ='';
+
     const handleClose = () => this.setState({show: false});
     const handleShow = async event => {
       event.preventDefault();
       const index = event.currentTarget.getAttribute("data-id");
-      this.setState({show: true, currentBudget: index});
+      this.setState({show: true, currentBudget: index, name:budgets[index].name});
     }
 
     const submit = () => {
@@ -58,7 +60,8 @@ export default class BudgetDisplays extends React.Component {
   };
 
   const deleteBudget = async event => {
-    event.preventDefault();
+        if (event !== undefined)
+          event.preventDefault();
         var id = budgets[currentBudget]._id;
         var obj = {_id: id};
         var js = JSON.stringify(obj);
@@ -89,7 +92,60 @@ export default class BudgetDisplays extends React.Component {
                 alert(e.toString());
             }
 
-  }
+  };
+
+      const remove = () => {
+      handleClose();
+      confirmAlert({
+        title: 'Confirm to delete',
+        message: 'Are you sure you want to delete this budget?',
+        buttons: [
+          {
+            label: 'Yes',
+            onClick: () => deleteBudget()
+          },
+          {
+            label: 'No',
+            onClick: () => this.setState({show: true})
+          }
+        ]
+      });
+    };
+
+    const updateBudget = async event => {
+      event.preventDefault();
+
+      var obj = {BudgetName: newName.value, BudgetGoal: newGoal.value,
+        _id:event.currentTarget.getAttribute("data-id")};
+      var js = JSON.stringify(obj);
+
+          try
+          {
+          // Call to API
+
+          const response = await fetch(buildPath('api/updatebudget'),
+              {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+          // Parsing response
+              var txt = await response.text();
+              var res = JSON.parse(txt);
+
+              if( res.error.length > 0 )
+              {
+                  alert( "API Error:" + res.error );
+              }
+              else
+              {
+                  alert('Budget has been updates');
+              window.location.href = "/budget"
+              }
+          }
+          catch(e)
+          {
+              alert(e.toString());
+          }
+    }
+
     return (
       <div>
       {budgets.map((budget, i) => {
@@ -118,13 +174,11 @@ export default class BudgetDisplays extends React.Component {
 
       <Modal show={show} onHide={handleClose} className="budget-card-display-modal">
         <label><h3>Budget Name</h3></label>
-        <input type="text" className="edit-budget-input"></input><br/>
+        <input type="text" className="edit-budget-input" ref={(c) => newName = c} defaultValue={currentBudget >= 0 ? budgets[currentBudget].BudgetName : ""}></input><br/>
 
         <label><h3>Budget Goal</h3></label>
-        <input type="text" className="edit-budget-input"></input><br/>
+        <input type="text" className="edit-budget-input" ref={(c) => newGoal = c} defaultValue={currentBudget >= 0 ? budgets[currentBudget].BudgetGoal : ""}></input><br/>
 
-        <label><h3>Budget Name</h3></label>
-        <input type="text" className="edit-budget-input"></input>
 
         <Button className="modal-exit" variant="danger"  onClick={submit}>
           <span className="material-icons ">
@@ -134,7 +188,7 @@ export default class BudgetDisplays extends React.Component {
             EXIT
           </span>
         </Button>
-        <Button variant="warning" onClick={handleClose} className="modal-submit">
+        <Button variant="warning" onClick={updateBudget} data-id={currentBudget >= 0 ? budgets[currentBudget]._id : ""}className="modal-submit">
         <span className="material-icons ">
           check
         </span>
@@ -142,7 +196,7 @@ export default class BudgetDisplays extends React.Component {
           Save
         </span>
         </Button>
-        <Button className="modal-delete" variant="danger" onClick={deleteBudget}>
+        <Button className="modal-delete" variant="danger" onClick={remove}>
           <span className="material-icons ">
             delete
           </span>

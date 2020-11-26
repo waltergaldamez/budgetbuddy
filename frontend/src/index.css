@@ -566,8 +566,8 @@ tr:nth-child(odd) > td.first-budget {
 }
 
 .budget-card-display-modal {
-  width: 45%;
-  height: 480px;
+  width: 40%;
+  height: 410px;
   margin-left: 30%;
   margin-top: 5%;
   background: #19C0FF;
@@ -594,13 +594,13 @@ tr:nth-child(odd) > td.first-budget {
   background-color: red;
   width: 20%;
   margin-top: 5%;
-  margin-left: 5%;
+  margin-left: 2%;
 }
 
 .modal-submit {
   background-color: #FCB401;
   width: 20%;
-  margin-left: 38%;
+  margin-left: 35%;
   position: relative;
   bottom: 44px;
   font-size: 20px;
@@ -621,12 +621,12 @@ tr:nth-child(odd) > td.first-budget {
 
 .edit-budget-input {
   width: 100%;
-  margin-left: 5%;
+  margin-left: 2%;
 }
 
 .modal-delete {
   width: 36%;
-  margin-left: 70%;
+  margin-left: 66%;
   position: relative;
   bottom: 88px;
   background-color: red;
