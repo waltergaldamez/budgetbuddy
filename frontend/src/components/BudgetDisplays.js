@@ -201,8 +201,8 @@ export default class BudgetDisplays extends React.Component {
           },
           labels: [],
         };
-        options.label = [budget.BudgetName];
-        series = [(budget.BudgetProgress / budget.BudgetGoal) * 100 ];
+        options.labels = [budget.BudgetName];
+        series = [((budget.BudgetProgress / budget.BudgetGoal) * 100).toFixed(2) ];
         return (
           <div className="inline">
             <div className="budget-card-display">

@@ -1,5 +1,6 @@
 import Chart from 'react-apexcharts'
 import React from 'react';
+import { buildPath } from '../functions/buildPath';
 
 export default class ApexChart extends React.Component {
        constructor(props) {
@@ -29,6 +30,46 @@ export default class ApexChart extends React.Component {
 
 
          };
+       }
+
+       componentDidMount() {
+         var obj = {email: localStorage.getItem("email")};
+         var js = JSON.stringify(obj);
+         fetch(buildPath('api/showAllBudgets'),
+           {method:'POST', body: js, headers:{'Content-Type': 'application/json'}})
+           .then(res => res.json())
+           .then(
+             (result) => {
+               var seriesLocal = [];
+               var labelsLocal = [];
+               for (var i = 0; i < result.results.length; i++) {
+                 seriesLocal.push(result.results[i].BudgetGoal);
+                 labelsLocal.push(result.results[i].BudgetName);
+               }
+               this.setState({
+                 budgets: result.results,
+                 series: seriesLocal,
+                 options: {
+                   chart: {
+                     width: 380,
+                     type: 'pie',
+                   },
+                   labels: labelsLocal,
+                   responsive: [{
+                     breakpoint: 480,
+                     options: {
+                       chart: {
+                         width: 200
+                       },
+                       legend: {
+                         position: 'bottom'
+                       }
+                     }
+                   }]
+                 },
+               })
+             }
+           )
        }
 
 

@@ -1,19 +1,47 @@
-import React from 'react'
-import { ProgressBar } from 'react-bootstrap'
+import React from 'react';
+import { buildPath } from '../functions/buildPath';
+import { ProgressBar } from 'react-bootstrap';
 
-const ProgressBarHome = () => {
-  return (
-    <div>
-    <br/>
-    <ProgressBar variant="success" now={40} />
-    <br/>
-   <ProgressBar variant="info" now={20} />
-   <br/>
-   <ProgressBar variant="warning" now={60} />
-   <br/>
-   <ProgressBar variant="danger" now={80} />
-   </div>
- );
+export default class ProgressBarHome extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      budgets: [],
+    }
+  }
+
+  componentDidMount() {
+    var obj = {email: localStorage.getItem("email")};
+    var js = JSON.stringify(obj);
+    fetch(buildPath('api/showAllBudgets'),
+      {method:'POST', body: js, headers:{'Content-Type': 'application/json'}})
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            budgets: result.results
+          })
+        }
+      )
+  }
+
+  render() {
+    const { budgets } = this.state;
+    return (
+      <div>
+      {
+        budgets.map((budget, i) => {
+          return (
+            <div>
+              <br/>
+              {budget.BudgetName + " is " + ((budget.BudgetProgress / budget.BudgetGoal) * 100).toFixed(2) + "% complete"}
+              <ProgressBar className="progress" now={((budget.BudgetProgress / budget.BudgetGoal) * 100).toFixed(2)} />
+              <br/>
+            </div>
+          )
+        })
+      }
+      </div>
+    );
+  }
 }
-
-export default ProgressBarHome;

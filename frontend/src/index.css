@@ -691,3 +691,8 @@ tr:nth-child(odd) > td.first-budget {
   position: relative;
   bottom: 12px;
 }
+
+.progress {
+  width: 90%;
+  margin-left: 5%;
+}

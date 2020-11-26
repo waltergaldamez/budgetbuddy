@@ -5,6 +5,7 @@ import LogOutButton from '../components/LogOutButton';
 import LoggedInName from '../components/LoggedInName';
 import EditProfile from '../components/EditProfile';
 import ApexChart from '../components/ApexChart';
+import ProgressBarHome from '../components/ProgressBarHome';
 
 import { Container, Row, Col } from 'react-bootstrap';
 
@@ -38,7 +39,7 @@ const HomePage = () =>
 
         <Row>
           <Col>
-            <div className="budget-breakdown grow">
+            <div className="budget-breakdown">
               <h2>Budget Breakdown</h2>
               <br/>
               <div className="budget-graphics">
@@ -52,6 +53,7 @@ const HomePage = () =>
               <h2>Progress Breakdown</h2>
               <br/>
               <div className="budget-graphics">
+                <ProgressBarHome />
               </div>
               <h4 className="num-budgets">Average daily progress:</h4>
             </div>
