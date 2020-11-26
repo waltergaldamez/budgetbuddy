@@ -636,3 +636,20 @@ tr:nth-child(odd) > td.first-budget {
   bottom: 5px;
   font-size: 20px;
 }
+
+.react-confirm-alert-overlay {
+  background: rgb(25, 192, 255, 0.5) !important;
+}
+
+.react-confirm-alert-button-group > button {
+  background-color: #FCB401 !important;
+  color: black !important;
+  margin-left: 22% !important;
+}
+
+.react-confirm-alert-body {
+  background: white !important;
+  border: white solid 5px !important;
+  text-align: center !important;
+  color: black !important;
+}
