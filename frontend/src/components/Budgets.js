@@ -57,13 +57,13 @@ function Budgets()
             var txt = await response.text();
             var res = JSON.parse(txt);
 
-            if( res.error.length > 0 )
+            if( res.error !== '' )
             {
-                setMessage( "API Error:" + res.error );
+                alert( "API Error:" + res.error );
             }
             else
             {
-                setMessage('Budget has been added');
+                alert('Budget has been added');
             }
         }
         catch(e)

@@ -20,7 +20,7 @@ export default class ApexProgressChart extends React.Component {
                  }
                },
              },
-             labels: ['Cricket'],
+             labels: [props.name],
            },
 
 

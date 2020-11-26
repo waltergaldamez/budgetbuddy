@@ -22,6 +22,36 @@ exports.setApp = function (app, client ){
       // incoming: email, budgetGoal, budgetProgress, budgetName
       // outgoing: error
       // Constructing the newBudget instance
+
+      const newBudget = {
+      "email": req.param("email"),
+      "BudgetName":req.param("BudgetName"),
+      "BudgetGoal":parseFloat(req.param("BudgetGoal")),
+      "BudgetProgress":parseFloat(req.param("BudgetProgress")),
+      "isComplete" : false
+    };
+
+
+      var error = '';
+
+      try
+      {
+    // Connecting to the db
+        const db = client.db();
+
+    // Insert newBudget into db
+      db.collection('budgets').insertOne(newBudget);
+      }
+      catch(e)
+      {
+        error = e.toString();
+      }
+
+    // Return: error
+      var budgetName = req.param("BudgetName");
+      var ret = {BudgetName: budgetName, error: error };
+      res.status(200).json(ret);
+      /*
       jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
         if(err){
             res.sendStatus(403);
@@ -56,7 +86,7 @@ exports.setApp = function (app, client ){
           res.status(200).json(ret);
             }
           });
-      
+      */
     });
 
 

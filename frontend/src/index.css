@@ -498,9 +498,9 @@ tr:nth-child(odd) > td.second {
 
 .budget-card-display {
   width: 100%;
-  height: 370px;
+  height: 390px;
   margin-left: 5%;
-  margin-top: 2%;
+  margin-top: 8%;
   background: #19C0FF;
   text-align: center;
   border-radius: 10%;
@@ -511,7 +511,7 @@ tr:nth-child(odd) > td.second {
 .budget-card-inner-display {
   background-color:  #55D0F1;
   border-radius: 3%;
-  height: 240px;
+  height: 270px;
 }
 
 #metadata {
@@ -527,6 +527,7 @@ tr:nth-child(odd) > td.second {
 .budget-table {
   width: 60%;
   margin-left: 17%;
+  margin-top: 5%;
 }
 
 .budget-header {
@@ -535,6 +536,103 @@ tr:nth-child(odd) > td.second {
 
 .inline {
   display: inline-block;
-  width: 25%;
+  width: 27%;
+  margin-left: 4%;
+}
+
+tr:nth-child(even) > td.first-budget {
+  color: black;
+  background-color: #19C0FF;
+}
+
+tr:nth-child(odd) > td.first-budget {
+  background-color: #55D0F1;
+  color: black;
+}
+
+.budget-edit-btn {
+  background: #FCB401;
+  border: none;
+  margin-top: 2%;
+  font-size: 18px;
+  border-radius: 500px;
+  color: black
+}
+
+#manage {
+  display: inline;
+  position: relative;
+  bottom: 5px;
+}
+
+.budget-card-display-modal {
+  width: 45%;
+  height: 480px;
+  margin-left: 30%;
+  margin-top: 5%;
+  background: #19C0FF;
+  text-align: center;
+  border-radius: 5%;
+  display: inline-block;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+}
+
+.budget-card-inner-display-modal {
+  background-color:  #55D0F1;
+  border-radius: 3%;
+  margin-top: 5%;
+  height: 270px;
+  text-align: center;
+}
+
+.modal-content {
+  background: #19C0FF;
+  border: none;
+}
+
+.modal-exit {
+  background-color: red;
+  width: 20%;
+  margin-top: 5%;
   margin-left: 5%;
+}
+
+.modal-submit {
+  background-color: #FCB401;
+  width: 20%;
+  margin-left: 38%;
+  position: relative;
+  bottom: 44px;
+  font-size: 20px;
+  height: 20%;
+}
+
+.exit {
+  display: inline;
+  position: relative;
+  bottom : 6px;
+}
+
+.save {
+  display: inline;
+  position: relative;
+  bottom : 5px;
+}
+
+.edit-budget-input {
+  width: 100%;
+  margin-left: 5%;
+}
+
+.modal-delete {
+  width: 36%;
+  margin-left: 70%;
+  position: relative;
+  bottom: 88px;
+  background-color: red;
+}
+.delete {
+  position: relative;
+  bottom: 5px;
+  font-size: 20px;
 }
