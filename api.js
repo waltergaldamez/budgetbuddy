@@ -351,10 +351,11 @@ exports.setApp = function (app, client ){
         // outgoing: results[], error
 
         var error = '';
-        const uname = req.param('searchUsername');
+        // const user = req.param('user');
+        const searchName = req.param('searchUsername');
         const username = req.param('username');
 
-        var _search = uname.trim();
+        var _search = searchName.trim();
 
         // Acquire a database object
         const db = client.db();
@@ -363,34 +364,23 @@ exports.setApp = function (app, client ){
         var results = await db.collection('users').find({"username":{$regex:_search+'.*', $options:'r'}}).toArray();
         var user = await db.collection('users').find({username: username}).toArray();
         var friends = user[0].friends;
-        console.log("friends: ");
-        console.log(friends);
-        console.log("results: ");
-        console.log(results[0]._id);
-
-
-        var iggy = await db.collection('users').find({username : "iggy"}).toArray();
-        console.log("iggy ID: " + iggy[0]._id);
-        console.log("typeof iggy[0]._id: " + (typeof iggy[0]._id.toString()));
-        console.log("typeof results[0]._id: " + (typeof results[0]._id));
-
-       
-        if(results.some(result => result._id === new ObjectId("5fa0844d9fb9530017f6d0ee"))){
-            console.log("TRUE TRUE");
-        }else{
-            console.log("FALSE FALSE");
-        }
         var _ret = [];
 
-        // Return each username in our results array
-        for( var i=0; i<results.length; i++ )
-        {
-
-            _ret.push( {id:results[i]._id, username:results[i].username} );
+        var iggy = await db.collection('users').find({username : "iggy"}).toArray();
+      
+        var _ret = [];
+        
+        for(var i = 0; i < friends.length;i++){
+            for(var j = 0; j < results.length; j++){
+                if(!friends[i].equals(results[j]._id)){
+                    console.log("not already a friend");
+                    _ret.push({id:results[j]._id, username:results[j].username});
+                    continue;
+                }
+                console.log("already a friend");
+            }
         }
-
-        console.log("ret: " + _ret);
-
+        
         var ret = {friends:friends, results:_ret, error:error};
         res.status(200).json(ret);
     });
