@@ -1,4 +1,4 @@
-import ApexProgressChart from './ApexProgressChart';
+import ReactApexChart from 'react-apexcharts';
 import { buildPath } from '../functions/buildPath';
 import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
@@ -186,15 +186,34 @@ export default class BudgetDisplays extends React.Component {
     return (
       <div>
       {budgets.map((budget, i) => {
+        var series = [];
+        var options = {
+          chart: {
+            height: 350,
+            type: 'radialBar',
+          },
+          plotOptions: {
+            radialBar: {
+              hollow: {
+                size: '70%',
+              }
+            },
+          },
+          labels: [],
+        };
+        options.label = [budget.BudgetName];
+        series = [(budget.BudgetProgress / budget.BudgetGoal) * 100 ];
         return (
           <div className="inline">
             <div className="budget-card-display">
               <h2>{ budget.BudgetName }</h2>
               <div className="budget-card-inner-display">
-                <ApexProgressChart series={[(budget.BudgetProgress / budget.BudgetGoal) * 100 ]}  name={budget.BudgetName}/>
+                <div id="chart">
+                  <ReactApexChart options={options} series={series} type="radialBar" height={225} />
+               </div>
                 <div id="metadata">
-                  Current Amount:{budget.BudgetProgress}<br/>
-                  Amount Needed:{budget.BudgetGoal - budget.BudgetProgress}<br/>
+                  <h4>Current Goal</h4>{ budget.BudgetGoal + '$' }<br/>
+                  <h4>Amount Needed</h4>{ (budget.BudgetGoal - budget.BudgetProgress) + '$' }<br/>
                 </div>
 
                 <div className="slider">
@@ -207,6 +226,7 @@ export default class BudgetDisplays extends React.Component {
                   x={budget.BudgetProgress}
                   onChange={({ x }) => {
                     budget.BudgetProgress = x;
+                    budget.BudgetGoal = budget.BudgetGoal;
                     this.setState({ rerender:true })
                   }}
                 />
@@ -249,7 +269,7 @@ export default class BudgetDisplays extends React.Component {
             EXIT
           </span>
         </Button>
-        <Button variant="warning" onClick={updateBudget} data-id={currentBudget >= 0 ? budgets[currentBudget]._id : ""}className="modal-submit">
+        <Button variant="success" onClick={updateBudget} data-id={currentBudget >= 0 ? budgets[currentBudget]._id : ""}className="modal-submit">
         <span className="material-icons ">
           check
         </span>

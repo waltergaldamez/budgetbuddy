@@ -7,7 +7,7 @@ const Budgets = () => {
         <b><span className="material-icons md-48">
           add_task
         </span>
-        <div className="logout black-text"> Add a New Budget</div></b>
+        <div className="new-budget-text"> Add a New Budget</div></b>
       </Button>
     );
 }
