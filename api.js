@@ -102,9 +102,8 @@ exports.setApp = function (app, client ){
 
         const budgetID = req.param('_id');
         console.log(ObjectId(budgetID));
-        const progToAdd = (req.param('progToAdd'));
+        const amount = (req.param('newAmount'));
 
-        console.log(" " + progToAdd);
         var error = '';
         var response = '';
         try
@@ -117,30 +116,24 @@ exports.setApp = function (app, client ){
             if(result.length > 0){
                 // found a budget with the correct ID
                 var budgetGoal = result[0].BudgetGoal;
-                var currentAmount = result[0].BudgetProgress;
-                var newAmount = currentAmount + progToAdd;
 
 
                 // Budget is already complete and newAmount is negative number
-                if(result[0].isComplete == true && (newAmount < 0)){
+                if(result[0].isComplete == true && (amount < budgetGoal)){
                     console.log("Insside here");
                     db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {isComplete: false}});
 
                 }
 
                 // If new progress over the goal
-                if(newAmount >= budgetGoal){
-                    newAmount = budgetGoal; // budget completed
+                if(amount >= budgetGoal){
+                    amount = budgetGoal; // budget completed
                     // mark budget as completed (boolean)
                     db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {isComplete: true}});
                     response = db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetProgress: budgetGoal}});
                 }else{
-                    response = db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetProgress: newAmount}});
+                    response = db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetProgress: amount}});
                 }
-
-
-                console.log("current amount: " + currentAmount);
-                console.log("new AMount: " + newAmount);
 
 
             }else{
@@ -367,9 +360,9 @@ exports.setApp = function (app, client ){
         var _ret = [];
 
         var iggy = await db.collection('users').find({username : "iggy"}).toArray();
-      
+
         var _ret = [];
-        
+
         for(var i = 0; i < friends.length;i++){
             for(var j = 0; j < results.length; j++){
                 if(!friends[i].equals(results[j]._id)){
@@ -380,7 +373,7 @@ exports.setApp = function (app, client ){
                 console.log("already a friend");
             }
         }
-        
+
         var ret = {friends:friends, results:_ret, error:error};
         res.status(200).json(ret);
     });

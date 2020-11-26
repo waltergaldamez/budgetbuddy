@@ -668,3 +668,18 @@ tr:nth-child(odd) > td.first-budget {
   border-radius: 15px;
   transition: all .3s;
 }
+
+.slider {
+  position: relative;
+  bottom: 150px;
+  right: 90px;
+}
+
+.progress-submit {
+  width: 20%;
+  margin-left: 55%;
+  position: relative;
+  bottom: 184px;
+  font-size: 15px;
+  height: 15%;
+}

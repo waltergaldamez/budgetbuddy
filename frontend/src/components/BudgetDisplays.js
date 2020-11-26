@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import Slider from 'react-input-slider';
 
 export default class BudgetDisplays extends React.Component {
   constructor(props) {
@@ -11,7 +12,8 @@ export default class BudgetDisplays extends React.Component {
     this.state = {
       budgets: [],
       show: false,
-      currentBudget: -1
+      currentBudget: -1,
+      rerender: false
     }
   }
 
@@ -146,6 +148,41 @@ export default class BudgetDisplays extends React.Component {
           }
     }
 
+    const addProgress = async event => {
+      event.preventDefault();
+
+      const index = event.currentTarget.getAttribute("data-index");
+      var obj = {newAmount: budgets[index].BudgetProgress,
+        _id:event.currentTarget.getAttribute("data-id")};
+      var js = JSON.stringify(obj);
+
+          try
+          {
+          // Call to API
+
+          const response = await fetch(buildPath('api/addprogress'),
+              {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+          // Parsing response
+              var txt = await response.text();
+              var res = JSON.parse(txt);
+
+              if( res.error.length > 0 )
+              {
+                  alert( "API Error:" + res.error );
+              }
+              else
+              {
+                  alert('Budget has been updated');
+              window.location.href = "/budget"
+              }
+          }
+          catch(e)
+          {
+              alert(e.toString());
+          }
+    }
+
     return (
       <div>
       {budgets.map((budget, i) => {
@@ -159,10 +196,36 @@ export default class BudgetDisplays extends React.Component {
                   Current Amount:{budget.BudgetProgress}<br/>
                   Amount Needed:{budget.BudgetGoal - budget.BudgetProgress}<br/>
                 </div>
+
+                <div className="slider">
+                 Progress: {budget.BudgetProgress + '$'}<br/>
+                <Slider
+                  axis="x"
+                  xstep={1}
+                  xmin={0}
+                  xmax={budget.BudgetGoal}
+                  x={budget.BudgetProgress}
+                  onChange={({ x }) => {
+                    budget.BudgetProgress = x;
+                    this.setState({ rerender:true })
+                  }}
+                />
+                </div>
+
+                <Button variant="success" onClick={addProgress} data-id={budget._id} data-index={i} className="progress-submit">
+                <span className="material-icons ">
+                  check
+                </span>
+                <span className="save">
+                  Save
+                </span>
+                </Button>
+
               </div>
               <Button className="budget-edit-btn" variant="warning" onClick={handleShow} data-id={i}>
                 <i class="fa fa-edit fa-2x"></i> <div id="manage">Manage</div>
               </Button>
+
             </div>
             {(i + 1) % 3 == 0 ? <br/> : ""}
           </div>
