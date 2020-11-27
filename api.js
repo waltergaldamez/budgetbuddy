@@ -325,20 +325,24 @@ exports.setApp = function (app, client ){
             // last = results[0].LastName;
             // jwt.sign({user:results[0]}, 'lol', (err, token) => {token});
             const accessToken = signToken(results[0])
-            window.localStorage.setItem('jwt', accessToken)
-            console.log(window.localStorage.getItem('jwt'));
+            console.log("Printing accessToken: ");
+            console.log(accessToken);
+            // res.cookie('token', accessToken, { httpOnly: true });
+            localStorage.setItem('jwt', accessToken)
+            console.log(localStorage.getItem('jwt'));
+            
             ret = { id:id, username:username, email:email,error:''};
 
-				// const refreshToken = jwt.sign({user:results[0]}, process.env.REFRESH_TOKEN_SECRET)
-                // const accessToken = jwt.sign({user:results[0]}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15m'})
-				// ret.refreshToken = refreshToken;
-				ret.accessToken = accessToken;
+            // const refreshToken = jwt.sign({user:results[0]}, process.env.REFRESH_TOKEN_SECRET)
+            // const accessToken = jwt.sign({user:results[0]}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15m'})
+            // ret.refreshToken = refreshToken;
+			ret.accessToken = accessToken;
         }
         else
         {
             ret={error: "user not found"};
         }
-				res.status(200).json(ret);
+		res.status(200).json(ret);
     });
 
     app.post('/api/searchUsers' ,async (req, res, next) =>
