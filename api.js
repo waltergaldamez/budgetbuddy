@@ -309,7 +309,7 @@ exports.setApp = function (app, client ){
 
 				// if email didn't work, try as username
 				if (results.length === 0)
-					results = await db.collection('users').find({"username":req.param('email'), "password":req.param('password')}).toArray();
+					results = await db.collection('users').find({"username":req.param('username'), "password":req.param('password')}).toArray();
 
         var id = -1;
         var ret = {};
@@ -324,11 +324,14 @@ exports.setApp = function (app, client ){
             // first = results[0].FirstName;
             // last = results[0].LastName;
             // jwt.sign({user:results[0]}, 'lol', (err, token) => {token});
+            const accessToken = signToken(results[0])
+            window.localStorage.setItem('jwt', accessToken)
+            console.log(window.localStorage.getItem('jwt'));
             ret = { id:id, username:username, email:email,error:''};
 
-				const refreshToken = jwt.sign({user:results[0]}, process.env.REFRESH_TOKEN_SECRET)
-                const accessToken = jwt.sign({user:results[0]}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15m'})
-				ret.refreshToken = refreshToken;
+				// const refreshToken = jwt.sign({user:results[0]}, process.env.REFRESH_TOKEN_SECRET)
+                // const accessToken = jwt.sign({user:results[0]}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15m'})
+				// ret.refreshToken = refreshToken;
 				ret.accessToken = accessToken;
         }
         else
@@ -673,6 +676,10 @@ exports.setApp = function (app, client ){
             res.sendStatus(403);
         }
 
+    }
+
+    function signToken(user){
+        return jwt.sign({user:user}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15m'})
     }
 
     app.post('/api/token', async (req, res) =>{
