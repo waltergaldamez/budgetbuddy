@@ -17,9 +17,9 @@ exports.setApp = function (app, client ){
 	//
 
     // Returns: error
-    app.post('/api/addbudget', async (req, res, next) =>
+    app.post('/api/addbudget', verifyToken, async (req, res, next) =>
     {
-      // incoming: email, budgetGoal, budgetProgress, budgetName
+     /* // incoming: email, budgetGoal, budgetProgress, budgetName
       // outgoing: error
       // Constructing the newBudget instance
 
@@ -50,18 +50,19 @@ exports.setApp = function (app, client ){
     // Return: error
       var budgetName = req.param("BudgetName");
       var ret = {BudgetName: budgetName, error: error };
-      res.status(200).json(ret);
-      /*
+      res.status(200).json(ret);*/
+      
       jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
         if(err){
             res.sendStatus(403);
         } else{
-                const newBudget = {
+            const accessToken = signToken(authData.user)
+            const newBudget = {
             "email": req.param("email"),
             "BudgetName":req.param("BudgetName"),
             "BudgetGoal":parseFloat(req.param("BudgetGoal")),
             "BudgetProgress":parseFloat(req.param("BudgetProgress")),
-            "isComplete" : parseBoolean(false)
+            "isComplete" : false
           };
 
 
@@ -83,10 +84,11 @@ exports.setApp = function (app, client ){
           // Return: error
           var BudgetName = req.param("BudgetName");
           var ret = {BudgetName: BudgetName, authData, error: error };
+          ret.accessToken = accessToken;
           res.status(200).json(ret);
             }
           });
-      */
+      
     });
 
 
