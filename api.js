@@ -307,9 +307,9 @@ exports.setApp = function (app, client ){
         // Check if using email to login
         var results = await db.collection('users').find({"email":req.param('email'), "password":req.param('password')}).toArray();
 
-				// if email didn't work, try as username
-				if (results.length === 0)
-					results = await db.collection('users').find({"username":req.param('username'), "password":req.param('password')}).toArray();
+        // if email didn't work, try as username
+        if (results.length === 0)
+            results = await db.collection('users').find({"username":req.param('username'), "password":req.param('password')}).toArray();
 
         var id = -1;
         var ret = {};
@@ -325,12 +325,19 @@ exports.setApp = function (app, client ){
             // last = results[0].LastName;
             // jwt.sign({user:results[0]}, 'lol', (err, token) => {token});
             const accessToken = signToken(results[0])
-            console.log("Printing accessToken: ");
-            console.log(accessToken);
-            // res.cookie('token', accessToken, { httpOnly: true });
-            localStorage.setItem('jwt', accessToken)
-            console.log(localStorage.getItem('jwt'));
+            // console.log("Printing accessToken: ");
+            // console.log(accessToken);
+            // if (typeof localStorage === "undefined" || localStorage === null) {
+            //     var LocalStorage = require('node-localstorage').LocalStorage;
+            //     localStorage = new LocalStorage('./scratch');
+            //  }
+
             
+            // res.cookie('token', accessToken, { httpOnly: true });
+
+            // localStorage.setItem(email.toString(), accessToken)
+            // console.log("local storage get:" + localStorage.getItem(email.toString()));
+
             ret = { id:id, username:username, email:email,error:''};
 
             // const refreshToken = jwt.sign({user:results[0]}, process.env.REFRESH_TOKEN_SECRET)
@@ -667,6 +674,7 @@ exports.setApp = function (app, client ){
 
         //Undefined check
         if(typeof bearerHeader !== 'undefined'){
+
             const bearer = bearerHeader.split(' ');
 
             //Get the token
@@ -679,7 +687,6 @@ exports.setApp = function (app, client ){
         else{
             res.sendStatus(403);
         }
-
     }
 
     function signToken(user){

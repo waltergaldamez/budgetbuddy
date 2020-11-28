@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.set('port', (process.env.PORT || 5000));
 
+
 const MongoClient = require('mongodb').MongoClient;
 // const url = 'mongodb+srv://brendenm:xdxAoJ6GBmGQk4I0@budgetbuddies.rc2gm.mongodb.net/budgetbuddies?retryWrites=true&w=majority';
 const url = process.env.MONGODB_URI;
@@ -23,6 +24,12 @@ client.connect();
 var api = require('./api.js');
 api.setApp(app, client);
 
+
+// if (typeof localStorage === "undefined" || localStorage === null) {
+//     var LocalStorage = require('node-localstorage').LocalStorage;
+//     localStorage = new LocalStorage('./scratch');
+//   }
+   
 app.use((req, res, next) =>
 {
     res.setHeader('Access-Control-Allow-Origin', '*');
