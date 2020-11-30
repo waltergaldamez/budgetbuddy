@@ -65,16 +65,17 @@ i {
 
 /*logout button */
 .pink {
-  width: 30%;
+  width: auto;
   margin-top: 5%;
   color:black;
+  border-radius: 100px;
 }
 
 .black-text {
   display: inline;
   color: black;
   position: relative;
-  bottom: 5px;
+  bottom: 4px;
 }
 
 
