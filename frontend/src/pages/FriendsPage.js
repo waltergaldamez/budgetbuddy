@@ -39,10 +39,10 @@ const FriendsPage = () =>
             </Col>
             <Col>
               <button className="btn btn-yellow grow" onClick={() => window.location.href='/manage-friends'}>
-                <span class="material-icons">
+                <span class="material-icons md-34">
                   group
                 </span>
-                <div className="text-btn"> <b>Manage Friends</b></div>
+                <div className="button-text"> <b> Manage Friends</b></div>
               </button>
             </Col>
           </Row>

@@ -3,11 +3,11 @@ import {Form, Button } from 'react-bootstrap';
 
 const Budgets = () => {
     return(
-      <Button variant="warning"type="submit" className="budget-btn-yellow" onClick={ () => window.location.href="/budget-manager"} >
-        <b><span className="material-icons md-48">
+      <Button variant="btn btn-yellow grow" type="submit" onClick={ () => window.location.href="/budget-manager"} >
+        <span className="material-icons md-34">
           add_task
         </span>
-        <div className="new-budget-text"> Add a New Budget</div></b>
+        <b><div className="button-text"> Add a New Budget</div></b>
       </Button>
     );
 }
