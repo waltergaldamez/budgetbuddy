@@ -33,7 +33,7 @@ code {
     background: #FCB401;
     width: 60px;
     height: 60px;
-    border-radius: 50%;
+    border-radius: 100px;
     line-height: 60px;
     vertical-align: middle;
     font-weight: 900;
@@ -44,7 +44,7 @@ code {
     background: #FB2B60;
     width: 60px;
     height: 60px;
-    border-radius: 50%;
+    border-radius: 100px;
     line-height: 60px;
     vertical-align: middle;
     font-weight: 900;
@@ -53,15 +53,16 @@ code {
 
 h3 {
   display: inline;
-  padding-left: 10pt;
+  padding-left: 5px;
 }
 
 i {
   position: static;
 }
 
-.material-icons.md-50 { font-size: 50px; }
-
+.material-icons.md-50 {
+  font-size: 50px;
+}
 
 /*logout button */
 .pink {
@@ -219,12 +220,12 @@ i {
 
 /*Friends Page CSS */
 
-.text-btn {
+/* .text-btn {
   display: inline-flex;
   position: relative;
   bottom: 5px;
   font-size: 12pt;
-}
+} */
 
 .avatar {
     background: black;
@@ -322,13 +323,13 @@ tr:nth-child(odd) > td.second {
   font-size: 18pt;
 }
 
-.edit-profile-text {
+/* .edit-profile-text {
   display: inline;
   position: relative;
   bottom: 6px;
   font-size: 14pt;
   font-style: bold;
-}
+} */
 
 .md-34 {
   font-size: 34px;
@@ -687,11 +688,11 @@ tr:nth-child(odd) > td.first-budget {
   height: 15%;
 }
 
-.new-budget-text {
+/* .new-budget-text {
   display: inline;
   position: relative;
   bottom: 12px;
-}
+} */
 
 .button-text {
   display: inline;
