@@ -644,7 +644,7 @@ exports.setApp = function (app, client ){
                     subject: 'Password Reset',
                     text: `Here is your temporary password: ${temp_pass}
                         Click the link to login with your temporary password and then head over to settings to change your password: https://budgetbuddiesapp.herokuapp.com/`,
-                    html: `<p1>Here is your temporary passowrd: ${temp_pass} </p1>
+                    html: `<p1>Here is your temporary password: ${temp_pass} </p1>
                         <p1>Click the link to login with your temporary password and then head over to settings to change your password:<a href="https://budgetbuddiesapp.herokuapp.com/">Reset Password</a></p1>`
                 }
                 sgMail
