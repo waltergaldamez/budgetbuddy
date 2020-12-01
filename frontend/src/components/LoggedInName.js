@@ -8,7 +8,7 @@ function LoggedInName()
 
   return(
    <div className="loggedInDiv">
-   	Welcome, {username}
+   	Welcome, <b>{username}</b>.
    </div>
   );
 

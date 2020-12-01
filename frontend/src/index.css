@@ -337,6 +337,7 @@ tr:nth-child(odd) > td.second {
 
 .loggedInDiv {
   font-size: 24pt;
+  text-align: center;
   margin-top: 5%;
 }
 
