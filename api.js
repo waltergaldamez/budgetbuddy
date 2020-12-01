@@ -275,6 +275,10 @@ exports.setApp = function (app, client ){
         try{
             await sgMail.send(msg);
             console.log("The email has been verified");
+
+            id = user._id;
+            add_to_score(id, val);
+
             res.redirect('https://budgetbuddiesapp.herokuapp.com/');
             // window.location.href = '/budget';
 
@@ -729,5 +733,33 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
+    function add_to_score(id, val){
+        const db = client.db();
+        var old_score;
+        var new_score;
+        console.log("typeof id: " + (typeof id));
+
+        
+        try{
+            const user = db.collection('users').find({'_id': ObjectId(id)});
+            try{
+                // Get the user's old score
+                old_score = user.rankMetric;
+
+                // Compute the new score
+                new_score = old_score + val;
+
+                // Update the score
+                db.collection('users').updateOne({'_id': ObjectId(id)}, { $set: {rankMetric: new_score}});
+                console.log("updated score to: " + new_score);
+                return;
+            }catch(error){
+                console.log(error.toString());
+            }
+        }catch(error){
+            console.log(error.toString());
+        }
+        return;
+    }
 
 }
