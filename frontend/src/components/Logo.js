@@ -1,10 +1,10 @@
 import React from 'react';
-import Logo from '../logo.png'
+import logo from '../logo.png'
 
-const EditProfile = () => {
+const Logo = () => {
   return (
-    <img src={Logo} alt="Logo" className="logo"/>
+    <img src={logo} alt="Logo" className="logo"/>
   )
 }
 
-export default EditProfile;
+export default Logo;
