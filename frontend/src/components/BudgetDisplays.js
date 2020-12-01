@@ -261,29 +261,23 @@ export default class BudgetDisplays extends React.Component {
         <input type="text" className="edit-budget-input" ref={(c) => newGoal = c} defaultValue={currentBudget >= 0 ? budgets[currentBudget].BudgetGoal : ""}></input><br/>
 
 
-        <Button className="modal-exit" variant="danger"  onClick={submit}>
-          <span className="material-icons ">
+        <Button className="modal-exit" variant="danger" onClick={submit}>
+          <span className="material-icons">
             cancel
           </span>
-          <span className="exit">
-            EXIT
-          </span>
+          <span className="exit"> Cancel</span>
         </Button>
         <Button variant="success" onClick={updateBudget} data-id={currentBudget >= 0 ? budgets[currentBudget]._id : ""}className="modal-submit">
-        <span className="material-icons ">
-          check
-        </span>
-        <span className="save">
-          Save
-        </span>
+          <span className="material-icons ">
+            check
+          </span>
+          <span className="save"> Save</span>
         </Button>
         <Button className="modal-delete" variant="danger" onClick={remove}>
           <span className="material-icons ">
             delete
           </span>
-          <span className="delete">
-            Delete Budget
-          </span>
+          <span className="delete"> Delete</span>
         </Button>
       </Modal>
     </div>

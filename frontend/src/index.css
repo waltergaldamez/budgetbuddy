@@ -572,12 +572,12 @@ tr:nth-child(odd) > td.first-budget {
 
 .budget-card-display-modal {
   width: 40%;
-  height: 410px;
+  height: 41%;
   margin-left: 30%;
   margin-top: 5%;
   background: #19C0FF;
   text-align: center;
-  border-radius: 5%;
+  border-radius: 30px;
   display: inline-block;
   box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
 }
@@ -596,19 +596,33 @@ tr:nth-child(odd) > td.first-budget {
 }
 
 .modal-exit {
+  float: left;
   background-color: red;
-  width: 20%;
-  margin-top: 5%;
-  margin-left: 2%;
+  width: 25%;
+  border-radius: 100px;
+  font-size: 20px;
 }
 
 .modal-submit {
-  width: 20%;
-  margin-left: 35%;
+  float: none;
+  width: 25%;
+  border-radius: 100px;
+  margin-left: 37.5%;
+  top: -44px;
   position: relative;
-  bottom: 44px;
   font-size: 20px;
   height: 20%;
+}
+
+.modal-delete {
+  float: right;
+  width: 25%;
+  border-radius: 100px;
+  margin-left: 75%;
+  top: -88px;
+  position: relative;
+  background-color: red;
+  font-size: 20px;
 }
 
 .exit {
@@ -624,20 +638,13 @@ tr:nth-child(odd) > td.first-budget {
 }
 
 .edit-budget-input {
-  width: 100%;
-  margin-left: 2%;
-  border-radius: 200px;
+  width: auto;
+  border-radius: 2px;
+  padding-left: 7px;
   height: 30px;
   border: none;
 }
 
-.modal-delete {
-  width: 36%;
-  margin-left: 66%;
-  position: relative;
-  bottom: 88px;
-  background-color: red;
-}
 .delete {
   position: relative;
   bottom: 5px;
