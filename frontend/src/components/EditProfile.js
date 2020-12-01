@@ -3,13 +3,11 @@ import { Button } from 'react-bootstrap';
 
 const EditProfile = () => {
   return (
-    <Button variant="warning edit-btn-yellow grow" type="submit">
+    <Button variant="btn btn-yellow grow" type="submit">
       <span className="material-icons md-34">
         person
       </span>
-      <b><div className="edit-profile-text">
-        Edit Profile
-      </div></b>
+      <b><div className="button-text"> Edit Profile</div></b>
     </Button>
   )
 }

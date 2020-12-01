@@ -18,7 +18,7 @@ const LogOutButton = () => {
       <span className="material-icons">
         exit_to_app
       </span>
-      <div className="logout black-text">Logout</div>
+      <div className="logout black-text"> Logout</div>
     </Button>
   );
 }

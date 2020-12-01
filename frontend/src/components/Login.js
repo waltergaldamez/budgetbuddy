@@ -51,22 +51,22 @@ function Login()
     return(
       <form>
         <ul className="top-area">
-          <li className="tab active"><a href="/"><b>Log in</b></a></li>
+          <li className="tab active"><a href="/"><b>Log In</b></a></li>
           <li className="tab inactive"><a href="/register"><b>Register</b></a></li>
         </ul>
 
         <div className="form-group">
-          <label><b>Username or Email</b></label>
+          <label><b>Email</b></label>
           <input type="text" className="form-control login" ref={(c) => loginEmail = c}/>
         </div>
 
         <div className="form-group">
           <label><b>Password</b></label>
           <input type="password" className="form-control login" ref={(c) => loginPassword = c}/>
-           Forgot Password? Click -><a href="/forgot-password">here</a>
+           Forgot Password? Click <a href="/forgot-password">here</a>.
         </div>
 
-        <button type="submit" className="btn btn-lg btn-block login-btn-yellow" onClick={doLogin}><b>Log in</b></button>
+        <button type="submit" className="btn btn-lg btn-block login-btn-yellow" onClick={doLogin}><b>Log In</b></button>
         {
           showAlert ? (
                 <span class="alert">
