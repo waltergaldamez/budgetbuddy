@@ -104,7 +104,7 @@ exports.setApp = function (app, client ){
 
         const budgetID = req.param('_id');
         console.log(ObjectId(budgetID));
-        const amount = (req.param('newAmount'));
+        var amount = (req.param('newAmount'));
 
         var error = '';
         var response = '';
@@ -687,7 +687,8 @@ exports.setApp = function (app, client ){
             next();
         }
         else{
-            res.sendStatus(403);
+            res.sendStatus(405);
+            // res.redirect('https://budgetbuddiesapp.herokuapp.com/');
         }
     }
 
