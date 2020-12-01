@@ -688,7 +688,7 @@ exports.setApp = function (app, client ){
         }
         else{
             res.sendStatus(405);
-            // res.redirect('https://budgetbuddiesapp.herokuapp.com/');
+            res.redirect('https://budgetbuddiesapp.herokuapp.com/');
         }
     }
 
