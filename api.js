@@ -738,29 +738,29 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
-    function add_to_score(id,email,val){
+    async function add_to_score(id,email,val){
         const db = client.db();
         var old_score;
         var new_score;
 
-        console.log("id: " + id + "\nemail: " + email + "\nval: " + val);
+        //console.log("id: " + id + "\nemail: " + email + "\nval: " + val);
 
-        console.log("typeof id: " + (typeof id));
-
-        
+        //console.log("typeof id: " + (typeof id));
 
         if(id){
             try{
-                const user = db.collection('users').find({'_id': ObjectId(id)}).toArray();
+                const user = await db.collection('users').find({'_id': ObjectId(id)}).toArray();
                 try{
+
+                    //print(user[0].)
                     // Get the user's old score
-                    old_score = user[0].rankMetric;
+                    old_score = parseFloat(user[0].rankMetric);
     
                     // Compute the new score
                     new_score = old_score + val;
     
                     // Update the score
-                    db.collection('users').updateOne({'_id': ObjectId(id)}, { $set: {rankMetric: new_score}});
+                    await db.collection('users').updateOne({'_id': ObjectId(id)}, { $set: {rankMetric: new_score}});
                     console.log("updated score to: " + new_score);
                     return;
                 }catch(error){
@@ -771,14 +771,15 @@ exports.setApp = function (app, client ){
             }
         }else if (email){
 
-            console.log("IN email and email is: " + email);
-            console.log("type of email:" + (typeof email));
+            //console.log("IN email and email is: " + email);
+            // console.log("type of email:" + (typeof email));
             try{
-                const user = db.collection('users').find({'email': email}).toArray();
-                console.log(user[0].email);
+                // console.log("HEREREER");
+                const user = await db.collection('users').find({'email': email}).toArray();
+                // console.log("what: " + user[0].email);
                 try{
 
-                    console.log("bananan");
+                    // console.log("bananan");
                     // Get the user's old score
                     old_score = parseFloat(user[0].rankMetric);
     
@@ -786,14 +787,16 @@ exports.setApp = function (app, client ){
                     new_score = old_score + val;
     
                     // Update the score
-                    db.collection('users').updateOne({'email' : email}, { $set: {rankMetric: new_score}});
+                    await db.collection('users').updateOne({'email' : email}, { $set: {rankMetric: new_score}});
                     console.log("updated score to: " + new_score);
                     return;
                 }catch(error){
                     console.log(error.toString());
+                    return;
                 }
             }catch(error){
                 console.log(error.toString());
+                return;
             }
         }else{
             console.log("Error in add_to_score: invalid id and email");
