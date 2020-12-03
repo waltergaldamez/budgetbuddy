@@ -68,7 +68,7 @@ exports.setApp = function (app, client ){
         // Get the previous value of the progress
         // Add to it
         // Update value
-        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, async (err, authData) => {
             if(err){
                 res.sendStatus(403);
             } else{
@@ -156,7 +156,7 @@ exports.setApp = function (app, client ){
 
     app.post('/api/showAllBudgets',verifyToken, async (req, res, next) => {
 
-        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, async (err, authData) => {
             if(err){
                 res.sendStatus(403);
             } else{
@@ -187,7 +187,7 @@ exports.setApp = function (app, client ){
 
     app.post('/api/showBudget', verifyToken, async (req, res, next) => {
 
-        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, async (err, authData) => {
             if(err){
                 res.sendStatus(403);
             } else{
@@ -359,7 +359,7 @@ exports.setApp = function (app, client ){
     {
         // incoming: searchUsername
         // outgoing: results[], error
-        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, async (err, authData) => {
             if(err){
                 res.sendStatus(403);
             } else{
@@ -404,7 +404,7 @@ exports.setApp = function (app, client ){
     app.post('/api/addFriend', verifyToken,async (req, res, next) =>
     {
 
-        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, async (err, authData) => {
             if(err){
                 res.sendStatus(403);
             } else{
@@ -445,7 +445,7 @@ exports.setApp = function (app, client ){
     app.post('/api/removeFriend',verifyToken, async (req, res, next) =>
     {
 
-        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, async (err, authData) => {
             if(err){
                 res.sendStatus(403);
             } else{
@@ -479,7 +479,7 @@ exports.setApp = function (app, client ){
 
     app.post('/api/showFriends',verifyToken,async (req, res, next) =>
     {
-        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, async (err, authData) => {
             if(err){
                 res.sendStatus(403);
             } else{
@@ -519,7 +519,7 @@ exports.setApp = function (app, client ){
     });
 
     app.post('/api/getRank', verifyToken,async (req, res, next) => {
-        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, async (err, authData) => {
             if(err){
                 res.sendStatus(403);
             } else{
@@ -549,7 +549,7 @@ exports.setApp = function (app, client ){
 
     app.post('/api/updateRank', verifyToken, async (req, res, next) =>
     {
-        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, async (err, authData) => {
             if(err){
                 res.sendStatus(403);
             } else{
@@ -579,7 +579,7 @@ exports.setApp = function (app, client ){
 
     app.post('/api/updatebudget',verifyToken, async (req, res, next) =>
     {
-        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, async (err, authData) => {
             if(err){
                 res.sendStatus(403);
             } else{
@@ -605,7 +605,7 @@ exports.setApp = function (app, client ){
     app.post('/api/editAccount',verifyToken, async (req, res, next) =>
     {
 
-        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, async (err, authData) => {
             if(err){
                 res.sendStatus(403);
             } else{
@@ -754,7 +754,7 @@ exports.setApp = function (app, client ){
     // Returns array of users based on rank (Top 10 or some number)
     app.post('/api/get-top-10',verifyToken, async (req, res)=>
     {
-        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, async (err, authData) => {
             if(err){
                 res.sendStatus(403);
             } else{
