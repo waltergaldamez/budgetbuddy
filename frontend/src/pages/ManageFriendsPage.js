@@ -1,7 +1,7 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import PageNav from '../components/PageNav';
 import LogOutButton from '../components/LogOutButton';
-import FriendSearchTable from '../components/FriendSearchTable';
+import TableFriendMaker from '../components/TableFriendMaker';
 import CurrentRank from '../components/CurrentRank';
 import Avatar from '../components/Avatar';
 
@@ -30,8 +30,8 @@ const ManageFriendsPage = () => {
               <CurrentRank />
             </Col>
             <Col>
-              <button className="btn btn-yellow grow" onClick={() => window.location.href='/friends'}>
-                <span class="material-icons">
+              <button className="btn-back btn-yellow grow" onClick={() => window.location.href='/friends'}>
+                <span class="material-icons md-34">
                   group
                 </span>
                 <div className="text-btn"> <b>Back</b></div>
@@ -40,7 +40,7 @@ const ManageFriendsPage = () => {
           </Row>
         </Container>
       </div>
-      <FriendSearchTable />
+      <TableFriendMaker/>
     </div>
   )
 }

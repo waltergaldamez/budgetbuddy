@@ -14,7 +14,7 @@ const LogOutButton = () => {
       };  
 
   return (
-    <Button variant="danger" type="submit" className="pink" onClick={doLogout}>
+    <Button variant="" type="submit" className="pink" onClick={doLogout}>
       <span className="material-icons">
         exit_to_app
       </span>

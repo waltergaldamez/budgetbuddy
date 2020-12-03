@@ -1,7 +1,6 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import PageNav from '../components/PageNav';
 import LogOutButton from '../components/LogOutButton';
-import FriendSearchTable from '../components/FriendSearchTable';
 import CurrentRank from '../components/CurrentRank';
 import Avatar from '../components/Avatar';
 import ManageBudgetTable from '../components/ManageBudgetTable';

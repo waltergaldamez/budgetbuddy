@@ -47,6 +47,7 @@ code {
   color: white;
 }
 
+
 .circle-icon {
     background: #FCB401;
     width: 60px;
@@ -88,13 +89,14 @@ i {
   margin-top: 5%;
   color:black;
   border-radius: 100px;
+  background-color: #FB2B60;
 }
 
 .black-text {
   display: inline;
   color: black;
   position: relative;
-  bottom: 4px;
+  bottom: 6px;
 }
 
 
@@ -239,12 +241,25 @@ i {
 
 /*Friends Page CSS */
 
-/* .text-btn {
-  display: inline-flex;
-  position: relative;
+.btn-back {
+  background-color: #FCB401;
+  width: 40%;
+  height: 40%;;
+  border-radius: 100px;
+  margin-left: 15%;
+  margin-top: 4.5%;
+  text-align: center;
+  font-size: 18pt;
+  border: none;
+}
+
+.text-btn {
   bottom: 5px;
-  font-size: 12pt;
-} */
+  font-size: 18pt;
+  display: inline;
+  bottom: 7px;
+  position: relative;
+}
 
 .avatar {
     background: black;
@@ -707,7 +722,7 @@ tr:nth-child(odd) > td.first-budget {
 }
 
 .progress-submit {
-  width: 20%;
+  width: 25%;
   margin-left: 55%;
   position: relative;
   bottom: 184px;
@@ -732,4 +747,27 @@ tr:nth-child(odd) > td.first-budget {
 .progress {
   width: 90%;
   margin-left: 5%;
+}
+
+.budget-btn{
+  background-color: #FCB401;
+  width: 40%;
+  height: 65%;
+  border-radius: 100px;
+  margin-left: 30%;
+  margin-right: 15%;
+  margin-top: 4%;
+  padding-bottom: 20px;
+  text-align: center;
+  font-size: 24px;
+  border: none;
+  color: black;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+}
+
+.button-txt {
+  font-size: 18pt;
+  display: inline;
+  position: relative;
+  bottom: 12px;
 }
