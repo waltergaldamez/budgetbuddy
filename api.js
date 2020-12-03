@@ -104,7 +104,7 @@ exports.setApp = function (app, client ){
 
         const budgetID = req.param('_id');
         console.log(ObjectId(budgetID));
-        const amount = (req.param('newAmount'));
+        var amount = (req.param('newAmount'));
 
         var error = '';
         var response = '';
@@ -113,7 +113,7 @@ exports.setApp = function (app, client ){
             const db = client.db();
             const result = await db.collection('budgets').find({'_id': ObjectId(budgetID)}).toArray();
             console.log(result[0]);
-            console.log(result[0].isComplete);
+            console.log("isComplete: " + result[0].isComplete);
 
             if(result.length > 0){
                 // found a budget with the correct ID
@@ -133,8 +133,13 @@ exports.setApp = function (app, client ){
                     // mark budget as completed (boolean)
                     db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {isComplete: true}});
                     response = db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetProgress: budgetGoal}});
+
+                    add_to_score(id=null,result[0].email, 10);
+
                 }else{
                     response = db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetProgress: amount}});
+                    console.log("Result.email: " + result[0].email)
+                    add_to_score(id=null, result[0].email,1);
                 }
 
 
@@ -275,6 +280,10 @@ exports.setApp = function (app, client ){
         try{
             await sgMail.send(msg);
             console.log("The email has been verified");
+
+            
+            add_to_score(user._id, email=null, 10);
+
             res.redirect('https://budgetbuddiesapp.herokuapp.com/');
             // window.location.href = '/budget';
 
@@ -687,7 +696,8 @@ exports.setApp = function (app, client ){
             next();
         }
         else{
-            res.sendStatus(403);
+            res.sendStatus(405);
+            res.redirect('https://budgetbuddiesapp.herokuapp.com/');
         }
     }
 
@@ -728,5 +738,70 @@ exports.setApp = function (app, client ){
         res.status(200).json(ret);
     });
 
+    async function add_to_score(id,email,val){
+        const db = client.db();
+        var old_score;
+        var new_score;
+
+        //console.log("id: " + id + "\nemail: " + email + "\nval: " + val);
+
+        //console.log("typeof id: " + (typeof id));
+
+        if(id){
+            try{
+                const user = await db.collection('users').find({'_id': ObjectId(id)}).toArray();
+                try{
+
+                    //print(user[0].)
+                    // Get the user's old score
+                    old_score = parseFloat(user[0].rankMetric);
+    
+                    // Compute the new score
+                    new_score = old_score + val;
+    
+                    // Update the score
+                    await db.collection('users').updateOne({'_id': ObjectId(id)}, { $set: {rankMetric: new_score}});
+                    console.log("updated score to: " + new_score);
+                    return;
+                }catch(error){
+                    console.log(error.toString());
+                }
+            }catch(error){
+                console.log(error.toString());
+            }
+        }else if (email){
+
+            //console.log("IN email and email is: " + email);
+            // console.log("type of email:" + (typeof email));
+            try{
+                // console.log("HEREREER");
+                const user = await db.collection('users').find({'email': email}).toArray();
+                // console.log("what: " + user[0].email);
+                try{
+
+                    // console.log("bananan");
+                    // Get the user's old score
+                    old_score = parseFloat(user[0].rankMetric);
+    
+                    // Compute the new score
+                    new_score = old_score + val;
+    
+                    // Update the score
+                    await db.collection('users').updateOne({'email' : email}, { $set: {rankMetric: new_score}});
+                    console.log("updated score to: " + new_score);
+                    return;
+                }catch(error){
+                    console.log(error.toString());
+                    return;
+                }
+            }catch(error){
+                console.log(error.toString());
+                return;
+            }
+        }else{
+            console.log("Error in add_to_score: invalid id and email");
+        }
+        return;
+    }
 
 }
