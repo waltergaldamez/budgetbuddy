@@ -380,7 +380,7 @@ exports.setApp = function (app, client ){
 
         // Query database to find users with this info
         var results = await db.collection('users').find({"username":{$regex:_search+'.*', $options:'r'}}).toArray();
-        var user = await db.collection('users').find({username: username}).toArray();
+        var user = await db.collection('users').find({"username": username}).toArray();
         var friends = user[0].friends;
         var _ret = [];
 
@@ -391,10 +391,12 @@ exports.setApp = function (app, client ){
         for (var i = 0; i < results.length; i++) {
           var found = false;
           for (var j = 0; j < friends.length; j++) {
-            if (friends[j] === results[i]._id)
+            if (friends[j].equals(results[i]._id))
               found = true;
+            console.log(friends[j] + "===" + results[i]._id);
+
           }
-          if (!found)
+          if (found === false)
             _ret.push({id:results[i]._id, username:results[i].username})
         }
 
