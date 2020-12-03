@@ -21,7 +21,7 @@ export default class BudgetDisplays extends React.Component {
     var obj = {email: localStorage.getItem("email")};
     var js = JSON.stringify(obj);
     fetch(buildPath('api/showAllBudgets'),
-      {method:'POST', body: js, headers:{'Content-Type': 'application/json'}})
+      {method:'POST', body: js, headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}})
       .then(res => res.json())
       .then(
         (result) => {
@@ -73,7 +73,7 @@ export default class BudgetDisplays extends React.Component {
             // Call to API
 
             const response = await fetch(buildPath('api/removebudget'),
-                {method:'DELETE',body:js,headers:{'Content-Type': 'application/json'}});
+                {method:'DELETE',body:js,headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}});
 
             // Parsing response
                 var txt = await response.text();
@@ -126,7 +126,7 @@ export default class BudgetDisplays extends React.Component {
           // Call to API
 
           const response = await fetch(buildPath('api/updatebudget'),
-              {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+              {method:'POST',body:js,headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}});
 
           // Parsing response
               var txt = await response.text();
@@ -161,7 +161,7 @@ export default class BudgetDisplays extends React.Component {
           // Call to API
 
           const response = await fetch(buildPath('api/addprogress'),
-              {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+              {method:'POST',body:js,headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}});
 
           // Parsing response
               var txt = await response.text();

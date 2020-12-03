@@ -15,7 +15,7 @@ class TableFriendMaker extends React.Component {
     var objFriend = {userID:localStorage.getItem("userID")};
     var jsFriends = JSON.stringify(objFriend);
     fetch(buildPath('api/showFriends'),
-        {method:'POST',body:jsFriends,headers:{'Content-Type': 'application/json'}})
+        {method:'POST',body:jsFriends,headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}})
         .then(res => res.json())
         .then(
           (result) => {
@@ -40,7 +40,7 @@ render() {
     {
         // API call
         const response = await fetch(buildPath('api/searchUsers'),
-        {method:'POST', body:js,headers:{'Content-Type': 'application/json'}});
+        {method:'POST', body:js,headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}});
 
         // Parse JSON response
         var res = JSON.parse(await response.text());
@@ -68,7 +68,7 @@ render() {
     {
         // API call
         const response = await fetch(buildPath('api/addFriend'),
-            {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+            {method:'POST',body:js,headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}});
 
         // Parse JSON response
         var res = JSON.parse(await response.text());
@@ -97,7 +97,7 @@ render() {
     {
         // API call
         const response = await fetch(buildPath('api/removeFriend'),
-            {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+            {method:'POST',body:js,headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}});
 
         // Parse JSON response
         var res = JSON.parse(await response.text());

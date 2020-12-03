@@ -36,7 +36,7 @@ export default class ApexChart extends React.Component {
          var obj = {email: localStorage.getItem("email")};
          var js = JSON.stringify(obj);
          fetch(buildPath('api/showAllBudgets'),
-           {method:'POST', body: js, headers:{'Content-Type': 'application/json'}})
+           {method:'POST', body: js, headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}})
            .then(res => res.json())
            .then(
              (result) => {

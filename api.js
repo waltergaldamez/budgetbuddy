@@ -157,6 +157,7 @@ exports.setApp = function (app, client ){
     app.post('/api/showAllBudgets',verifyToken, async (req, res, next) => {
 
         jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, async (err, authData) => {
+            console.log(err);
             if(err){
                 res.sendStatus(403);
             } else{
@@ -736,8 +737,8 @@ exports.setApp = function (app, client ){
             next();
         }
         else{
-            res.sendStatus(405);
-            res.redirect('https://budgetbuddiesapp.herokuapp.com/');
+        //    res.sendStatus(405);
+            res.status(405).redirect('https://budgetbuddiesapp.herokuapp.com/');
         }
     }
 

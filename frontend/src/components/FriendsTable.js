@@ -15,9 +15,9 @@ export default class FriendsTable extends React.Component {
     var jsFriends = JSON.stringify(objFriend);
     Promise.all([
       fetch(buildPath('api/get-top-10'),
-      {method:'POST', body:{}, header:{'Content-Type': 'application/json'}}),
+      {method:'POST', headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}}),
       fetch(buildPath('api/showFriends'),
-        {method:'POST',body:jsFriends,headers:{'Content-Type': 'application/json'}})
+        {method:'POST',body:jsFriends,headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}})
     ]).then(([res1, res2]) => {
          return Promise.all([res1.json(), res2.json()])
       }).then(([res1, res2]) => {
