@@ -22,7 +22,7 @@ const ManageBudgetTable = () => {
               // Call to API
 
               const response = await fetch(buildPath('api/addbudget'),
-                  {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+                  {method:'POST',body:js,headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}});
 
               // Parsing response
               var txt = await response.text();
