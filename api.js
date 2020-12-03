@@ -19,7 +19,6 @@ exports.setApp = function (app, client ){
     // Returns: error
     app.post('/api/addbudget', verifyToken, async (req, res, next) =>
     {
-      
       jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
         if(err){
             res.sendStatus(403);
@@ -274,7 +273,7 @@ exports.setApp = function (app, client ){
             await sgMail.send(msg);
             console.log("The email has been verified");
 
-            
+
             add_to_score(user._id, email=null, 10);
 
             res.redirect('https://budgetbuddiesapp.herokuapp.com/');
@@ -336,7 +335,7 @@ exports.setApp = function (app, client ){
             //     localStorage = new LocalStorage('./scratch');
             //  }
 
-            
+
             // res.cookie('token', accessToken, { httpOnly: true });
 
             // localStorage.setItem(email.toString(), accessToken)
@@ -800,10 +799,10 @@ exports.setApp = function (app, client ){
                     //print(user[0].)
                     // Get the user's old score
                     old_score = parseFloat(user[0].rankMetric);
-    
+
                     // Compute the new score
                     new_score = old_score + val;
-    
+
                     // Update the score
                     await db.collection('users').updateOne({'_id': ObjectId(id)}, { $set: {rankMetric: new_score}});
                     console.log("updated score to: " + new_score);
@@ -827,10 +826,10 @@ exports.setApp = function (app, client ){
                     // console.log("bananan");
                     // Get the user's old score
                     old_score = parseFloat(user[0].rankMetric);
-    
+
                     // Compute the new score
                     new_score = old_score + val;
-    
+
                     // Update the score
                     await db.collection('users').updateOne({'email' : email}, { $set: {rankMetric: new_score}});
                     console.log("updated score to: " + new_score);

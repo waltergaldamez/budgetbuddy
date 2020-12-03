@@ -1,7 +1,6 @@
 import React from 'react';
 
 import PageNav from '../components/PageNav';
-import FriendSearchBar from '../components/FriendSearchBar';
 import LoggedInName from '../components/LoggedInName';
 import CurrentRank from '../components/CurrentRank';
 import Avatar from '../components/Avatar';
