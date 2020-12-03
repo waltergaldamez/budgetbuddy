@@ -51,7 +51,7 @@ exports.setApp = function (app, client ){
       var budgetName = req.param("BudgetName");
       var ret = {BudgetName: budgetName, error: error };
       res.status(200).json(ret);*/
-      
+
       jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
         if(err){
             res.sendStatus(403);
@@ -281,7 +281,7 @@ exports.setApp = function (app, client ){
             await sgMail.send(msg);
             console.log("The email has been verified");
 
-            
+
             add_to_score(user._id, email=null, 10);
 
             res.redirect('https://budgetbuddiesapp.herokuapp.com/');
@@ -343,7 +343,7 @@ exports.setApp = function (app, client ){
             //     localStorage = new LocalStorage('./scratch');
             //  }
 
-            
+
             // res.cookie('token', accessToken, { httpOnly: true });
 
             // localStorage.setItem(email.toString(), accessToken)
@@ -388,16 +388,17 @@ exports.setApp = function (app, client ){
 
         var _ret = [];
 
-        for(var i = 0; i < friends.length;i++){
-            for(var j = 0; j < results.length; j++){
-                if(!friends[i].equals(results[j]._id)){
-                    console.log("not already a friend");
-                    _ret.push({id:results[j]._id, username:results[j].username});
-                    continue;
-                }
-                console.log("already a friend");
-            }
+        for (var i = 0; i < results.length; i++) {
+          var found = false;
+          for (var j = 0; j < friends.length; j++) {
+            if (friends[j] === results[i]._id)
+              found = true;
+          }
+          if (!found)
+            _ret.push({id:results[i]._id, username:results[i].username})
         }
+
+
 
         var ret = {friends:friends, results:_ret, error:error};
         res.status(200).json(ret);
@@ -755,10 +756,10 @@ exports.setApp = function (app, client ){
                     //print(user[0].)
                     // Get the user's old score
                     old_score = parseFloat(user[0].rankMetric);
-    
+
                     // Compute the new score
                     new_score = old_score + val;
-    
+
                     // Update the score
                     await db.collection('users').updateOne({'_id': ObjectId(id)}, { $set: {rankMetric: new_score}});
                     console.log("updated score to: " + new_score);
@@ -782,10 +783,10 @@ exports.setApp = function (app, client ){
                     // console.log("bananan");
                     // Get the user's old score
                     old_score = parseFloat(user[0].rankMetric);
-    
+
                     // Compute the new score
                     new_score = old_score + val;
-    
+
                     // Update the score
                     await db.collection('users').updateOne({'email' : email}, { $set: {rankMetric: new_score}});
                     console.log("updated score to: " + new_score);

@@ -32,28 +32,27 @@ render() {
 
   const doSearch = async event =>
   {
-      event.preventDefault();
+    event.preventDefault();
+    var obj = {searchUsername: search.value, username: localStorage.getItem("userName")};
+    var js = JSON.stringify(obj);
 
-      var obj = {searchUsername:search.value};
-      var js = JSON.stringify(obj);
-      try
-      {
-          // API call
-          const response = await fetch(buildPath('api/searchUsers'),
-              {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+    try
+    {
+        // API call
+        const response = await fetch(buildPath('api/searchUsers'),
+        {method:'POST', body:js,headers:{'Content-Type': 'application/json'}});
 
-          // Parse JSON response
-          var res = JSON.parse(await response.text());
+        // Parse JSON response
+        var res = JSON.parse(await response.text());
 
 
-          if( res.error === '')
-            this.setState({results: res.results});
-      }
-      catch(e)
-      {
-          alert(e.toString());
-          return;
-      }
+          this.setState({results: res.results});
+    }
+    catch(e)
+    {
+        alert(e.toString());
+        return;
+    }
   };
 
   const doAddFriend = async event => {
