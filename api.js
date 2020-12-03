@@ -19,51 +19,18 @@ exports.setApp = function (app, client ){
     // Returns: error
     app.post('/api/addbudget', verifyToken, async (req, res, next) =>
     {
-     /* // incoming: email, budgetGoal, budgetProgress, budgetName
-      // outgoing: error
-      // Constructing the newBudget instance
-
-      const newBudget = {
-      "email": req.param("email"),
-      "BudgetName":req.param("BudgetName"),
-      "BudgetGoal":parseFloat(req.param("BudgetGoal")),
-      "BudgetProgress":parseFloat(req.param("BudgetProgress")),
-      "isComplete" : false
-    };
-
-
-      var error = '';
-
-      try
-      {
-    // Connecting to the db
-        const db = client.db();
-
-    // Insert newBudget into db
-      db.collection('budgets').insertOne(newBudget);
-      }
-      catch(e)
-      {
-        error = e.toString();
-      }
-
-    // Return: error
-      var budgetName = req.param("BudgetName");
-      var ret = {BudgetName: budgetName, error: error };
-      res.status(200).json(ret);*/
-
       jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
         if(err){
             res.sendStatus(403);
         } else{
             const accessToken = signToken(authData.user)
             const newBudget = {
-            "email": req.param("email"),
-            "BudgetName":req.param("BudgetName"),
-            "BudgetGoal":parseFloat(req.param("BudgetGoal")),
-            "BudgetProgress":parseFloat(req.param("BudgetProgress")),
-            "isComplete" : false
-          };
+                "email": req.param("email"),
+                "BudgetName":req.param("BudgetName"),
+                "BudgetGoal":parseFloat(req.param("BudgetGoal")),
+                "BudgetProgress":parseFloat(req.param("BudgetProgress")),
+                "isComplete" : false
+            };
 
 
           var error = '';
@@ -86,14 +53,14 @@ exports.setApp = function (app, client ){
           var ret = {BudgetName: BudgetName, authData, error: error };
           ret.accessToken = accessToken;
           res.status(200).json(ret);
-            }
+        }
           });
       
     });
 
 
     // Adds
-    app.post('/api/addprogress', async (req, res, next) =>
+    app.post('/api/addprogress', verifyToken, async (req, res, next) =>
     {
         // in: _id of budget and progress to add
         // Need to find the budget to update the progress in
@@ -101,128 +68,153 @@ exports.setApp = function (app, client ){
         // Get the previous value of the progress
         // Add to it
         // Update value
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+            if(err){
+                res.sendStatus(403);
+            } else{
+                const budgetID = req.param('_id');
+                console.log(ObjectId(budgetID));
+                var amount = (req.param('newAmount'));
 
-        const budgetID = req.param('_id');
-        console.log(ObjectId(budgetID));
-        var amount = (req.param('newAmount'));
+                var error = '';
+                var response = '';
+                try
+                  {
+                    const db = client.db();
+                    const result = await db.collection('budgets').find({'_id': ObjectId(budgetID)}).toArray();
+                    console.log(result[0]);
+                    console.log("isComplete: " + result[0].isComplete);
 
-        var error = '';
-        var response = '';
-        try
-          {
-            const db = client.db();
-            const result = await db.collection('budgets').find({'_id': ObjectId(budgetID)}).toArray();
-            console.log(result[0]);
-            console.log("isComplete: " + result[0].isComplete);
-
-            if(result.length > 0){
-                // found a budget with the correct ID
-                var budgetGoal = result[0].BudgetGoal;
+                    if(result.length > 0){
+                        // found a budget with the correct ID
+                        var budgetGoal = result[0].BudgetGoal;
 
 
-                // Budget is already complete and newAmount is negative number
-                if(result[0].isComplete == true && (amount < budgetGoal)){
-                    console.log("Insside here");
-                    db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {isComplete: false}});
+                        // Budget is already complete and newAmount is negative number
+                        if(result[0].isComplete == true && (amount < budgetGoal)){
+                            console.log("Insside here");
+                            db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {isComplete: false}});
 
+                        }
+
+                        // If new progress over the goal
+                        if(amount >= budgetGoal){
+                            amount = budgetGoal; // budget completed
+                            // mark budget as completed (boolean)
+                            db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {isComplete: true}});
+                            response = db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetProgress: budgetGoal}});
+
+                            add_to_score(id=null,result[0].email, 10);
+
+                        }else{
+                            response = db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetProgress: amount}});
+                            console.log("Result.email: " + result[0].email)
+                            add_to_score(id=null, result[0].email,1);
+                        }
+
+
+                    }else{
+                        // didnt find the budget
+                        error = "brenden not found";
+
+                    }
+                }catch(e){
+                    error = e.toString();
                 }
 
-                // If new progress over the goal
-                if(amount >= budgetGoal){
-                    amount = budgetGoal; // budget completed
-                    // mark budget as completed (boolean)
-                    db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {isComplete: true}});
-                    response = db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetProgress: budgetGoal}});
-
-                    add_to_score(id=null,result[0].email, 10);
-
-                }else{
-                    response = db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetProgress: amount}});
-                    console.log("Result.email: " + result[0].email)
-                    add_to_score(id=null, result[0].email,1);
-                }
-
-
-            }else{
-                // didnt find the budget
-                error = "brenden not found";
-
+                var ret = { error: error };
+                res.status(200).json(ret);
             }
-        }catch(e){
-            error = e.toString();
-        }
-
-        var ret = { error: error };
-        res.status(200).json(ret);
+        });
     });
 
-    app.delete('/api/removebudget', async (req, res, next) =>
+    app.delete('/api/removebudget',verifyToken, async (req, res, next) =>
     {
-        const budgetID = req.param('_id');
-        var error = '';
-        var response = '';
 
-        try
-        {
-            const db = client.db();
-            db.collection('budgets').deleteOne({"_id": ObjectId(budgetID)});
-        }
-        catch(e)
-        {
-            error = e.toString();
-        }
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+            if(err){
+                res.sendStatus(403);
+            } else{
+                const budgetID = req.param('_id');
+                var error = '';
+                var response = '';
+                try
+                {
+                    const db = client.db();
+                    db.collection('budgets').deleteOne({"_id": ObjectId(budgetID)});
+                }
+                catch(e)
+                {
+                    error = e.toString();
+                }
 
-        var ret = { error: error, response : response };
-        res.status(200).json(ret);
-    });
-
-    app.post('/api/showAllBudgets', async (req, res, next) => {
-        const db = client.db();
-        const email= req.param('email');
-        var error = '';
-         try{
-
-            const results = await db.collection('budgets').find({'email' : email}).toArray();
-            console.log(results);
-            console.log("results length: "+results.length);
-            var _ret = [];
-            for(var i = 0; i < results.length; i++){
-                _ret.push(results[i]);
+                var ret = { error: error, response : response };
+                res.status(200).json(ret);
             }
-
-        }catch(e){
-            error = e.toString();
-        }
-
-        console.log("_ret: "+_ret);
-        var ret = {results:_ret, error:error};
-        console.log("ret : " + ret);
-        res.status(200).json(ret);
+        });
     });
 
-    app.post('/api/showBudget', async (req, res, next) => {
-        const db = client.db();
-        // const userEmail = req.param('email');
-        const budgetID = req.param('_id');
-        console.log(budgetID);
-        var error = '';
-        try{
+    app.post('/api/showAllBudgets',verifyToken, async (req, res, next) => {
 
-            const results = await db.collection('budgets').find({'_id' : ObjectId(budgetID)}).toArray();
-            console.log("length: "+results.length);
-            // console.log("results length: " + results.length);
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+            if(err){
+                res.sendStatus(403);
+            } else{
+                const db = client.db();
+                const email= req.param('email');
+                var error = '';
+                try{
 
-            var _ret = [];
-            _ret.push(results[0]);
+                    const results = await db.collection('budgets').find({'email' : email}).toArray();
+                    console.log(results);
+                    console.log("results length: "+results.length);
+                    var _ret = [];
+                    for(var i = 0; i < results.length; i++){
+                        _ret.push(results[i]);
+                    }
 
-        }catch(e){
-            error = e.toString();
-        }
+                }catch(e){
+                    error = e.toString();
+                }
 
-        console.log("_ret: " +_ret);
-        var ret = {results:_ret, error:error};
-        console.log("ret : " + ret);
-        res.status(200).json(ret);
+                console.log("_ret: "+_ret);
+                var ret = {results:_ret, error:error};
+                console.log("ret : " + ret);
+                res.status(200).json(ret);
+            }
+        });
+    });
+
+    app.post('/api/showBudget', verifyToken, async (req, res, next) => {
+
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+            if(err){
+                res.sendStatus(403);
+            } else{
+                const db = client.db();
+                // const userEmail = req.param('email');
+                const budgetID = req.param('_id');
+                console.log(budgetID);
+                var error = '';
+                try{
+
+                    const results = await db.collection('budgets').find({'_id' : ObjectId(budgetID)}).toArray();
+                    console.log("length: "+results.length);
+                    // console.log("results length: " + results.length);
+
+                    var _ret = [];
+                    _ret.push(results[0]);
+
+                }catch(e){
+                    error = e.toString();
+                }
+
+                console.log("_ret: " +_ret);
+                var ret = {results:_ret, error:error};
+                console.log("ret : " + ret);
+                res.status(200).json(ret);
+            }
+        });
     });
 
     app.post('/api/register', async (req, res, next) => {
@@ -363,239 +355,284 @@ exports.setApp = function (app, client ){
 		res.status(200).json(ret);
     });
 
-    app.post('/api/searchUsers' ,async (req, res, next) =>
+    app.post('/api/searchUsers' ,verifyToken, async (req, res, next) =>
     {
         // incoming: searchUsername
         // outgoing: results[], error
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+            if(err){
+                res.sendStatus(403);
+            } else{
+              var error = '';
+              // const user = req.param('user');
+              const searchName = req.param('searchUsername');
+              const username = req.param('username');
 
-        var error = '';
-        // const user = req.param('user');
-        const searchName = req.param('searchUsername');
-        const username = req.param('username');
+              var _search = searchName.trim();
 
-        var _search = searchName.trim();
+              // Acquire a database object
+              const db = client.db();
 
-        // Acquire a database object
-        const db = client.db();
+              // Query database to find users with this info
+              var results = await db.collection('users').find({"username":{$regex:_search+'.*', $options:'r'}}).toArray();
+              var user = await db.collection('users').find({"username": username}).toArray();
+              var friends = user[0].friends;
+              var _ret = [];
 
-        // Query database to find users with this info
-        var results = await db.collection('users').find({"username":{$regex:_search+'.*', $options:'r'}}).toArray();
-        var user = await db.collection('users').find({"username": username}).toArray();
-        var friends = user[0].friends;
-        var _ret = [];
+              var iggy = await db.collection('users').find({username : "iggy"}).toArray();
 
-        var iggy = await db.collection('users').find({username : "iggy"}).toArray();
+              var _ret = [];
 
-        var _ret = [];
+              for (var i = 0; i < results.length; i++) {
+                var found = false;
+                for (var j = 0; j < friends.length; j++) {
+                  if (friends[j].equals(results[i]._id))
+                    found = true;
+                  console.log(friends[j] + "===" + results[i]._id);
 
-        for (var i = 0; i < results.length; i++) {
-          var found = false;
-          for (var j = 0; j < friends.length; j++) {
-            if (friends[j].equals(results[i]._id))
-              found = true;
-            console.log(friends[j] + "===" + results[i]._id);
+                }
+                if (found === false)
+                  _ret.push({id:results[i]._id, username:results[i].username})
+              }
 
-          }
-          if (found === false)
-            _ret.push({id:results[i]._id, username:results[i].username})
-        }
-
-
-
-        var ret = {friends:friends, results:_ret, error:error};
-        res.status(200).json(ret);
-    });
-
-    app.post('/api/addFriend', async (req, res, next) =>
-    {
-        // incoming: userID, friendID
-        // outgoing: friends object array
-
-        var error = 'adding friend failed';
-        const userID = req.param('userID');
-        const friendID = req.param('friendID');
-
-        // Acquire a database object
-        const db = client.db();
-
-        // Structure friend list update for user
-        const query = {_id:new ObjectId(userID)};
-        const update = {
-            "$push": {
-                "friends":new ObjectId(friendID)
+                var ret = {friends:friends, results:_ret, error:error};
+                res.status(200).json(ret);
             }
-        };
-        const options = { "upsert": false };
-
-        // Update the database
-        try
-        {
-            db.collection('users').updateOne(query, update, options);
-            ret = { userID:userID, friendID:friendID, error:''};
-        }
-        catch(e)
-        {
-            ret = {error:error};
-        }
-        res.status(200).json(ret);
+        });
     });
 
-    app.post('/api/removeFriend', async (req, res, next) =>
+    app.post('/api/addFriend', verifyToken,async (req, res, next) =>
     {
-        var error = '';
-        const userID = req.param('userID');
-        const friendID = req.param('friendID');
 
-        const db = client.db();
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+            if(err){
+                res.sendStatus(403);
+            } else{
+                // incoming: userID, friendID
+                // outgoing: friends object array
 
-        const query ={_id : ObjectId(userID)};
+                var error = 'adding friend failed';
+                const userID = req.param('userID');
+                const friendID = req.param('friendID');
 
-        const update = {
-            "$pull":{
-                "friends" : ObjectId(friendID)
+                // Acquire a database object
+                const db = client.db();
+
+                // Structure friend list update for user
+                const query = {_id:new ObjectId(userID)};
+                const update = {
+                    "$push": {
+                        "friends":new ObjectId(friendID)
+                    }
+                };
+                const options = { "upsert": false };
+
+                // Update the database
+                try
+                {
+                    db.collection('users').updateOne(query, update, options);
+                    ret = { userID:userID, friendID:friendID, error:''};
+                }
+                catch(e)
+                {
+                    ret = {error:error};
+                }
+                res.status(200).json(ret);
             }
-        };
-
-        try{
-
-            db.collection('users').updateOne(query, update);
-
-        }catch(e){
-            error = e.toString();
-        }
-        var ret = { error: error };
-        res.status(200).json(ret);
+        });
     });
 
-
-    app.post('/api/showFriends',async (req, res, next) =>
+    app.post('/api/removeFriend',verifyToken, async (req, res, next) =>
     {
-        // Incoming: userID or userEmail
-        // Outgoing: friends array of user
 
-        var error = '';
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+            if(err){
+                res.sendStatus(403);
+            } else{
+                var error = '';
+                const userID = req.param('userID');
+                const friendID = req.param('friendID');
 
-        const userID = req.param('userID');
+                const db = client.db();
 
+                const query ={_id : ObjectId(userID)};
 
-        const db = client.db();
-        var friendsArr = [];
+                const update = {
+                    "$pull":{
+                        "friends" : ObjectId(friendID)
+                    }
+                };
 
-        try{
+                try{
 
-            // Get the user from the database
-           const user = await db.collection('users').find({'_id' : ObjectId(userID)}).toArray();
+                    db.collection('users').updateOne(query, update);
 
-            // Converts friend array in JSON into an array of the values (friendIDs)
-            for (var i = 0; i < user[0].friends.length; i++) {
-              var friend = await db.collection('users').find({'_id' : ObjectId(user[0].friends[i])}).toArray();
-              friendsArr.push({id: user[0].friends[i], username: friend[0].username})
+                }catch(e){
+                    error = e.toString();
+                }
+                var ret = { error: error };
+                res.status(200).json(ret);
             }
-            //friendsArr = Object.values(user[0].friends[i]);
-
-            // console.log('Friends: '+ friendsArr);
-
-        }catch(e){
-            error = e.toString();
-        }
-
-        var ret = {friendsArr:friendsArr, error:error};
-        res.status(200).json(ret);
+        });
     });
 
-    app.post('/api/getRank', async (req, res, next) => {
 
-        var error = '';
-
-        const db = client.db();
-        var rank = -99;
-
-        const userID = req.param('userID');
-
-        try{
-            // Get the user from the database
-            const user = await db.collection('users').find({'_id' : ObjectId(userID)}).toArray();
-
-            rank = user[0].rankMetric;
-
-        }catch(e){
-            error = e.toString();
-        }
-
-        var ret = {rank:rank, error:error};
-        res.status(200).json(ret);
-
-    });
-
-    app.post('/api/updateRank', async (req, res, next) =>
+    app.post('/api/showFriends',verifyToken,async (req, res, next) =>
     {
-        // incoming: new rank, userID
-        // Outgoing: updateRank
-        var error = '';
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+            if(err){
+                res.sendStatus(403);
+            } else{
+                // Incoming: userID or userEmail
+                // Outgoing: friends array of user
 
-        const db = client.db();
-        var user = {};
+                var error = '';
 
-        const userID = req.param('userID');
-        const newRank = req.param('newRank');
+                const userID = req.param('userID');
 
 
-        try{
-            user = await db.collection('users').updateOne({'_id':ObjectId(userID)}, { $set: {rankMetric:newRank}});
+                const db = client.db();
+                var friendsArr = [];
 
-        }catch(e){
-            error = e.toString();
-        }
+                try{
 
-        var ret = {updatedRank:newRank, error:error};
-        res.status(200).json(ret);
+                    // Get the user from the database
+                const user = await db.collection('users').find({'_id' : ObjectId(userID)}).toArray();
+
+                    // Converts friend array in JSON into an array of the values (friendIDs)
+                    for (var i = 0; i < user[0].friends.length; i++) {
+                    var friend = await db.collection('users').find({'_id' : ObjectId(user[0].friends[i])}).toArray();
+                    friendsArr.push({id: user[0].friends[i], username: friend[0].username})
+                    }
+                    //friendsArr = Object.values(user[0].friends[i]);
+
+                    // console.log('Friends: '+ friendsArr);
+
+                }catch(e){
+                    error = e.toString();
+                }
+
+                var ret = {friendsArr:friendsArr, error:error};
+                res.status(200).json(ret);
+            }
+        });
     });
 
-    app.post('/api/updatebudget', async (req, res, next) =>
-    {
-      const updatedBudget =  {"BudgetName":req.param("BudgetName"), "BudgetGoal":parseFloat(req.param("BudgetGoal"))};
-      const budgetID = req.param('_id');
-      var error = '';
-      var response = '';
+    app.post('/api/getRank', verifyToken,async (req, res, next) => {
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+            if(err){
+                res.sendStatus(403);
+            } else{
+                var error = '';
 
-      try
-      {
-        const db = client.db();
-        db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetName: updatedBudget.BudgetName, BudgetGoal: updatedBudget.BudgetGoal}});
+                const db = client.db();
+                var rank = -99;
 
-      }
-      catch(e)
-      {
-        error = e.toString();
-      }
-      var ret = { error: error, response : response };
-      res.status(200).json(ret);
+                const userID = req.param('userID');
+
+                try{
+                    // Get the user from the database
+                    const user = await db.collection('users').find({'_id' : ObjectId(userID)}).toArray();
+
+                    rank = user[0].rankMetric;
+
+                }catch(e){
+                    error = e.toString();
+                }
+
+                var ret = {rank:rank, error:error};
+                res.status(200).json(ret);
+            }
+        });
+
     });
 
-    app.post('/api/editAccount', async (req, res, next) =>
+    app.post('/api/updateRank', verifyToken, async (req, res, next) =>
     {
-        // incoming: userID, updated username, updated email, updated password
-        // Outgoing: error
-        var error = '';
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+            if(err){
+                res.sendStatus(403);
+            } else{
+                // incoming: new rank, userID
+                // Outgoing: updateRank
+                var error = '';
 
-        const userID = req.param('userID');
-        const newEmail = req.param('newEmail');
-        const newUsername = req.param('userName');
-        const newPassword = req.param('password');
+                const db = client.db();
+                var user = {};
 
-        const updateAccount = {'email':newEmail, 'username':newUsername, 'password':newPassword};
+                const userID = req.param('userID');
+                const newRank = req.param('newRank');
 
-        const db = client.db();
 
-        try{
-            db.collection('users').updateOne({'_id':ObjectId(userID)}, { $set: {email:updateAccount.email, username:updateAccount.username, password:newPassword}});
+                try{
+                    user = await db.collection('users').updateOne({'_id':ObjectId(userID)}, { $set: {rankMetric:newRank}});
 
-        }catch(e){
-            error = e.toString();
-        }
+                }catch(e){
+                    error = e.toString();
+                }
 
-        var ret = {error:error};
-        res.status(200).json(ret);
+                var ret = {updatedRank:newRank, error:error};
+                res.status(200).json(ret);
+            }
+        });
+    });
+
+    app.post('/api/updatebudget',verifyToken, async (req, res, next) =>
+    {
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+            if(err){
+                res.sendStatus(403);
+            } else{
+                const updatedBudget =  {"BudgetName":req.param("BudgetName"), "BudgetGoal":parseFloat(req.param("BudgetGoal"))};
+                const budgetID = req.param('_id');
+                var error = '';
+                var response = '';
+                try
+                {
+                    const db = client.db();
+                    db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetName: updatedBudget.BudgetName, BudgetGoal: updatedBudget.BudgetGoal}});
+                }
+                catch(e)
+                {
+                    error = e.toString();
+                }
+                var ret = { error: error, response : response };
+                res.status(200).json(ret);
+            }
+        });
+    });
+
+    app.post('/api/editAccount',verifyToken, async (req, res, next) =>
+    {
+
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+            if(err){
+                res.sendStatus(403);
+            } else{
+                // incoming: userID, updated username, updated email, updated password
+                // Outgoing: error
+                var error = '';
+
+                const userID = req.param('userID');
+                const newEmail = req.param('newEmail');
+                const newUsername = req.param('userName');
+                const newPassword = req.param('password');
+
+                const updateAccount = {'email':newEmail, 'username':newUsername, 'password':newPassword};
+
+                const db = client.db();
+
+                try{
+                    db.collection('users').updateOne({'_id':ObjectId(userID)}, { $set: {email:updateAccount.email, username:updateAccount.username, password:newPassword}});
+
+                }catch(e){
+                    error = e.toString();
+                }
+
+                var ret = {error:error};
+                res.status(200).json(ret);
+            }
+        });
 
     });
 
@@ -715,30 +752,35 @@ exports.setApp = function (app, client ){
 
 
     // Returns array of users based on rank (Top 10 or some number)
-    app.post('/api/get-top-10', async (req, res)=>
+    app.post('/api/get-top-10',verifyToken, async (req, res)=>
     {
+        jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
+            if(err){
+                res.sendStatus(403);
+            } else{
+                var error = 'success';
+                const db = client.db();
+                var userArr = [];
 
-        var error = 'success';
-        const db = client.db();
-        var userArr = [];
+                try{
 
-        try{
+                    // Returns the top 10 users in the database based on rank (1-10)
+                const top_users = await db.collection('users').find({rankMetric : {$lte: 10} }).toArray();
 
-            // Returns the top 10 users in the database based on rank (1-10)
-           const top_users = await db.collection('users').find({rankMetric : {$lte: 10} }).toArray();
+                    // Converts friend array in JSON into an array of the values (friendIDs)
+                    for (var i = 0; i < top_users.length; i++) {
+                    userArr.push({rank:top_users[i].rankMetric, username:top_users[i].username});
+                    }
+                    userArr.sort((a,b) => (parseInt(a.rank) - parseInt(b.rank)));
 
-            // Converts friend array in JSON into an array of the values (friendIDs)
-            for (var i = 0; i < top_users.length; i++) {
-              userArr.push({rank:top_users[i].rankMetric, username:top_users[i].username});
+                }catch(e){
+                    error = e.toString();
+                }
+
+                var ret = {userArr: userArr, error:error};
+                res.status(200).json(ret);
             }
-            userArr.sort((a,b) => (parseInt(a.rank) - parseInt(b.rank)));
-
-        }catch(e){
-            error = e.toString();
-        }
-
-        var ret = {userArr: userArr, error:error};
-        res.status(200).json(ret);
+        });
     });
 
     async function add_to_score(id,email,val){
