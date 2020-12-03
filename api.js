@@ -22,6 +22,7 @@ exports.setApp = function (app, client ){
       jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
         if(err){
             // res.sendStatus(403);
+            console.log("Pooop");
             res.redirect('http://localhost:3000/');
         } else{
             const accessToken = signToken(authData.user)
