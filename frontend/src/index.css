@@ -422,14 +422,16 @@ tr:nth-child(odd) > td.second {
   height: 550px;
   margin-left: 10%;
   margin-top: 5%;
+  padding-top: 25px;
+  /* padding-bottom: -20px; */
   background: #19C0FF;
   text-align: center;
-  border-radius: 10%;
+  border-radius: 30px;
 }
 
 .budget-graphics {
   background-color:  #55D0F1;
-  border-radius: 3%;
+  border-radius: 30px;
   height: 400px;
 }
 
