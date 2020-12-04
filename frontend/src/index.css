@@ -724,7 +724,9 @@ tr:nth-child(odd) > td.first-budget {
 .save {
   display: inline;
   position: relative;
-  bottom : 3px;
+  width: auto;
+  bottom : 6px;
+  border-radius: 30px;
 }
 
 .edit-budget-input {
@@ -778,12 +780,13 @@ tr:nth-child(odd) > td.first-budget {
 }
 
 .progress-submit {
-  width: 25%;
-  margin-left: 55%;
+  width: auto;
+  margin-left: 50%;
   position: relative;
   bottom: 184px;
   font-size: 15px;
   height: 15%;
+  border-radius: 100px;
 }
 
 /* .new-budget-text {
