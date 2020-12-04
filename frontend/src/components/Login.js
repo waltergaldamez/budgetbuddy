@@ -8,7 +8,7 @@ function Login()
     var loginPassword;
 
     var message = '';
-    const [ showAlert, setAlert ] = useState(false);
+    const [ showAlert, setAlert ] = useState({alert:false, message: ''});
 
     const doLogin = async event =>
     {
@@ -28,8 +28,7 @@ function Login()
 
             if( res.error !== '')
             {
-                message = 'Email/Password combination incorrect';
-                setAlert(true);
+                setAlert({alert: true, message: res.error});
             }
             else
             {
@@ -69,10 +68,10 @@ function Login()
 
         <button type="submit" className="btn btn-lg btn-block login-btn-yellow" onClick={doLogin}><b>Log In</b></button>
         {
-          showAlert ? (
+          showAlert.alert ? (
                 <span class="alert">
                   <Alert variant="danger" onClose={() => setAlert(false)} dismissible>
-                    <p>Email/Password combination incorrect</p>
+                    {showAlert.message}
                   </Alert>
                 </span>
                 ) :

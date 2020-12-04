@@ -10,6 +10,7 @@ import ManageFriendsPage from './pages/ManageFriendsPage';
 import RecoverPasswordPage from './pages/RecoverPasswordPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ManageBudgetPage from './pages/ManageBudgetPage';
+import EditAccountPage from './pages/EditAccountPage';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -42,6 +43,9 @@ function App() {
         </Route>
         <Route path="/budget-manager" exact>
           <ManageBudgetPage />
+        </Route>
+        <Route path="/edit-account" exact>
+          <EditAccountPage />
         </Route>
         <Redirect to="/" />
       </Switch>

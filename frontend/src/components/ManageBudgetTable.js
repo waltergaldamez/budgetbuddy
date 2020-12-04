@@ -63,7 +63,7 @@ const ManageBudgetTable = () => {
           <span className="add"> Add Budget</span>
         </Button>
         <Button className="modal-success2" variant="danger" onClick={() => window.location.href='/budget'}>
-          <i class="fa fa-plus fa-2x"></i>
+        <i class="fa fa-window-close fa-2x"></i>
           <span className="add"> Cancel</span>
         </Button>
       </Modal>
