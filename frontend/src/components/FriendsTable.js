@@ -44,13 +44,13 @@ export default class FriendsTable extends React.Component {
                 global.map((user, i) => {
                   return (
                     <tr>
-                      <td className="first grow">
+                      <td className="first">
                         <h4>
                           { i >= friends.length ? '' : friends[i].username }
                         </h4>
                       </td>
 
-                      <td className="second grow">
+                      <td className="second">
                         <h4>{ user.username }</h4>
                       </td>
                     </tr>
