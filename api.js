@@ -618,16 +618,18 @@ exports.setApp = function (app, client ){
                 var error = '';
 
                 const userID = req.param('userID');
-                const newEmail = req.param('newEmail');
+                // const newEmail = req.param('newEmail');
                 const newUsername = req.param('userName');
                 const newPassword = req.param('password');
 
-                const updateAccount = {'email':newEmail, 'username':newUsername, 'password':newPassword};
+                // const updateAccount = {'email':newEmail, 'username':newUsername, 'password':newPassword};
+                const updateAccount = {'username':newUsername, 'password':newPassword};
 
                 const db = client.db();
 
                 try{
-                    db.collection('users').updateOne({'_id':ObjectId(userID)}, { $set: {email:updateAccount.email, username:updateAccount.username, password:newPassword}});
+                    // db.collection('users').updateOne({'_id':ObjectId(userID)}, { $set: {email:updateAccount.email, username:updateAccount.username, password:newPassword}});
+                    db.collection('users').updateOne({'_id':ObjectId(userID)}, { $set: {username:updateAccount.username, password:newPassword}});
 
                 }catch(e){
                     error = e.toString();
