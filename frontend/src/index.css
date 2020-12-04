@@ -334,19 +334,21 @@ th{
 }
 
 .friends-search {
-  border-radius: 50px;
-  width: 50%;
-  display: inline;
-  position: relative;
-  bottom: 8px;
+  border-top-left-radius: 100px;
+  border-bottom-left-radius: 100px;
+  display: inline-block;
+  vertical-align: middle;
   height: 50px;
+  width: 40%;
 }
 
 .friends-button {
-  margin-left: 2%;
-  margin-bottom: 1%;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
   background-color: #19C0FF;
-  height: 10%;
+  display: inline-block;
+  vertical-align: middle;
+  height: 50px;
 }
 
 tr:nth-child(even) > td.first {

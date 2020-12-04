@@ -118,7 +118,9 @@ render() {
             <th scope="col" class="yellow">My Friends</th>
             <th scope="col" class="pink-header">
               Find New Friends <input type="text" className="form-control friends-search"  ref={(c) => search = c}></input>
-               <Button type="primary" className="friends-button"> <i class="fa fa-search fa-2x" onClick={doSearch}></i> </Button>
+              <span className="input-group-btn">
+                <Button type="primary" className="friends-button"> <i class="fa fa-search fa-2x" onClick={doSearch}></i> </Button>
+              </span>
             </th>
           </tr>
         </thead>
