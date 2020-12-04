@@ -238,7 +238,20 @@ i {
   border-radius: 100px;
   margin-left: 15%;
   margin-right: 15%;
-  margin-top: 5%;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  text-align: center;
+  font-size: 18pt;
+}
+
+.btn-yellow-friends {
+  background-color: #FCB401;
+  width: auto;
+  height: auto;
+  border-radius: 100px;
+  margin-left: 65%;
+  margin-top: 25px;
+  margin-bottom: 25px;
   text-align: center;
   font-size: 18pt;
 }
