@@ -21,7 +21,9 @@ exports.setApp = function (app, client ){
     {
       jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, (err, authData) => {
         if(err){
-            res.sendStatus(403);
+            // res.sendStatus(403);
+            console.log("Pooop");
+            res.redirect('http://localhost:3000/');
         } else{
             const accessToken = signToken(authData.user)
             const newBudget = {
@@ -318,8 +320,9 @@ exports.setApp = function (app, client ){
         var id = -1;
         var ret = {};
 
+        console.log("AWERRTWERTWERTWER: "+results[0].verification);
 
-        if( results.length > 0 )
+        if( results[0].verification == true && results.length > 0)
         {
             id = results[0]._id;
             var username = results[0].username;
@@ -342,7 +345,7 @@ exports.setApp = function (app, client ){
             // localStorage.setItem(email.toString(), accessToken)
             // console.log("local storage get:" + localStorage.getItem(email.toString()));
 
-            ret = { id:id, username:username, email:email,error:''};
+            ret = { id:id, username:username, email:email,error:'', isVerified:results[0].verification};
 
             // const refreshToken = jwt.sign({user:results[0]}, process.env.REFRESH_TOKEN_SECRET)
             // const accessToken = jwt.sign({user:results[0]}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15m'})
@@ -351,7 +354,7 @@ exports.setApp = function (app, client ){
         }
         else
         {
-            ret={error: "user not found"};
+            ret={error: "user not found", isVerified:results[0].verification};
         }
 		res.status(200).json(ret);
     });
@@ -615,16 +618,18 @@ exports.setApp = function (app, client ){
                 var error = '';
 
                 const userID = req.param('userID');
-                const newEmail = req.param('newEmail');
+                // const newEmail = req.param('newEmail');
                 const newUsername = req.param('userName');
                 const newPassword = req.param('password');
 
-                const updateAccount = {'email':newEmail, 'username':newUsername, 'password':newPassword};
+                // const updateAccount = {'email':newEmail, 'username':newUsername, 'password':newPassword};
+                const updateAccount = {'username':newUsername, 'password':newPassword};
 
                 const db = client.db();
 
                 try{
-                    db.collection('users').updateOne({'_id':ObjectId(userID)}, { $set: {email:updateAccount.email, username:updateAccount.username, password:newPassword}});
+                    // db.collection('users').updateOne({'_id':ObjectId(userID)}, { $set: {email:updateAccount.email, username:updateAccount.username, password:newPassword}});
+                    db.collection('users').updateOne({'_id':ObjectId(userID)}, { $set: {username:updateAccount.username, password:newPassword}});
 
                 }catch(e){
                     error = e.toString();
