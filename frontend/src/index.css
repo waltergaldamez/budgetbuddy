@@ -340,6 +340,7 @@ th{
   vertical-align: middle;
   height: 50px;
   width: 40%;
+  border: 0;
 }
 
 .friends-button {
@@ -349,29 +350,39 @@ th{
   display: inline-block;
   vertical-align: middle;
   height: 50px;
+  border: 0;
+}
+
+.friends-button:hover {
+  background-color: #19C0FF;
+  filter: brightness(120%);
 }
 
 tr:nth-child(even) > td.first {
   color: black;
   background-color: #19C0FF;
   text-align: center;
+  border: 0;
 }
 
 tr:nth-child(even) > td.second {
   background-color: #55D0F1;
   color: black;
   text-align: center;
+  border: 0;
 }
 
 tr:nth-child(odd) > td.first {
   background-color: #55D0F1;
   color: black;
   text-align: center;
+  border: 0;
 }
 tr:nth-child(odd) > td.second {
   color: black;
   background-color: #19C0FF;
   text-align: center;
+  border: 0;
 }
 
 .edit-btn-yellow {
@@ -473,7 +484,10 @@ tr:nth-child(odd) > td.second {
   line-height: 60px;
   color: white;
   position: relative;
-
+}
+.add-icon:hover {
+  background: #FCB401;
+  filter: brightness(120%);
 }
 
 .budget-card-outer {
@@ -561,11 +575,17 @@ tr:nth-child(odd) > td.second {
 .remove-button {
   margin-left: 2%;
   margin-bottom: 1%;
-  background-color: red;
+  background: red;
+  width: 60px;
+  height: 60px;
+  border-radius: 100px;
+  color: white;
+  position: relative;
 }
 
 .remove-button:hover {
-  background-color: red;
+  background: red;
+  filter: brightness(120%);
 }
 
 .budget-card-display {

@@ -128,8 +128,8 @@ render() {
         {friends.map((friend, i) => {
           return (
             <tr>
-              <td className="first grow"><h4>{ friend.username }</h4><Button type="danger" className="remove-button" data-id={friend.id} onClick={removeFriend}> <i class="fa fa-user-times fa-md"></i>  </Button></td>
-              { i >= results.length ? <td className="second grow"></td> : <td className="second grow"><h4>{results[i].username}</h4><Button onClick={doAddFriend} type="submit" data-key={i} className="add-icon grow" data-id={results[i].id}><i class="fa fa-user-plus fa-2x user-add"></i></Button></td> }
+              <td className="first"><h4>{ friend.username }</h4><Button type="danger" className="remove-button grow" data-id={friend.id} onClick={removeFriend}> <i class="fa fa-user-times fa-2x"></i>  </Button></td>
+              { i >= results.length ? <td className="second"></td> : <td className="second"><h4>{results[i].username}</h4><Button onClick={doAddFriend} type="submit" data-key={i} className="add-icon grow" data-id={results[i].id}><i class="fa fa-user-plus fa-2x user-add"></i></Button></td> }
 
             </tr>
           );
@@ -155,8 +155,8 @@ render() {
         {results.map((result, i) => {
           return (
             <tr>
-            <td className="first grow">{  typeof friends === 'undefined' || i >= friends.length ? '' : <div><h4>{friends[i].username}</h4> <Button type="danger" data-id={friends[i].id} onClick={removeFriend} className="remove-button"><i class="fa fa-user-times fa-md"></i> </Button></div>}</td>
-            <td className="second grow">
+            <td className="first">{  typeof friends === 'undefined' || i >= friends.length ? '' : <div><h4>{friends[i].username}</h4> <Button type="danger" data-id={friends[i].id} onClick={removeFriend} className="remove-button grow"><i class="fa fa-user-times fa-2x"></i> </Button></div>}</td>
+            <td className="second">
               <h4 className="user-add">{ result.username }</h4>
               <Button className="add-icon grow" onClick={doAddFriend} data-key={i} data-id={result.id}><i class="fa fa-user-plus fa-2x user-add"></i></Button>
             </td>
