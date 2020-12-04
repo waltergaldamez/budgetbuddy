@@ -33,11 +33,23 @@ code {
 
 .title {
   margin: 0 auto;
-  color: #19c0ff;
+}
+
+.title-pink {
+  margin: 0 auto;
+  color: #fb2b60;
   font-family: 'Varela Round';
-  font-size: 600%;
-  /* -webkit-text-stroke-width: 3px;
-  -webkit-text-stroke-color: white; */
+  font-size: 500%;
+  -webkit-text-stroke-width: .05px;
+  -webkit-text-stroke-color: black;
+}
+.title-yellow {
+  margin: 0 auto;
+  color: #fcb401;
+  font-family: 'Varela Round';
+  font-size: 500%;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #fb2b60;
 }
 
 /*navigation css start */

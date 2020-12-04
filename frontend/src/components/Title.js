@@ -4,9 +4,14 @@ import React from 'react';
 
 const Title = () => {
   return (
-    <h1 className="title">
-        Budget Buddies!
-    </h1>
+    <div className="title">
+      <h1 className="title-pink">
+        <b>Budget</b>
+      </h1>
+      <h1 className="title-pink">
+        <b>Buddies</b>
+      </h1>
+    </div>
   )
 }
 
