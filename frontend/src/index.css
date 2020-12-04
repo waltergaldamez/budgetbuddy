@@ -592,19 +592,20 @@ tr:nth-child(odd) > td.second {
 
 .budget-card-display {
   width: 100%;
-  height: 390px;
+  height: 400px;
   margin-left: 5%;
   margin-top: 8%;
+  padding-top: 10px;
   background: #19C0FF;
   text-align: center;
-  border-radius: 10%;
+  border-radius: 30px;
   display: inline-block;
   box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
 }
 
 .budget-card-inner-display {
   background-color:  #55D0F1;
-  border-radius: 3%;
+  border-radius: 30px;
   height: 270px;
 }
 
