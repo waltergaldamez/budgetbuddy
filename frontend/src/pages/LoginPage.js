@@ -7,7 +7,7 @@ const LoginPage = () => {
   return (
     <div className="outer">
         <Logo />
-        {/* <Title /> */}
+        <Title />
         <div className="inner-login">
           <Login />
         </div>

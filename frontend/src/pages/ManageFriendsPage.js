@@ -23,14 +23,14 @@ const ManageFriendsPage = () => {
           </Row>
 
           <Row className="blue">
-            <Col className="blue">
+            {/* <Col className="blue">
               <Avatar />
             </Col>
             <Col>
               <CurrentRank />
-            </Col>
+            </Col> */}
             <Col>
-              <button className="btn-back btn-yellow grow" onClick={() => window.location.href='/friends'}>
+              <button className="btn btn-yellow-friends grow" onClick={() => window.location.href='/friends'}>
                 <span class="material-icons md-34">
                   group
                 </span>

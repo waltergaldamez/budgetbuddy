@@ -33,11 +33,23 @@ code {
 
 .title {
   margin: 0 auto;
-  color: #19c0ff;
+}
+
+.title-pink {
+  margin: 0 auto;
+  color: #fb2b60;
   font-family: 'Varela Round';
-  font-size: 600%;
-  /* -webkit-text-stroke-width: 3px;
-  -webkit-text-stroke-color: white; */
+  font-size: 500%;
+  -webkit-text-stroke-width: .05px;
+  -webkit-text-stroke-color: black;
+}
+.title-yellow {
+  margin: 0 auto;
+  color: #fcb401;
+  font-family: 'Varela Round';
+  font-size: 500%;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #fb2b60;
 }
 
 /*navigation css start */
@@ -226,7 +238,20 @@ i {
   border-radius: 100px;
   margin-left: 15%;
   margin-right: 15%;
-  margin-top: 5%;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  text-align: center;
+  font-size: 18pt;
+}
+
+.btn-yellow-friends {
+  background-color: #FCB401;
+  width: auto;
+  height: auto;
+  border-radius: 100px;
+  margin-left: 65%;
+  margin-top: 25px;
+  margin-bottom: 25px;
   text-align: center;
   font-size: 18pt;
 }
@@ -309,42 +334,55 @@ th{
 }
 
 .friends-search {
-  border-radius: 50px;
-  width: 50%;
-  display: inline;
-  position: relative;
-  bottom: 8px;
+  border-top-left-radius: 100px;
+  border-bottom-left-radius: 100px;
+  display: inline-block;
+  vertical-align: middle;
   height: 50px;
+  width: 40%;
+  border: 0;
 }
 
 .friends-button {
-  margin-left: 2%;
-  margin-bottom: 1%;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
   background-color: #19C0FF;
-  height: 10%;
+  display: inline-block;
+  vertical-align: middle;
+  height: 50px;
+  border: 0;
+}
+
+.friends-button:hover {
+  background-color: #19C0FF;
+  filter: brightness(120%);
 }
 
 tr:nth-child(even) > td.first {
   color: black;
   background-color: #19C0FF;
   text-align: center;
+  border: 0;
 }
 
 tr:nth-child(even) > td.second {
   background-color: #55D0F1;
   color: black;
   text-align: center;
+  border: 0;
 }
 
 tr:nth-child(odd) > td.first {
   background-color: #55D0F1;
   color: black;
   text-align: center;
+  border: 0;
 }
 tr:nth-child(odd) > td.second {
   color: black;
   background-color: #19C0FF;
   text-align: center;
+  border: 0;
 }
 
 .edit-btn-yellow {
@@ -446,7 +484,10 @@ tr:nth-child(odd) > td.second {
   line-height: 60px;
   color: white;
   position: relative;
-
+}
+.add-icon:hover {
+  background: #FCB401;
+  filter: brightness(120%);
 }
 
 .budget-card-outer {
@@ -534,11 +575,17 @@ tr:nth-child(odd) > td.second {
 .remove-button {
   margin-left: 2%;
   margin-bottom: 1%;
-  background-color: red;
+  background: red;
+  width: 60px;
+  height: 60px;
+  border-radius: 100px;
+  color: white;
+  position: relative;
 }
 
 .remove-button:hover {
-  background-color: red;
+  background: red;
+  filter: brightness(120%);
 }
 
 .budget-card-display {
