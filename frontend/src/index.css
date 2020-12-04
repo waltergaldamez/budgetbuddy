@@ -244,13 +244,14 @@ i {
 .btn-back {
   background-color: #FCB401;
   width: 40%;
-  height: 40%;;
+  height: 35%;;
   border-radius: 100px;
   margin-left: 15%;
   margin-top: 4.5%;
   text-align: center;
   font-size: 18pt;
   border: none;
+  outline: 0 !important;
 }
 
 .text-btn {
@@ -396,6 +397,10 @@ tr:nth-child(odd) > td.second {
 
 .num-budgets {
   margin-top: 3%;
+}
+
+.apexcharts-legend {
+  height: 200px !important;
 }
 
 .apexcharts-legend-marker {
@@ -606,7 +611,7 @@ tr:nth-child(odd) > td.first-budget {
 
 .budget-card-display-modal {
   width: 40%;
-  height: 41%;
+  height: 55%;
   margin-left: 30%;
   margin-top: 5%;
   background: #19C0FF;
@@ -642,10 +647,11 @@ tr:nth-child(odd) > td.first-budget {
   width: 25%;
   border-radius: 100px;
   margin-left: 37.5%;
-  top: -44px;
+  top: -48px;
   position: relative;
   font-size: 20px;
-  height: 20%;
+  height: 21%;
+  text-align: center;
 }
 
 .modal-delete {
@@ -653,7 +659,7 @@ tr:nth-child(odd) > td.first-budget {
   width: 25%;
   border-radius: 100px;
   margin-left: 75%;
-  top: -88px;
+  top: -95px;
   position: relative;
   background-color: red;
   font-size: 20px;
@@ -662,13 +668,13 @@ tr:nth-child(odd) > td.first-budget {
 .exit {
   display: inline;
   position: relative;
-  bottom : 6px;
+  bottom : 4px;
 }
 
 .save {
   display: inline;
   position: relative;
-  bottom : 5px;
+  bottom : 3px;
 }
 
 .edit-budget-input {
@@ -681,7 +687,7 @@ tr:nth-child(odd) > td.first-budget {
 
 .delete {
   position: relative;
-  bottom: 5px;
+  bottom: 3px;
   font-size: 20px;
 }
 
@@ -770,4 +776,18 @@ tr:nth-child(odd) > td.first-budget {
   display: inline;
   position: relative;
   bottom: 12px;
+}
+
+/* newbudget modal */
+.add {
+  font-size: 18pt;
+}
+
+.modal-success {
+  width: 40% !important;
+}
+
+.modal-success2 {
+  width: 40%;
+  display: inline-block;
 }

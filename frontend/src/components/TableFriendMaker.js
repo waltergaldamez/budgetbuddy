@@ -72,10 +72,9 @@ render() {
 
         // Parse JSON response
         var res = JSON.parse(await response.text());
-        alert("friend added")
 
         if( res.error === '')
-          this.setState({results: results});
+          window.location.href="/manage-friends"
     }
     catch(e)
     {
@@ -101,7 +100,7 @@ render() {
 
         // Parse JSON response
         var res = JSON.parse(await response.text());
-        alert("friend deleted");
+        window.location.href="/manage-friends"
     }
     catch(e)
     {
