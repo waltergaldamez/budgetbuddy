@@ -29,8 +29,8 @@ exports.setApp = function (app, client ){
             const newBudget = {
                 "email": req.param("email"),
                 "BudgetName":req.param("BudgetName"),
-                "BudgetGoal":parseFloat(req.param("BudgetGoal")),
-                "BudgetProgress":parseFloat(req.param("BudgetProgress")),
+                "BudgetGoal":Math.round(parseFloat(req.param("BudgetGoal"))),
+                "BudgetProgress":Math.round(parseFloat(req.param("BudgetProgress"))),
                 "isComplete" : false
             };
 
@@ -76,7 +76,7 @@ exports.setApp = function (app, client ){
             } else{
                 const budgetID = req.param('_id');
                 console.log(ObjectId(budgetID));
-                var amount = (req.param('newAmount'));
+                var amount = Math.round((req.param('newAmount')));
 
                 var error = '';
                 var response = '';
@@ -89,7 +89,7 @@ exports.setApp = function (app, client ){
 
                     if(result.length > 0){
                         // found a budget with the correct ID
-                        var budgetGoal = result[0].BudgetGoal;
+                        var budgetGoal = Math.round(result[0].BudgetGoal);
 
 
                         // Budget is already complete and newAmount is negative number
@@ -598,7 +598,7 @@ exports.setApp = function (app, client ){
                 try
                 {
                     const db = client.db();
-                    db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetName: updatedBudget.BudgetName, BudgetGoal: updatedBudget.BudgetGoal}});
+                    db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetName: updatedBudget.BudgetName, BudgetGoal: int(updatedBudget.BudgetGoal)}});
                 }
                 catch(e)
                 {
