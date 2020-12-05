@@ -52,7 +52,7 @@ exports.setApp = function (app, client ){
 
           // Return: error
           var BudgetName = req.param("BudgetName");
-          var ret = {BudgetName: BudgetName, authData, error: error };
+          var ret = {BudgetName: BudgetName, error: error };
           ret.accessToken = accessToken;
           res.status(200).json(ret);
         }
@@ -74,6 +74,7 @@ exports.setApp = function (app, client ){
             if(err){
                 res.sendStatus(403);
             } else{
+                const accessToken = signToken(authData.user)
                 const budgetID = req.param('_id');
                 console.log(ObjectId(budgetID));
                 var amount = Math.round((req.param('newAmount')));
@@ -125,6 +126,7 @@ exports.setApp = function (app, client ){
                 }
 
                 var ret = { error: error };
+                ret.accessToken = accessToken;
                 res.status(200).json(ret);
             }
         });
@@ -137,6 +139,7 @@ exports.setApp = function (app, client ){
             if(err){
                 res.sendStatus(403);
             } else{
+                const accessToken = signToken(authData.user)
                 const budgetID = req.param('_id');
                 var error = '';
                 var response = '';
@@ -151,7 +154,9 @@ exports.setApp = function (app, client ){
                 }
 
                 var ret = { error: error, response : response };
+                ret.accessToken = accessToken;
                 res.status(200).json(ret);
+                
             }
         });
     });
@@ -163,6 +168,7 @@ exports.setApp = function (app, client ){
             if(err){
                 res.sendStatus(403);
             } else{
+                const accessToken = signToken(authData.user)
                 const db = client.db();
                 const email= req.param('email');
                 var error = '';
@@ -183,6 +189,7 @@ exports.setApp = function (app, client ){
                 console.log("_ret: "+_ret);
                 var ret = {results:_ret, error:error};
                 console.log("ret : " + ret);
+                ret.accessToken = accessToken;
                 res.status(200).json(ret);
             }
         });
@@ -194,6 +201,7 @@ exports.setApp = function (app, client ){
             if(err){
                 res.sendStatus(403);
             } else{
+                const accessToken = signToken(authData.user)
                 const db = client.db();
                 // const userEmail = req.param('email');
                 const budgetID = req.param('_id');
@@ -215,6 +223,7 @@ exports.setApp = function (app, client ){
                 console.log("_ret: " +_ret);
                 var ret = {results:_ret, error:error};
                 console.log("ret : " + ret);
+                ret.accessToken = accessToken;
                 res.status(200).json(ret);
             }
         });
@@ -371,6 +380,7 @@ exports.setApp = function (app, client ){
             if(err){
                 res.sendStatus(403);
             } else{
+              const accessToken = signToken(authData.user)
               var error = '';
               // const user = req.param('user');
               const searchName = req.param('searchUsername');
@@ -404,6 +414,7 @@ exports.setApp = function (app, client ){
               }
 
                 var ret = {friends:friends, results:_ret, error:error};
+                ret.accessToken = accessToken;
                 res.status(200).json(ret);
             }
         });
@@ -416,6 +427,7 @@ exports.setApp = function (app, client ){
             if(err){
                 res.sendStatus(403);
             } else{
+                const accessToken = signToken(authData.user)
                 // incoming: userID, friendID
                 // outgoing: friends object array
 
@@ -445,6 +457,7 @@ exports.setApp = function (app, client ){
                 {
                     ret = {error:error};
                 }
+                ret.accessToken = accessToken;
                 res.status(200).json(ret);
             }
         });
@@ -457,6 +470,7 @@ exports.setApp = function (app, client ){
             if(err){
                 res.sendStatus(403);
             } else{
+                const accessToken = signToken(authData.user)
                 var error = '';
                 const userID = req.param('userID');
                 const friendID = req.param('friendID');
@@ -479,6 +493,7 @@ exports.setApp = function (app, client ){
                     error = e.toString();
                 }
                 var ret = { error: error };
+                ret.accessToken = accessToken;
                 res.status(200).json(ret);
             }
         });
@@ -491,6 +506,7 @@ exports.setApp = function (app, client ){
             if(err){
                 res.sendStatus(403);
             } else{
+                const accessToken = signToken(authData.user)
                 // Incoming: userID or userEmail
                 // Outgoing: friends array of user
 
@@ -521,6 +537,7 @@ exports.setApp = function (app, client ){
                 }
 
                 var ret = {friendsArr:friendsArr, error:error};
+                ret.accessToken = accessToken;
                 res.status(200).json(ret);
             }
         });
@@ -531,6 +548,7 @@ exports.setApp = function (app, client ){
             if(err){
                 res.sendStatus(403);
             } else{
+                const accessToken = signToken(authData.user)
                 var error = '';
 
                 const db = client.db();
@@ -549,6 +567,7 @@ exports.setApp = function (app, client ){
                 }
 
                 var ret = {rank:rank, error:error};
+                ret.accessToken = accessToken;
                 res.status(200).json(ret);
             }
         });
@@ -561,6 +580,7 @@ exports.setApp = function (app, client ){
             if(err){
                 res.sendStatus(403);
             } else{
+                const accessToken = signToken(authData.user)
                 // incoming: new rank, userID
                 // Outgoing: updateRank
                 var error = '';
@@ -580,6 +600,7 @@ exports.setApp = function (app, client ){
                 }
 
                 var ret = {updatedRank:newRank, error:error};
+                ret.accessToken = accessToken;
                 res.status(200).json(ret);
             }
         });
@@ -591,6 +612,7 @@ exports.setApp = function (app, client ){
             if(err){
                 res.sendStatus(403);
             } else{
+                const accessToken = signToken(authData.user)
                 const updatedBudget =  {"BudgetName":req.param("BudgetName"), "BudgetGoal":parseFloat(req.param("BudgetGoal"))};
                 const budgetID = req.param('_id');
                 var error = '';
@@ -605,6 +627,7 @@ exports.setApp = function (app, client ){
                     error = e.toString();
                 }
                 var ret = { error: error, response : response };
+                ret.accessToken = accessToken;
                 res.status(200).json(ret);
             }
         });
@@ -617,6 +640,7 @@ exports.setApp = function (app, client ){
             if(err){
                 res.sendStatus(403);
             } else{
+                const accessToken = signToken(authData.user)
                 // incoming: userID, updated username, updated email, updated password
                 // Outgoing: error
                 var error = '';
@@ -645,6 +669,7 @@ exports.setApp = function (app, client ){
                 }
 
                 var ret = {error:error};
+                ret.accessToken = accessToken;
                 res.status(200).json(ret);
             }
         });
@@ -773,6 +798,7 @@ exports.setApp = function (app, client ){
             if(err){
                 res.sendStatus(403);
             } else{
+                const accessToken = signToken(authData.user)
                 var error = 'success';
                 const db = client.db();
                 var userArr = [];
@@ -794,6 +820,7 @@ exports.setApp = function (app, client ){
                 }
 
                 var ret = {userArr: userArr, error:error};
+                ret.accessToken = accessToken;
                 res.status(200).json(ret);
             }
         });
