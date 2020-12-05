@@ -773,13 +773,14 @@ exports.setApp = function (app, client ){
                 try{
 
                     // Returns the top 10 users in the database based on rank (1-10)
-                const top_users = await db.collection('users').find({rankMetric : {$lte: 10} }).toArray();
+                // const top_users = await db.collection('users').find({rankMetric : {$lte: 10} }).toArray();
+                const top_users = await db.collection('users').find().toArray();
 
                     // Converts friend array in JSON into an array of the values (friendIDs)
                     for (var i = 0; i < top_users.length; i++) {
-                    userArr.push({rank:top_users[i].rankMetric, username:top_users[i].username});
+                        userArr.push({rank:top_users[i].rankMetric, username:top_users[i].username});
                     }
-                    userArr.sort((a,b) => (parseInt(a.rank) - parseInt(b.rank)));
+                    userArr.sort((a,b) => (- parseInt(a.rank) + parseInt(b.rank)));
 
                 }catch(e){
                     error = e.toString();
