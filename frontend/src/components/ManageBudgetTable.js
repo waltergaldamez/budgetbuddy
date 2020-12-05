@@ -1,6 +1,6 @@
 import React from 'react';
 import { buildPath } from '../functions/buildPath';
-import { Button } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import { useState } from 'react';
 
 const ManageBudgetTable = () => {
@@ -47,37 +47,26 @@ const ManageBudgetTable = () => {
 
 
     return (
-      <div class="lower">
-          <table class="budget-table">
-            <thead>
-              <tr>
-                <th scope="col" class="yellow">Budget</th>
-              </tr>
-            </thead>
-            <tbody >
-              <tr>
-                <td class="first-budget budget-header">
-                  Name <input type="text" ref={(c) => budgetName = c}></input>
-                </td>
-              </tr>
-              <tr>
-                <td class="first-budget budget-header">
-                  Goal <input type="text" ref={(c) => budgetGoal = c}></input>
-                </td>
-              </tr>
-              <tr>
-                <td class="first-budget budget-header">
-                  Progress <input type="text" ref={(c) => budgetProgress = c}></input>
-                </td>
-              </tr>
-              <tr>
-                <td class="first budget-header">
-                  <Button type="submit" onClick={addBudget}>Add Budget</Button>
-                </td>
-              </tr>
-            </tbody>
-            </table>
-        </div>
+      <Modal show={true} className="budget-card-display-modal">
+        <label><h3>Budget Name</h3></label>
+        <input type="text" className="edit-budget-input" ref={(c) => budgetName = c}></input><br/>
+
+        <label><h3>Budget Goal</h3></label>
+        <input type="text" className="edit-budget-input" ref={(c) => budgetGoal = c}></input><br/>
+
+        <label><h3>Budget Progress</h3></label>
+        <input type="text" className="edit-budget-input" ref={(c) => budgetProgress = c}></input><br/>
+
+
+        <Button className="modal-success" variant="success" onClick={addBudget}>
+          <i class="fa fa-plus fa-2x"></i>
+          <span className="add"> Add Budget</span>
+        </Button>
+        <Button className="modal-success2" variant="danger" onClick={() => window.location.href='/budget'}>
+        <i class="fa fa-window-close fa-2x"></i>
+          <span className="add"> Cancel</span>
+        </Button>
+      </Modal>
     )
 }
 

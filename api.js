@@ -316,7 +316,11 @@ exports.setApp = function (app, client ){
         // if email didn't work, try as username
         if (results.length === 0)
             results = await db.collection('users').find({"username":req.param('username'), "password":req.param('password')}).toArray();
-
+        
+        if (results.length === 0) {
+            res.status(200).json({error: "user not found"});
+            return;
+        }
         var id = -1;
         var ret = {};
 
@@ -354,7 +358,7 @@ exports.setApp = function (app, client ){
         }
         else
         {
-            ret={error: "user not found", isVerified:results[0].verification};
+            ret={error: "email has not been verified yet", isVerified:results[0].verification};
         }
 		res.status(200).json(ret);
     });
@@ -618,12 +622,17 @@ exports.setApp = function (app, client ){
                 var error = '';
 
                 const userID = req.param('userID');
-                // const newEmail = req.param('newEmail');
+                const newEmail = req.param('newEmail');
                 const newUsername = req.param('userName');
                 const newPassword = req.param('password');
 
-                // const updateAccount = {'email':newEmail, 'username':newUsername, 'password':newPassword};
-                const updateAccount = {'username':newUsername, 'password':newPassword};
+                const user = await db.collection('users').find({'_id' : ObjectId(userID)}).toArray();
+
+                if (newPassword === undefined || newPassword.length == 0)
+                    newPassword = user[0].password;
+
+                 const updateAccount = {'email':newEmail, 'username':newUsername, 'password':newPassword};
+               // const updateAccount = {'username':newUsername, 'password':newPassword};
 
                 const db = client.db();
 
@@ -742,10 +751,8 @@ exports.setApp = function (app, client ){
             next();
         }
         else{
-           res.sendStatus(405);
-            // res.redirect('http://localhost:3000/');
-        
-            // res.status(405).redirect('https://budgetbuddiesapp.herokuapp.com/');
+        //    res.sendStatus(405);
+            res.redirect('https://budgetbuddiesapp.herokuapp.com/');
         }
     }
 

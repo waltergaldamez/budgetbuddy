@@ -33,11 +33,23 @@ code {
 
 .title {
   margin: 0 auto;
-  color: #19c0ff;
+}
+
+.title-pink {
+  margin: 0 auto;
+  color: #fb2b60;
   font-family: 'Varela Round';
-  font-size: 600%;
-  /* -webkit-text-stroke-width: 3px;
-  -webkit-text-stroke-color: white; */
+  font-size: 500%;
+  -webkit-text-stroke-width: .05px;
+  -webkit-text-stroke-color: black;
+}
+.title-yellow {
+  margin: 0 auto;
+  color: #fcb401;
+  font-family: 'Varela Round';
+  font-size: 500%;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #fb2b60;
 }
 
 /*navigation css start */
@@ -132,7 +144,7 @@ i {
 .inner-login{
   position: relative;
   width: 450px;
-  height: 500px;
+  height: 550px;
   margin: 0 auto;
   margin-top: 3%;
   margin-bottom: 20px;
@@ -226,7 +238,20 @@ i {
   border-radius: 100px;
   margin-left: 15%;
   margin-right: 15%;
-  margin-top: 5%;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  text-align: center;
+  font-size: 18pt;
+}
+
+.btn-yellow-friends {
+  background-color: #FCB401;
+  width: auto;
+  height: auto;
+  border-radius: 100px;
+  margin-left: 65%;
+  margin-top: 25px;
+  margin-bottom: 25px;
   text-align: center;
   font-size: 18pt;
 }
@@ -244,13 +269,14 @@ i {
 .btn-back {
   background-color: #FCB401;
   width: 40%;
-  height: 40%;;
+  height: 35%;;
   border-radius: 100px;
   margin-left: 15%;
   margin-top: 4.5%;
   text-align: center;
   font-size: 18pt;
   border: none;
+  outline: 0 !important;
 }
 
 .text-btn {
@@ -308,42 +334,55 @@ th{
 }
 
 .friends-search {
-  border-radius: 50px;
-  width: 50%;
-  display: inline;
-  position: relative;
-  bottom: 8px;
+  border-top-left-radius: 100px;
+  border-bottom-left-radius: 100px;
+  display: inline-block;
+  vertical-align: middle;
   height: 50px;
+  width: 40%;
+  border: 0;
 }
 
 .friends-button {
-  margin-left: 2%;
-  margin-bottom: 1%;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
   background-color: #19C0FF;
-  height: 10%;
+  display: inline-block;
+  vertical-align: middle;
+  height: 50px;
+  border: 0;
+}
+
+.friends-button:hover {
+  background-color: #19C0FF;
+  filter: brightness(120%);
 }
 
 tr:nth-child(even) > td.first {
   color: black;
   background-color: #19C0FF;
   text-align: center;
+  border: 0;
 }
 
 tr:nth-child(even) > td.second {
   background-color: #55D0F1;
   color: black;
   text-align: center;
+  border: 0;
 }
 
 tr:nth-child(odd) > td.first {
   background-color: #55D0F1;
   color: black;
   text-align: center;
+  border: 0;
 }
 tr:nth-child(odd) > td.second {
   color: black;
   background-color: #19C0FF;
   text-align: center;
+  border: 0;
 }
 
 .edit-btn-yellow {
@@ -383,19 +422,25 @@ tr:nth-child(odd) > td.second {
   height: 550px;
   margin-left: 10%;
   margin-top: 5%;
+  padding-top: 25px;
+  /* padding-bottom: -20px; */
   background: #19C0FF;
   text-align: center;
-  border-radius: 10%;
+  border-radius: 30px;
 }
 
 .budget-graphics {
   background-color:  #55D0F1;
-  border-radius: 3%;
+  border-radius: 30px;
   height: 400px;
 }
 
 .num-budgets {
   margin-top: 3%;
+}
+
+.apexcharts-legend {
+  height: 200px !important;
 }
 
 .apexcharts-legend-marker {
@@ -441,7 +486,10 @@ tr:nth-child(odd) > td.second {
   line-height: 60px;
   color: white;
   position: relative;
-
+}
+.add-icon:hover {
+  background: #FCB401;
+  filter: brightness(120%);
 }
 
 .budget-card-outer {
@@ -529,28 +577,35 @@ tr:nth-child(odd) > td.second {
 .remove-button {
   margin-left: 2%;
   margin-bottom: 1%;
-  background-color: red;
+  background: red;
+  width: 60px;
+  height: 60px;
+  border-radius: 100px;
+  color: white;
+  position: relative;
 }
 
 .remove-button:hover {
-  background-color: red;
+  background: red;
+  filter: brightness(120%);
 }
 
 .budget-card-display {
   width: 100%;
-  height: 390px;
+  height: 400px;
   margin-left: 5%;
   margin-top: 8%;
+  padding-top: 10px;
   background: #19C0FF;
   text-align: center;
-  border-radius: 10%;
+  border-radius: 30px;
   display: inline-block;
   box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
 }
 
 .budget-card-inner-display {
   background-color:  #55D0F1;
-  border-radius: 3%;
+  border-radius: 30px;
   height: 270px;
 }
 
@@ -606,7 +661,7 @@ tr:nth-child(odd) > td.first-budget {
 
 .budget-card-display-modal {
   width: 40%;
-  height: 41%;
+  height: 60%;
   margin-left: 30%;
   margin-top: 5%;
   background: #19C0FF;
@@ -642,10 +697,11 @@ tr:nth-child(odd) > td.first-budget {
   width: 25%;
   border-radius: 100px;
   margin-left: 37.5%;
-  top: -44px;
+  top: -48px;
   position: relative;
   font-size: 20px;
-  height: 20%;
+  height: 21%;
+  text-align: center;
 }
 
 .modal-delete {
@@ -653,7 +709,7 @@ tr:nth-child(odd) > td.first-budget {
   width: 25%;
   border-radius: 100px;
   margin-left: 75%;
-  top: -88px;
+  top: -95px;
   position: relative;
   background-color: red;
   font-size: 20px;
@@ -662,13 +718,15 @@ tr:nth-child(odd) > td.first-budget {
 .exit {
   display: inline;
   position: relative;
-  bottom : 6px;
+  bottom : 4px;
 }
 
 .save {
   display: inline;
   position: relative;
-  bottom : 5px;
+  width: auto;
+  bottom : 6px;
+  border-radius: 30px;
 }
 
 .edit-budget-input {
@@ -681,7 +739,7 @@ tr:nth-child(odd) > td.first-budget {
 
 .delete {
   position: relative;
-  bottom: 5px;
+  bottom: 3px;
   font-size: 20px;
 }
 
@@ -722,12 +780,13 @@ tr:nth-child(odd) > td.first-budget {
 }
 
 .progress-submit {
-  width: 25%;
-  margin-left: 55%;
+  width: auto;
+  margin-left: 50%;
   position: relative;
   bottom: 184px;
   font-size: 15px;
   height: 15%;
+  border-radius: 100px;
 }
 
 /* .new-budget-text {
@@ -771,3 +830,57 @@ tr:nth-child(odd) > td.first-budget {
   position: relative;
   bottom: 12px;
 }
+
+/* newbudget modal */
+.add {
+  font-size: 18pt;
+}
+
+.modal-success {
+  width: 40% !important;
+}
+
+.modal-success2 {
+  width: 40%;
+  display: inline-block;
+  margin-left: 50%;
+  position: relative;
+  bottom: 53px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.editAct-btn-yellow {
+  background-color: #FCB401;
+  width: 40%;
+  height: 50px;
+  border-radius: 50px;
+  margin-top: 4.5%;
+  margin-right: 180px;
+  text-align: center;
+  font-size: 18pt;
+  border: none;
+}
+
+.editAct2-btn-yellow {
+  background-color: #FCB401;
+  width: 40%;
+  height: 50px;
+  border-radius: 50px;
+  margin-top: 4.5%;
+  text-align: center;
+  font-size: 18pt;
+  border: none;
+  margin-left: 180px;
+  display: inline;
+  position: relative;
+  bottom: 67px;
+}
+
+.alert2 {
+  position: relative;
+  bottom: 80px;
+}
+

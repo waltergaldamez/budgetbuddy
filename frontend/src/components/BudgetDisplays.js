@@ -43,24 +43,6 @@ export default class BudgetDisplays extends React.Component {
       this.setState({show: true, currentBudget: index, name:budgets[index].name});
     }
 
-    const submit = () => {
-    handleClose();
-    confirmAlert({
-      title: 'Confirm to exit',
-      message: 'Are you sure you want to exit? Any unsaved changes will be lost',
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => handleClose()
-        },
-        {
-          label: 'No',
-          onClick: () => this.setState({show: true})
-        }
-      ]
-    });
-  };
-
   const deleteBudget = async event => {
         if (event !== undefined)
           event.preventDefault();
@@ -85,7 +67,6 @@ export default class BudgetDisplays extends React.Component {
                 }
                 else
                 {
-                    alert('Budget has been deleted');
                 window.location.href = "/budget"
                 }
             }
@@ -138,7 +119,6 @@ export default class BudgetDisplays extends React.Component {
               }
               else
               {
-                  alert('Budget has been updates');
               window.location.href = "/budget"
               }
           }
@@ -173,8 +153,7 @@ export default class BudgetDisplays extends React.Component {
               }
               else
               {
-                  alert('Budget has been updated');
-              window.location.href = "/budget"
+                window.location.href = "/budget"
               }
           }
           catch(e)
@@ -261,7 +240,7 @@ export default class BudgetDisplays extends React.Component {
         <input type="text" className="edit-budget-input" ref={(c) => newGoal = c} defaultValue={currentBudget >= 0 ? budgets[currentBudget].BudgetGoal : ""}></input><br/>
 
 
-        <Button className="modal-exit" variant="danger" onClick={submit}>
+        <Button className="modal-exit" variant="danger" onClick={()=> window.location.href='/budget'}>
           <span className="material-icons">
             cancel
           </span>

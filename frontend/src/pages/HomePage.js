@@ -45,7 +45,7 @@ const HomePage = () =>
               <div className="budget-graphics">
                 <ApexChart />
               </div>
-              <h4 className="num-budgets">Current Budgets:</h4>
+              {/* <h4 className="num-budgets">Current Budgets:</h4> */}
             </div>
           </Col>
           <Col>
@@ -55,7 +55,7 @@ const HomePage = () =>
               <div className="budget-graphics">
                 <ProgressBarHome />
               </div>
-              <h4 className="num-budgets">Average daily progress:</h4>
+              {/* <h4 className="num-budgets">Average daily progress:</h4> */}
             </div>
           </Col>
         </Row>
