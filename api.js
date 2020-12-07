@@ -250,7 +250,7 @@ exports.setApp = function (app, client ){
 
         const newUser = {"email":req.param('email'), "password":req.param('password'),
                     "username":req.param('username'), "verification":false,
-                    "friends":req.param('friends'), "rankMetric": 1000};
+                    "friends":req.param('friends'), "rankMetric": 0};
         var ret={};
 
         try {
