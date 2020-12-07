@@ -48,10 +48,12 @@ export default class FriendsTable extends React.Component {
                         <h4>
                           { i >= friends.length ? '' : friends[i].username }
                         </h4>
+                        { i >= friends.length ? '' : (friends[i].rank + " pts")}
                       </td>
 
                       <td className="second">
                         <h4>{ user.username }</h4>
+                        { user.rank + " pts"}
                       </td>
                     </tr>
                   );
