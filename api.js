@@ -626,6 +626,8 @@ exports.setApp = function (app, client ){
                 const newUsername = req.param('userName');
                 const newPassword = req.param('password');
 
+                const db = client.db();
+
                 const user = await db.collection('users').find({'_id' : ObjectId(userID)}).toArray();
 
                 if (newPassword === undefined || newPassword.length == 0)
@@ -634,7 +636,6 @@ exports.setApp = function (app, client ){
                  const updateAccount = {'email':newEmail, 'username':newUsername, 'password':newPassword};
                // const updateAccount = {'username':newUsername, 'password':newPassword};
 
-                const db = client.db();
 
                 try{
                     // db.collection('users').updateOne({'_id':ObjectId(userID)}, { $set: {email:updateAccount.email, username:updateAccount.username, password:newPassword}});
