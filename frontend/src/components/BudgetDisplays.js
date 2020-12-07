@@ -173,6 +173,11 @@ export default class BudgetDisplays extends React.Component {
     const addProgress = async event => {
       event.preventDefault();
 
+      if (allowance + diff <= 0) {
+        alert("You can't save your progress as you have a negative allowance.");
+        return;
+      }
+
       const index = event.currentTarget.getAttribute("data-index");
       var obj = {email: localStorage.getItem("email"), funds: (parseInt(allowance) - parseInt(allowance - diff))};
       var js = JSON.stringify(obj);
@@ -244,11 +249,11 @@ export default class BudgetDisplays extends React.Component {
                  Progress: {budget.BudgetProgress + '$'}<br/>
                 <Slider
                   axis="x"
-                  xstep={allowance+diff <= 0 ? 0 : 1}
+                  xstep={1}
                   xmin={0}
-                  xmax={index == i? Math.min(budget.BudgetGoal - budget.BudgetProgress , allowance+diff + budget.BudgetProgress) + budget.BudgetProgress : budget.BudgetGoal}
+                  xmax={budget.BudgetGoal}
                   x={budget.BudgetProgress}
-                  onChange={allowance+diff <= 0 ? "" :({ x }) => {
+                  onChange={({ x }) => {
                     budget.diff += budget.BudgetProgress - x;
                     budget.BudgetProgress = x;
                     this.setState({ rerender:true, diff: budget.diff, index: i, x: x})
