@@ -22,7 +22,7 @@ function App() {
           <LoginPage />
         </Route>
         <Route path="/home" exact>
-          <HomePage />
+          <HomePage page={1}/>
         </Route>
         <Route path="/register" exact>
           <RegisterPage />
@@ -51,6 +51,9 @@ function App() {
         <Route path="/edit-account" exact>
           <EditAccountPage />
         </Route>
+        <Route
+        path='/home/:page'
+        component={HomePage}/>
         <Redirect to="/" />
       </Switch>
     </Router>

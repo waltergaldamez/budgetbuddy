@@ -885,3 +885,6 @@ tr:nth-child(odd) > td.first-budget {
   bottom: 80px;
 }
 
+.pagination {
+  margin-left: 36%;
+}
