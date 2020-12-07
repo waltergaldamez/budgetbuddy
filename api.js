@@ -2,10 +2,72 @@ const { ObjectId } = require('mongodb');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const { parse } = require('path');
+
 exports.setApp = function (app, client ){
 
 
+    app.post('/api/getAllowance', async (req, res, next) => {
+        var error = '';
+        var allowance = 0;
+    
+              try
+              {
+            // Connecting to the db
+                const db = client.db();
+                
+                const result = await db.collection('users').find({'email': req.param("email")}).toArray();
+                allowance = result[0].funds;
+            // Insert newBudget into db
+                
+              }
+              catch(e)
+              {
+                error = e.toString();
+              }
+    
+              // Return: error
+              var ret = {error: error , allowance: allowance};
+              res.status(200).json(ret);
+          //    
+      //  }
+    })
 
+    app.post('/api/addAllowance', async (req, res, next) => {
+       // jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET, async(err, authData) => {
+        //    if(err){
+                // res.sendStatus(403);
+         //       console.log("Pooop");
+//res.redirect('http://localhost:3000/');
+        //    } else{
+           //     const accessToken = signToken(authData.user)
+    
+              var error = '';
+    
+              try
+              {
+            // Connecting to the db
+                const db = client.db();
+                
+                const result = await db.collection('users').find({'email': req.param("email")}).toArray();
+    
+            // Insert newBudget into db
+                var sum = parseInt(result[0].funds) + parseInt(req.param("funds"));
+                db.collection('users').updateOne({'email': req.param("email")}, { $set: {funds: sum}});
+              }
+              catch(e)
+              {
+                error = e.toString();
+              }
+    
+              // Return: error
+              var ret = {error: error };
+              res.status(200).json(ret);
+            }
+          //    
+      //  }
+          );
+    //}
+    
 
     // Adds a single budget with the following parameters for JSON:
 	// {
@@ -232,21 +294,21 @@ exports.setApp = function (app, client ){
     app.post('/api/register', async (req, res, next) => {
         const db = client.db();
 
-        // // check if email is already registerd
-        // var assertUnique = await db.collection('users').find({"email":req.param('email')}).toArray();
+        // check if email is already registerd
+        var assertUnique = await db.collection('users').find({"email":req.param('email')}).toArray();
 
-        // // check if user is registered if email isn't
-        // if (assertUnique.length === 0) {
-        //     assertUnique = await db.collection('users').find({"username":req.param('username')}).toArray();
-        // } else { //email is registerd already
-        //     res.status(200).json({error:"User with that email already exists. Use another email."});
-        //     return;
-        // }
+        // check if user is registered if email isn't
+        if (assertUnique.length === 0) {
+             assertUnique = await db.collection('users').find({"username":req.param('username')}).toArray();
+        } else { //email is registerd already
+             res.status(200).json({error:"User with that email already exists. Use another email."});
+             return;
+        }
 
-        // if (assertUnique.length !== 0) {
-        //     res.status(200).json({error:"Username already taken."});
-        //     return;
-        // }
+        if (assertUnique.length !== 0) {
+             res.status(200).json({error:"Username already taken."});
+             return;
+        }
 
         const newUser = {"email":req.param('email'), "password":req.param('password'),
                     "username":req.param('username'), "verification":false,
@@ -305,7 +367,7 @@ exports.setApp = function (app, client ){
         })
         */
 
-        // res.status(200).json(ret);
+        res.status(200).json(ret);
     });
 
 
@@ -648,7 +710,7 @@ exports.setApp = function (app, client ){
                 const userID = req.param('userID');
                 const newEmail = req.param('newEmail');
                 const newUsername = req.param('userName');
-                const newPassword = req.param('password');
+                var newPassword = req.param('password');
 
                 const db = client.db();
 
@@ -669,7 +731,7 @@ exports.setApp = function (app, client ){
                     error = e.toString();
                 }
 
-                var ret = {error:error};
+                var ret = {error:error, username: newUsername};
                 ret.accessToken = accessToken;
                 res.status(200).json(ret);
             }

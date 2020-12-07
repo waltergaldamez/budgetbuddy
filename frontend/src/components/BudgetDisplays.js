@@ -20,20 +20,26 @@ export default class BudgetDisplays extends React.Component {
   componentDidMount() {
     var obj = {email: localStorage.getItem("email")};
     var js = JSON.stringify(obj);
-    fetch(buildPath('api/showAllBudgets'),
-      {method:'POST', body: js, headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}})
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            budgets: result.results
-          })
-        }
-      )
-  }
+    Promise.all([
+      fetch(buildPath('api/showAllBudgets'),
+      {method:'POST', body: js, headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}}),
+      fetch(buildPath('api/getAllowance'),
+        {method:'POST', body: js, headers: {'Content-Type': 'application/json'}})    
+    ])
+      .then(([res1, res2]) => {
+        return Promise.all([res1.json(), res2.json()])
+      })
+      .then(([res1, res2]) => {
+        this.setState({
+          budgets: res1.results,
+          allowance: res2.allowance,
+          diff : 0
+        })
+      })
+    }
 
   render() {
-    const { budgets, show, currentBudget, name } = this.state;
+    const { budgets, show, currentBudget, allowance, diff } = this.state;
     var newName = '', newGoal ='';
 
     const handleClose = () => this.setState({show: false});
@@ -164,7 +170,10 @@ export default class BudgetDisplays extends React.Component {
 
     return (
       <div>
+        <h2>Allowance:{allowance+diff}</h2>
       {budgets.map((budget, i) => {
+        if (budget.diff === undefined )
+          budget.diff = 0;
         var series = [];
         var options = {
           chart: {
@@ -184,6 +193,7 @@ export default class BudgetDisplays extends React.Component {
         series = [((budget.BudgetProgress / budget.BudgetGoal) * 100).toFixed(2) ];
         return (
           <div className="inline">
+    
             <div className="budget-card-display">
               <h2>{ budget.BudgetName }</h2>
               <div className="budget-card-inner-display">
@@ -204,9 +214,10 @@ export default class BudgetDisplays extends React.Component {
                   xmax={budget.BudgetGoal}
                   x={budget.BudgetProgress}
                   onChange={({ x }) => {
+                    budget.diff += budget.BudgetProgress - x;
                     budget.BudgetProgress = x;
                     budget.BudgetGoal = budget.BudgetGoal;
-                    this.setState({ rerender:true })
+                    this.setState({ rerender:true, diff: budget.diff })
                   }}
                 />
                 </div>

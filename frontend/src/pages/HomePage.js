@@ -5,6 +5,7 @@ import LogOutButton from '../components/LogOutButton';
 import LoggedInName from '../components/LoggedInName';
 import EditProfile from '../components/EditProfile';
 import ApexChart from '../components/ApexChart';
+import TotalSavings from '../components/TotalSavings';
 import ProgressBarHome from '../components/ProgressBarHome';
 
 import { Container, Row, Col } from 'react-bootstrap';
@@ -44,6 +45,7 @@ const HomePage = () =>
               <br/>
               <div className="budget-graphics">
                 <ApexChart />
+                <TotalSavings />
               </div>
               {/* <h4 className="num-budgets">Current Budgets:</h4> */}
             </div>

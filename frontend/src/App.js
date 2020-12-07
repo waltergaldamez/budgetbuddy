@@ -11,6 +11,7 @@ import RecoverPasswordPage from './pages/RecoverPasswordPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ManageBudgetPage from './pages/ManageBudgetPage';
 import EditAccountPage from './pages/EditAccountPage';
+import AddAllowancePage from './pages/AddAllowancePage';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -43,6 +44,9 @@ function App() {
         </Route>
         <Route path="/budget-manager" exact>
           <ManageBudgetPage />
+        </Route>
+        <Route path="/add-allowance" exact>
+          <AddAllowancePage />
         </Route>
         <Route path="/edit-account" exact>
           <EditAccountPage />
