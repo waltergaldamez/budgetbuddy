@@ -16,7 +16,7 @@ exports.setApp = function (app, client ){
                 const db = client.db();
                 
                 const result = await db.collection('users').find({'email': req.param("email")}).toArray();
-                allowance = result[0].allowance;
+                allowance = result[0].funds;
             // Insert newBudget into db
                 
               }
@@ -91,12 +91,19 @@ exports.setApp = function (app, client ){
                 "email": req.param("email"),
                 "BudgetName":req.param("BudgetName"),
                 "BudgetGoal":Math.round(parseFloat(req.param("BudgetGoal"))),
-                "BudgetProgress":Math.round(parseFloat(req.param("BudgetProgress"))),
+                "BudgetProgress":0,
                 "isComplete" : false
             };
 
 
+
           var error = '';
+
+          if(req.param("BudgetProgress")){
+            newBudget.BudgetProgress = req.param("BudgetProgress");
+          }
+
+            
 
           try
           {
@@ -311,7 +318,7 @@ exports.setApp = function (app, client ){
 
         const newUser = {"email":req.param('email'), "password":req.param('password'),
                     "username":req.param('username'), "verification":false,
-                    "friends":req.param('friends'), "rankMetric": 1000, "allowance" : 0};
+                    "friends":req.param('friends'), "rankMetric": 1000, "funds" : 0};
         var ret={};
 
         try {
