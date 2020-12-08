@@ -919,7 +919,7 @@ tr:nth-child(odd) > td.first-budget {
 }
 
 .pagination {
-  margin-left: 36%;
+  margin-left: 40%;
 }
 
 .center {
@@ -942,4 +942,9 @@ tr:nth-child(odd) > td.first-budget {
   display: inline;
   position: relative;
   bottom: 33px;
+}
+
+.allowance-total {
+  margin: 0 auto;
+  margin-top: 23px;
 }

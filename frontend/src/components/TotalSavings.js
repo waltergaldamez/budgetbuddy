@@ -64,6 +64,6 @@ render () {
   };
 
     return (
-    <h2>Total Allowance Remaining:{allowance}</h2>
+    <h2 className="allowance-total">Allowance Remaining: ${allowance}</h2>
     ) }
 }
