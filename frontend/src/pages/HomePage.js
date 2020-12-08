@@ -5,12 +5,17 @@ import LogOutButton from '../components/LogOutButton';
 import LoggedInName from '../components/LoggedInName';
 import EditProfile from '../components/EditProfile';
 import ApexChart from '../components/ApexChart';
+import TotalSavings from '../components/TotalSavings';
 import ProgressBarHome from '../components/ProgressBarHome';
+import { useParams } from 'react-router';
 
 import { Container, Row, Col } from 'react-bootstrap';
 
-const HomePage = () =>
+const HomePage = (props) =>
 {
+  let { page } = useParams();
+  if (props.page === undefined){}
+  else {page = props.page}
     return(
       <Container fluid>
       <div class="color-nav">
@@ -44,6 +49,7 @@ const HomePage = () =>
               <br/>
               <div className="budget-graphics">
                 <ApexChart />
+                <TotalSavings />
               </div>
               {/* <h4 className="num-budgets">Current Budgets:</h4> */}
             </div>
@@ -53,7 +59,7 @@ const HomePage = () =>
               <h2>Progress Breakdown</h2>
               <br/>
               <div className="budget-graphics">
-                <ProgressBarHome />
+                <ProgressBarHome page={page}/>
               </div>
               {/* <h4 className="num-budgets">Average daily progress:</h4> */}
             </div>

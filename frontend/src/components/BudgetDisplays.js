@@ -5,6 +5,7 @@ import { Button, Modal } from 'react-bootstrap';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import Slider from 'react-input-slider';
+import { ProgressBar } from 'react-bootstrap';
 
 export default class BudgetDisplays extends React.Component {
   constructor(props) {
@@ -13,27 +14,39 @@ export default class BudgetDisplays extends React.Component {
       budgets: [],
       show: false,
       currentBudget: -1,
-      rerender: false
+      rerender: false,
+      changeAllowance: false
     }
   }
 
   componentDidMount() {
     var obj = {email: localStorage.getItem("email")};
     var js = JSON.stringify(obj);
-    fetch(buildPath('api/showAllBudgets'),
-      {method:'POST', body: js, headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}})
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            budgets: result.results
-          })
-        }
-      )
-  }
+    Promise.all([
+      fetch(buildPath('api/showAllBudgets'),
+      {method:'POST', body: js, headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}}),
+      fetch(buildPath('api/getAllowance'),
+        {method:'POST', body: js, headers: {'Content-Type': 'application/json'}})    
+    ])
+      .then(([res1, res2]) => {
+        return Promise.all([res1.json(), res2.json()])
+      })
+      .then(([res1, res2]) => {
+        var total = 0;
+        for (var i = 0; i < res1.results.length; i++)
+          total += (res1.results[i].BudgetGoal - res1.results[i].BudgetProgress);
+        this.setState({
+          budgets: res1.results,
+          allowance: res2.allowance,
+          diff : 0,
+          index: -1, 
+          total : total
+        })
+      })
+    }
 
   render() {
-    const { budgets, show, currentBudget, name } = this.state;
+    const { budgets, show, currentBudget, allowance, diff, index, total } = this.state;
     var newName = '', newGoal ='';
 
     const handleClose = () => this.setState({show: false});
@@ -77,7 +90,41 @@ export default class BudgetDisplays extends React.Component {
 
   };
 
-      const remove = () => {
+  const deleteBudget2 = async event => {
+    if (event !== undefined)
+      event.preventDefault();
+    var id = budgets[event.currentTarget.getAttribute("data-index")]._id; 
+    var obj = {_id: id};
+    var js = JSON.stringify(obj);
+
+        try
+        {
+        // Call to API
+
+        const response = await fetch(buildPath('api/removebudget'),
+            {method:'DELETE',body:js,headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}});
+
+        // Parsing response
+            var txt = await response.text();
+            var res = JSON.parse(txt);
+
+            if( res.error.length > 0 )
+            {
+                alert( "API Error:" + res.error );
+            }
+            else
+            {
+            window.location.href = "/budget"
+            }
+        }
+        catch(e)
+        {
+            alert(e.toString());
+        }
+
+};
+
+      const remove = event => {
       handleClose();
       confirmAlert({
         title: 'Confirm to delete',
@@ -89,7 +136,7 @@ export default class BudgetDisplays extends React.Component {
           },
           {
             label: 'No',
-            onClick: () => this.setState({show: true})
+            onClick: () => this.setState({show: true, currentBudget: event.currentTarget.getAttribute("data-id")})
           }
         ]
       });
@@ -119,6 +166,7 @@ export default class BudgetDisplays extends React.Component {
               }
               else
               {
+              this.setState({index: -1});
               window.location.href = "/budget"
               }
           }
@@ -131,40 +179,51 @@ export default class BudgetDisplays extends React.Component {
     const addProgress = async event => {
       event.preventDefault();
 
+      if (allowance + diff < 0) {
+        alert("You can't save your progress as you have a negative allowance.");
+        return;
+      }
+
       const index = event.currentTarget.getAttribute("data-index");
-      var obj = {newAmount: budgets[index].BudgetProgress,
-        _id:event.currentTarget.getAttribute("data-id")};
+      var obj = {email: localStorage.getItem("email"), funds: parseInt(allowance + diff)};
       var js = JSON.stringify(obj);
+
+      const obj2 = {newAmount: budgets[index].BudgetProgress,
+        _id:event.currentTarget.getAttribute("data-id")};
+      const js2 = JSON.stringify(obj2);
 
           try
           {
           // Call to API
 
-          const response = await fetch(buildPath('api/addprogress'),
-              {method:'POST',body:js,headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}});
-
-          // Parsing response
-              var txt = await response.text();
-              var res = JSON.parse(txt);
-
-              if( res.error.length > 0 )
-              {
-                  alert( "API Error:" + res.error );
-              }
-              else
-              {
-                window.location.href = "/budget"
-              }
-          }
+          Promise.all([
+            fetch(buildPath('api/addAllowance'),
+              {method:'POST',body:js,headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}}),
+              fetch(buildPath('api/addprogress'),
+              {method:'POST',body:js2,headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}})
+          ]).then(([res1, res2]) => {
+               return Promise.all([res1.json(), res2.json()])
+            }).then(([res1, res2]) => {
+            this.setState({index: -1});
+           window.location.href = "/budget";
+          })
+            }
           catch(e)
           {
-              alert(e.toString());
+              alert(e.toString() + "yee");
           }
     }
 
     return (
       <div>
+        <div>
+    <h2 className={(parseInt(allowance) + parseInt(diff)) >= 0 ? "green" : "red"}>Available Allowance: { '$' + (parseInt(allowance) + parseInt(diff))}</h2>
+    <h2 className="goal"> Total Goal: { '$' + (parseInt(total) + parseInt(diff))}</h2>
+    <ProgressBar className="progress" now={((parseInt(allowance) + parseInt(diff))/ total * 100)} />
+        </div>
       {budgets.map((budget, i) => {
+        if (budget.diff === undefined )
+          budget.diff = 0;
         var series = [];
         var options = {
           chart: {
@@ -184,6 +243,7 @@ export default class BudgetDisplays extends React.Component {
         series = [((budget.BudgetProgress / budget.BudgetGoal) * 100).toFixed(2) ];
         return (
           <div className="inline">
+    
             <div className="budget-card-display">
               <h2>{ budget.BudgetName }</h2>
               <div className="budget-card-inner-display">
@@ -191,12 +251,12 @@ export default class BudgetDisplays extends React.Component {
                   <ReactApexChart options={options} series={series} type="radialBar" height={225} />
                </div>
                 <div id="metadata">
-                  <h4>Current Goal</h4>{ budget.BudgetGoal + '$' }<br/>
-                  <h4>Amount Needed</h4>{ (budget.BudgetGoal - budget.BudgetProgress) + '$' }<br/>
+                  <h4 className={"green"}>Goal: </h4>{ '$' + budget.BudgetGoal }<br/><br/><br/>
+                  <h4 className="red">Difference: </h4>{ '$' + (budget.BudgetGoal - budget.BudgetProgress) }<br/>
                 </div>
 
                 <div className="slider">
-                 Progress: {budget.BudgetProgress + '$'}<br/>
+                 Funds: { '$' + budget.BudgetProgress }<br/>
                 <Slider
                   axis="x"
                   xstep={1}
@@ -204,21 +264,31 @@ export default class BudgetDisplays extends React.Component {
                   xmax={budget.BudgetGoal}
                   x={budget.BudgetProgress}
                   onChange={({ x }) => {
+                    budget.diff += budget.BudgetProgress - x;
                     budget.BudgetProgress = x;
-                    budget.BudgetGoal = budget.BudgetGoal;
-                    this.setState({ rerender:true })
+                    this.setState({ rerender:true, diff: budget.diff, index: i, x: x})
                   }}
                 />
                 </div>
 
-                <Button variant="success" onClick={addProgress} data-id={budget._id} data-index={i} className="progress-submit">
+                { index == i ? <Button variant="success" onClick={addProgress} data-id={budget._id} data-index={i} className="progress-submit">
                 <span className="material-icons ">
                   check
                 </span>
                 <span className="save">
                   Save
                 </span>
-                </Button>
+                </Button> : ""}
+                {
+                  budget.BudgetGoal - budget.BudgetProgress == 0  && index != i ? <Button variant="success" onClick={deleteBudget2} data-id={budget._id} data-index={i} className="progress-submit">
+                  <span className="material-icons ">
+                    check
+                  </span>
+                  <span className="save">
+                    Mark Completed
+                  </span>
+                  </Button> : ""
+                }
 
               </div>
               <Button className="budget-edit-btn" variant="warning" onClick={handleShow} data-id={i}>

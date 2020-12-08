@@ -7,6 +7,7 @@ export default class ProgressBarHome extends React.Component {
     super(props);
     this.state = {
       budgets: [],
+      page: this.props.page
     }
   }
 
@@ -26,11 +27,12 @@ export default class ProgressBarHome extends React.Component {
   }
 
   render() {
-    const { budgets } = this.state;
+    const { budgets, page } = this.state;
     return (
       <div>
       {
         budgets.map((budget, i) => {
+          if (i >= (page - 1) * 4 && i < page * 4)
           return (
             <div>
               <br/>
@@ -41,6 +43,30 @@ export default class ProgressBarHome extends React.Component {
           )
         })
       }
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" href={page == 1 ? "/home/1" : ("/home/" + (page - 1))} aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+      {
+        budgets.map((budget, i) => {
+          if (i === 0 || i % 4 == 0)
+          return (
+          <li class="page-item">{<a class="page-link" href={"/home/" + ((i / 4) + 1)}>{(i / 4) + 1}</a>}</li>
+          )
+        })
+      }
+          <li>
+            <a class="page-link" href={budgets[page * 4] === undefined ? ("/home/" + page) : ("/home/" + (parseInt(page) + parseInt(1)))} aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ul>
+      </nav>  
       </div>
     );
   }

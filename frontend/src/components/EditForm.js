@@ -44,7 +44,8 @@ function EditForm()
             }
             else
             {
-                setAlert({alert: true, message: "Account has ben updated", variant: "success"});
+                localStorage.setItem('userName', res.username);
+                setAlert({alert: true, message: "Account has been updated", variant: "success"});
             }
         }
         catch(e)
@@ -72,9 +73,9 @@ function EditForm()
           <input type="password" className="form-control login" ref={(c) => confirmPassword = c}/>
         </div>
 
-        <button type="submit" className="editAct-btn-yellow" onClick={editAccount}><b>Edit</b></button>
+        <button type="submit" className="editAct-btn-yellow" onClick={editAccount}><b>Save</b></button>
       </form>
-       <button className="editAct2-btn-yellow" onClick={() => window.location.href = '/home'}><b>Close</b></button>
+       <button className="editAct2-btn-yellow" onClick={() => window.location.href = '/home'}><b>Back</b></button>
        {
           showAlert.alert ? (
                 <span class="alert2">
