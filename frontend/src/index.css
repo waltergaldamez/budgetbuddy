@@ -935,6 +935,7 @@ tr:nth-child(odd) > td.first-budget {
 .red {
   margin-left: 4%;
   color: red;
+  display: inline;
 }
 
 .goal {
