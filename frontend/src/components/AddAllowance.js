@@ -69,7 +69,7 @@ render () {
         <h2>Allowance</h2>
         <input type="number" defaultValue={allowance} ref={(c) => money = c} onChange={""}/><br/><br/>
         <Button variant="success" onClick={addAllowance}>Update Allowance</Button>
-        <Button variant="danger" onClick={() => {window.location.href="/budget"}}>Exit</Button>
+        <Button variant="danger" onClick={() => {window.location.href="/budget"}}>Back</Button>
         {
          "" //changeAllowance ? <Button variant="success" onClick={setAllowance}>Save</Button> : ""
         }
