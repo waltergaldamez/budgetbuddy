@@ -16,7 +16,7 @@ exports.setApp = function (app, client ){
                 const db = client.db();
                 
                 const result = await db.collection('users').find({'email': req.param("email")}).toArray();
-                allowance = result[0].funds;
+                allowance = result[0].allowance;
             // Insert newBudget into db
                 
               }
