@@ -217,8 +217,8 @@ export default class BudgetDisplays extends React.Component {
     return (
       <div>
         <div>
-    <h2 className={(parseInt(allowance) + parseInt(diff)) >= 0 ? "green" : "red"}>Available Allowance: {(parseInt(allowance) + parseInt(diff))}</h2>
-    <h2 className="goal"> Total Goal: {(parseInt(total) + parseInt(diff))}</h2>
+    <h2 className={(parseInt(allowance) + parseInt(diff)) >= 0 ? "green" : "red"}>Available Allowance: { '$' + (parseInt(allowance) + parseInt(diff))}</h2>
+    <h2 className="goal"> Total Goal: { '$' + (parseInt(total) + parseInt(diff))}</h2>
     <ProgressBar className="progress" now={((parseInt(allowance) + parseInt(diff))/ total * 100)} />
         </div>
       {budgets.map((budget, i) => {
@@ -251,12 +251,12 @@ export default class BudgetDisplays extends React.Component {
                   <ReactApexChart options={options} series={series} type="radialBar" height={225} />
                </div>
                 <div id="metadata">
-                  <h4 className={"green"}>Goal: </h4>{ budget.BudgetGoal + '$' }<br/><br/><br/>
-                  <h4 className="red">Amount Needed: </h4>{ (budget.BudgetGoal - budget.BudgetProgress) + '$' }<br/>
+                  <h4 className={"green"}>Goal: </h4>{ '$' + budget.BudgetGoal }<br/><br/><br/>
+                  <h4 className="red">Difference: </h4>{ '$' + (budget.BudgetGoal - budget.BudgetProgress) }<br/>
                 </div>
 
                 <div className="slider">
-                 Funds: {budget.BudgetProgress + '$'}<br/>
+                 Funds: { '$' + budget.BudgetProgress }<br/>
                 <Slider
                   axis="x"
                   xstep={1}
