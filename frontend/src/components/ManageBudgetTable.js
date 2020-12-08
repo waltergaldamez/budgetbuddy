@@ -44,25 +44,24 @@ render() {
           var obj = {email:userEmail,BudgetName:budgetName.value, BudgetGoal:budgetGoal.value, BudgetProgress:budgetProgress.value};
           var js = JSON.stringify(obj);
 
+          var js2 = JSON.stringify({email:userEmail, funds: (parseInt(allowance) - parseInt(budgetProgress.value))});
+
           try
           {
               // Call to API
 
-              const response = await fetch(buildPath('api/addbudget'),
-                  {method:'POST',body:js,headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}});
-
-              // Parsing response
-              var txt = await response.text();
-              var res = JSON.parse(txt);
-
-              if( res.error.length > 0 )
-              {
-                  alert( "API Error:" + res.error );
-              }
-              else
-              {
+              Promise.all([
+                fetch(buildPath('api/addbudget'),
+                  {method:'POST',body:js,headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}}),
+                fetch(buildPath('api/addAllowance'),
+                  {method:'POST', body: js2, headers: {'Content-Type': 'application/json'}})    
+              ])
+                .then(([res1, res2]) => {
+                  return Promise.all([res1.json(), res2.json()])
+                })
+                .then(([res1, res2]) => {
                   window.location.href = "/budget"
-              }
+                  })
           }
           catch(e)
           {

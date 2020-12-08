@@ -64,20 +64,16 @@ render () {
   };
 
     return (
-      <Modal show={true} className="budget-card-display-modal">
-        <h2>{parseInt(money) + allowance}</h2>
-        <label><h3>Budget Name</h3></label>
-        <input type="text" className="edit-budget-input" ref={(c) => money = c} defaultValue={0}></input><br/>
-
-
-        <Button className="modal-success" variant="success" onClick={addAllowance} >
-          <i class="fa fa-plus fa-2x"></i>
-          <span className="add"> Add Funds</span>
-        </Button>
-        <Button className="modal-success2" variant="danger" onClick={() => window.location.href='/budget'}>
-        <i class="fa fa-window-close fa-2x"></i>
-          <span className="add"> Cancel</span>
-        </Button>
+      <Modal show={true} className="budget-card-allowance-modal">
+        <div>
+        <h2>Allowance</h2>
+        <input type="number" defaultValue={allowance} ref={(c) => money = c} onChange={""}/><br/><br/>
+        <Button variant="success" onClick={addAllowance}>Update Allowance</Button>
+        <Button variant="danger" onClick={() => {window.location.href="/budget"}}>Exit</Button>
+        {
+         "" //changeAllowance ? <Button variant="success" onClick={setAllowance}>Save</Button> : ""
+        }
+        </div>
       </Modal>
     ) }
 }

@@ -45,7 +45,7 @@ function EditForm()
             else
             {
                 localStorage.setItem('userName', res.username);
-                setAlert({alert: true, message: "Account has ben updated", variant: "success"});
+                setAlert({alert: true, message: "Account has been updated", variant: "success"});
             }
         }
         catch(e)

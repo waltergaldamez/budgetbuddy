@@ -51,8 +51,7 @@ exports.setApp = function (app, client ){
                 const result = await db.collection('users').find({'email': req.param("email")}).toArray();
     
             // Insert newBudget into db
-                var sum = parseInt(result[0].funds) + parseInt(req.param("funds"));
-                db.collection('users').updateOne({'email': req.param("email")}, { $set: {funds: sum}});
+                db.collection('users').updateOne({'email': req.param("email")}, { $set: {funds: req.param("funds")}});
               }
               catch(e)
               {
@@ -312,7 +311,7 @@ exports.setApp = function (app, client ){
 
         const newUser = {"email":req.param('email'), "password":req.param('password'),
                     "username":req.param('username'), "verification":false,
-                    "friends":req.param('friends'), "rankMetric": 0};
+                    "friends":req.param('friends'), "rankMetric": 0, "allowance" : 0};
         var ret={};
 
         try {

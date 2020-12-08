@@ -10,9 +10,9 @@ const Budgets = () => {
           </span>
           <b><div className="button-txt"> Add a New Budget</div></b>
         </Button>
-        <Button variant="" type="submit" onClick={ () => window.location.href="/add-allowance"} className="budget-btn">
+        <Button variant="" type="submit" onClick={ () => window.location.href="/add-allowance"} className="allowance-btn">
         <span className="material-icons md-48">
-          add_task
+          monetization_on
         </span>
         <b><div className="button-txt"> Add Allowance</div></b>
       </Button>

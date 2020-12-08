@@ -46,7 +46,7 @@ export default class ProgressBarHome extends React.Component {
       <nav aria-label="Page navigation example">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
+            <a class="page-link" href={page == 1 ? "/home/1" : ("/home/" + (page - 1))} aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
               <span class="sr-only">Previous</span>
             </a>
@@ -60,7 +60,7 @@ export default class ProgressBarHome extends React.Component {
         })
       }
           <li>
-            <a class="page-link" href="#" aria-label="Next">
+            <a class="page-link" href={budgets[page * 4] === undefined ? ("/home/" + page) : ("/home/" + (parseInt(page) + parseInt(1)))} aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
               <span class="sr-only">Next</span>
             </a>
