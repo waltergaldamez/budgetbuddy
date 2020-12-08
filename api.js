@@ -250,7 +250,7 @@ exports.setApp = function (app, client ){
 
         const newUser = {"email":req.param('email'), "password":req.param('password'),
                     "username":req.param('username'), "verification":false,
-                    "friends":req.param('friends'), "rankMetric": 1000};
+                    "friends":req.param('friends'), "rankMetric": 1000, "allowance" : 0};
         var ret={};
 
         try {
@@ -613,14 +613,14 @@ exports.setApp = function (app, client ){
                 res.sendStatus(403);
             } else{
                 const accessToken = signToken(authData.user)
-                const updatedBudget =  {"BudgetName":req.param("BudgetName"), "BudgetGoal":parseFloat(req.param("BudgetGoal"))};
+                const updatedBudget =  {"BudgetName":req.param("BudgetName"), "BudgetGoal":(req.param("BudgetGoal"))};
                 const budgetID = req.param('_id');
                 var error = '';
                 var response = '';
                 try
                 {
                     const db = client.db();
-                    db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetName: updatedBudget.BudgetName, BudgetGoal: int(updatedBudget.BudgetGoal)}});
+                    db.collection('budgets').updateOne({'_id': ObjectId(budgetID)}, { $set: {BudgetName: updatedBudget.BudgetName, BudgetGoal: (updatedBudget.BudgetGoal)}});
                 }
                 catch(e)
                 {
