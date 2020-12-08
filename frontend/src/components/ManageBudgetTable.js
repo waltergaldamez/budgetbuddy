@@ -36,7 +36,17 @@ render() {
   const addBudget = async event => 
       {
           event.preventDefault();
-          if (parseInt(budgetProgress.value) > allowance) {
+
+          var prog;
+          if(!budgetProgress.value)
+            prog = 0;
+          else{
+            prog = parseInt(budgetProgress.value);
+          }
+
+
+
+          if (prog > allowance) {
             alert("You do not have enough allowance to add that much progress");
             return;
           }
@@ -44,7 +54,8 @@ render() {
           var obj = {email:userEmail,BudgetName:budgetName.value, BudgetGoal:budgetGoal.value, BudgetProgress:budgetProgress.value};
           var js = JSON.stringify(obj);
 
-          var js2 = JSON.stringify({email:userEmail, funds: (parseInt(allowance) - parseInt(budgetProgress.value))});
+         
+          var js2 = JSON.stringify({email:userEmail, funds: (parseInt(allowance) - prog)});
 
           try
           {
@@ -65,8 +76,8 @@ render() {
           }
           catch(e)
           {
+            console.log(e.toString());
           }
-
       };
 
 
