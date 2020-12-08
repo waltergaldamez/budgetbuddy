@@ -8,7 +8,7 @@ const Title = () => {
       <h1 className="title-pink">
         <b>Budget</b>
       </h1>
-      <h1 className="title-yellow">
+      <h1 className="title-pink">
         <b>Buddies</b>
       </h1>
     </div>
