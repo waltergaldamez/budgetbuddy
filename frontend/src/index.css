@@ -927,11 +927,13 @@ tr:nth-child(odd) > td.first-budget {
 }
 
 .green {
+  margin-left: 4%;
   color: green;
   display: inline;
 }
 
 .red {
+  margin-left: 4%;
   color: red;
 }
 
