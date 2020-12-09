@@ -318,7 +318,7 @@ exports.setApp = function (app, client ){
 
         const newUser = {"email":req.param('email'), "password":req.param('password'),
                     "username":req.param('username'), "verification":false,
-                    "friends":req.param('friends'), "rankMetric": 0, "funds" : 0};
+                    "friends":[], "rankMetric": 0, "funds" : 0};
         var ret={};
 
         try {
@@ -342,7 +342,7 @@ exports.setApp = function (app, client ){
             subject: 'Verify your e-mail account for BudgetBuddies',
             text: `Click the link to verify your email:
                     https://budgetbuddiesapp.herokuapp.com/api/emailVerification?id=${user._id}`,
-            html: ` <h1> Hello !</h1>
+            html: ` <h1> Hello!</h1>
                     <p>Click the link to verify your email</p>
                     <a href="https://budgetbuddiesapp.herokuapp.com/api/emailVerification?id=${user._id}">Verify account</a>
                     <p> Or copy and past the following link in your browser: https://budgetbuddiesapp.herokuapp.com/api/emailVerification?id=${user._id}`
