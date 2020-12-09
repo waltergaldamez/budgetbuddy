@@ -54,7 +54,7 @@ render () {
               }
               else
               {
-                  window.location.href = "/add-allowance"
+                  window.location.href = "/budget"
               }
           }
           catch(e)

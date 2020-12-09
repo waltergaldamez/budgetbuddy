@@ -10,7 +10,8 @@ export default class ManageBudgetTable extends React.Component {
     super(props);
     this.state = {
       message: '',
-      allowance: 0
+      allowance: 0,
+      overFlow: false
     }
   }
 
@@ -31,7 +32,7 @@ render() {
   var budgetName = "";
   var budgetGoal = "";
   var budgetProgress = "";
-  const { message, allowance } = this.state;
+  const { overFlow, allowance } = this.state;
 
   const addBudget = async event => 
       {
@@ -47,7 +48,7 @@ render() {
 
 
           if (prog > allowance) {
-            alert("You do not have enough allowance to add that much progress");
+            this.setState({overFlow: true});
             return;
           }
           var userEmail = localStorage.getItem("email");
@@ -90,6 +91,7 @@ render() {
         <input type="text" className="edit-budget-input" ref={(c) => budgetGoal = c}></input><br/>
 
         <label><h3>Budget Progress</h3></label>
+        {overFlow ? <div className="red">Available funds: {allowance}</div> : <div></div>}
         <input type="text" className="edit-budget-input" ref={(c) => budgetProgress = c}></input><br/>
 
 

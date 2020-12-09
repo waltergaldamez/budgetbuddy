@@ -35,26 +35,32 @@ export default class ApexChart extends React.Component {
        componentDidMount() {
          var obj = {email: localStorage.getItem("email")};
          var js = JSON.stringify(obj);
-         fetch(buildPath('api/showAllBudgets'),
-           {method:'POST', body: js, headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}})
-           .then(res => res.json())
-           .then(
-             (result) => {
+         Promise.all([
+          fetch(buildPath('api/showAllBudgets'),
+          {method:'POST', body: js, headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}}),
+          fetch(buildPath('api/getAllowance'),
+            {method:'POST', body: js, headers: {'Content-Type': 'application/json'}})    
+        ])
+          .then(([res1, res2]) => {
+            return Promise.all([res1.json(), res2.json()])
+          })
+          .then(([res1, res2]) => {
                var seriesLocal = [];
                var labelsLocal = [];
-               for (var i = 0; i < result.results.length; i++) {
-                 seriesLocal.push(result.results[i].BudgetGoal);
-                 labelsLocal.push(result.results[i].BudgetName);
+               for (var i = 0; i < res1.results.length; i++) {
+                 seriesLocal.push(res1.results[i].BudgetGoal);
+                 labelsLocal.push(res1.results[i].BudgetName);
                }
                this.setState({
-                 budgets: result.results,
-                 series: seriesLocal,
+                 budgets: res1.results,
+                 allowance: res2.allowance,
+                 series: (seriesLocal.length === 0 ? [1] : seriesLocal),
                  options: {
                    chart: {
                      width: 380,
                      type: 'pie',
                    },
-                   labels: labelsLocal,
+                   labels: (labelsLocal.length === 0 ? ["Allowance"] : labelsLocal),
                    responsive: [{
                      breakpoint: 480,
                      options: {
@@ -79,6 +85,6 @@ export default class ApexChart extends React.Component {
 
 
      <div id="chart">
- <Chart options={this.state.options} series={this.state.series} type="pie" width={600} />
+ <Chart options={this.state.options} series={this.state.series} type="pie" width={550} />
 </div>);}
 }

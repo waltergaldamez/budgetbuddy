@@ -28,6 +28,10 @@ export default class ProgressBarHome extends React.Component {
 
   render() {
     const { budgets, page } = this.state;
+    if (budgets.length === 0)
+    return(
+      <div className="no-budgets">You currently have no Budgets. <br/>Add budgets to get a breakdown of your progress towards your goals</div>
+    )
     return (
       <div>
       {

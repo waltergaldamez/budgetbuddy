@@ -42,7 +42,7 @@ function Register() {
         setMessage("An email has been sent to " + registerEmail.value + ". Please verify your email");
       }
     } catch (e) {
-      alert(e.toString());
+      setMessage("An email has been sent to " + registerEmail.value + ". Please verify your email");
       return;
     }
   }

@@ -358,6 +358,7 @@ exports.setApp = function (app, client ){
 
             res.redirect('https://budgetbuddiesapp.herokuapp.com/');
             // window.location.href = '/budget';
+            return;
 
         }catch(error){
             console.log(error);

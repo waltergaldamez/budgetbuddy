@@ -469,6 +469,8 @@ tr:nth-child(odd) > td.second {
   margin-top: 2.5%;
   text-align: center;
   font-size: 18pt;
+  position: relative;
+  right: 50;
 }
 
 .recover-btn-yellow {
@@ -829,11 +831,11 @@ tr:nth-child(odd) > td.first-budget {
 
 .budget-btn{
   background-color: #FCB401;
-  width: auto;
+  width: 40%;
   height: 65%;
   border-radius: 100px;
   margin: 0 auto;
-  margin-left: 15%;
+  margin-left: 0%;
   margin-top: 4%;
   text-align: center;
   font-size: 24px;
@@ -845,7 +847,7 @@ tr:nth-child(odd) > td.first-budget {
 
 .allowance-btn{
   background-color: #FCB401;
-  width: auto;
+  width: 40%;
   height: 65%;
   border-radius: 100px;
   margin-left: 5%;
@@ -856,6 +858,8 @@ tr:nth-child(odd) > td.first-budget {
   color: black;
   box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
   display: inline-block;
+  position: relative;
+  left: 20px;
 }
 
 .button-txt {
@@ -948,4 +952,9 @@ tr:nth-child(odd) > td.first-budget {
 .allowance-total {
   margin: 0 auto;
   margin-top: 23px;
+}
+
+.no-budgets {
+  color: gray;
+  padding-top: 25%;
 }

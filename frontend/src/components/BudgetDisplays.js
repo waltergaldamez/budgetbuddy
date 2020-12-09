@@ -155,7 +155,7 @@ export default class BudgetDisplays extends React.Component {
 
     const updateBudget = async event => {
       event.preventDefault();
-
+      
       var obj = {BudgetName: newName.value, BudgetGoal: newGoal.value,
         _id:event.currentTarget.getAttribute("data-id")};
       var js = JSON.stringify(obj);
