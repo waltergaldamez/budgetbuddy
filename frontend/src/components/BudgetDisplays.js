@@ -15,7 +15,8 @@ export default class BudgetDisplays extends React.Component {
       show: false,
       currentBudget: -1,
       rerender: false,
-      changeAllowance: false
+      changeAllowance: false,
+      negativeFunds: false
     }
   }
 
@@ -46,7 +47,7 @@ export default class BudgetDisplays extends React.Component {
     }
 
   render() {
-    const { budgets, show, currentBudget, allowance, diff, index, total } = this.state;
+    const { budgets, show, currentBudget, allowance, diff, index, total, negativeFunds } = this.state;
     var newName = '', newGoal ='';
 
     const handleClose = () => this.setState({show: false});
@@ -191,7 +192,7 @@ export default class BudgetDisplays extends React.Component {
       event.preventDefault();
 
       if (allowance + diff < 0) {
-        alert("You can't save your progress as you have a negative allowance.");
+        this.setState({negativeFunds: true});
         return;
       }
 
@@ -268,6 +269,7 @@ export default class BudgetDisplays extends React.Component {
 
                 <div className="slider">
                  Funds: { '$' + budget.BudgetProgress }<br/>
+                 {negativeFunds && i ==index ? <div className="red">!!Can't save a negative allowance</div> : ""}
                 <Slider
                   axis="x"
                   xstep={1}
@@ -282,7 +284,8 @@ export default class BudgetDisplays extends React.Component {
                 />
                 </div>
 
-                { index == i ? <Button variant="success" onClick={addProgress} data-id={budget._id} data-index={i} className="progress-submit">
+                { index == i ? 
+                <Button variant="success" onClick={addProgress} data-id={budget._id} data-index={i} className="progress-submit">
                 <span className="material-icons ">
                   check
                 </span>
