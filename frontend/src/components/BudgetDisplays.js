@@ -67,33 +67,33 @@ export default class BudgetDisplays extends React.Component {
             {
             // Call to API
 
-            Promise.all([
-              fetch(buildPath('api/removebudget'),
-              {method:'POST', body: js, headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}}),
-              fetch(buildPath('api/add'),
-                {method:'POST', body: js, headers: {'Content-Type': 'application/json'}})    
-            ])
-              .then(([res1, res2]) => {
-                return Promise.all([res1.json(), res2.json()])
-              })
-              .then(([res1, res2]) => {
+            // Promise.all([
+            //   fetch(buildPath('api/removebudget'),
+            //   {method:'POST', body: js, headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}}),
+            //   fetch(buildPath('api/add'),
+            //     {method:'POST', body: js, headers: {'Content-Type': 'application/json'}})    
+            // ])
+            //   .then(([res1, res2]) => {
+            //     return Promise.all([res1.json(), res2.json()])
+            //   })
+            //   .then(([res1, res2]) => {
 
-    //         const response = await fetch(buildPath('api/removebudget'),
-    //             {method:'DELETE',body:js,headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}});
+            const response = await fetch(buildPath('api/removebudget'),
+                {method:'DELETE',body:js,headers:{'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token")}});
 
-    //         // Parsing response
-    //             var txt = await response.text();
-    //             var res = JSON.parse(txt);
+            // Parsing response
+                var txt = await response.text();
+                var res = JSON.parse(txt);
 
-    //             if( res.error.length > 0 )
-    //             {
-    //                 alert( "API Error:" + res.error );
-    //             }
-    //             else
-    //             {
-    //             window.location.href = "/budget"
-    //             }
-    //         }
+                if( res.error.length > 0 )
+                {
+                    alert( "API Error:" + res.error );
+                }
+                else
+                {
+                  window.location.href = "/budget"
+                }
+            }
             catch(e)
             {
                 alert(e.toString());
